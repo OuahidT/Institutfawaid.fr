@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Quote } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
@@ -9,16 +9,12 @@ import { TestimonialCard } from '@/components/sections/testimonial-card';
 import { TimelineSteps } from '@/components/sections/timeline-steps';
 import { TrustBand } from '@/components/sections/trust-band';
 import { ButtonLink } from '@/components/ui/button-link';
-import { FaqAccordion } from '@/components/ui/faq-accordion';
 import { SectionTitle } from '@/components/ui/section-title';
 import { siteConfig } from '@/config/site';
-import { faqItems } from '@/content/faq';
 import { formulaPlans } from '@/content/formulas';
 import {
-  aboutSummary,
   finalCta,
   formulasPreview,
-  homeFaqShort,
   homeHero,
   homeIntroduction,
   programsPreview,
@@ -27,7 +23,6 @@ import {
   whyChooseItems,
 } from '@/content/home';
 import { programs } from '@/content/programs';
-import { teamMembers } from '@/content/team';
 import { testimonials } from '@/content/testimonials';
 import { getPageMetadata } from '@/lib/seo';
 
@@ -39,14 +34,10 @@ export const metadata: Metadata = getPageMetadata({
 });
 
 export default function HomePage() {
-  const shortFaq = homeFaqShort
-    .map((question) => faqItems.find((item) => item.question === question))
-    .filter((item): item is (typeof faqItems)[number] => Boolean(item));
-
   return (
-    <div className="section-shell space-y-14 py-7 md:py-10">
-      <section className="grid gap-6 rounded-3xl border border-fawaid-border bg-white px-5 py-8 shadow-soft md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-9">
-        <div className="space-y-5">
+    <div className="section-shell space-y-12 py-6 md:py-9">
+      <section className="grid gap-5 rounded-3xl border border-fawaid-border bg-white px-5 py-7 shadow-soft md:grid-cols-[1.08fr_0.92fr] md:px-8 md:py-8">
+        <div className="space-y-4">
           <p className="inline-flex rounded-full border border-fawaid-border bg-fawaid-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-fawaid-accent2">
             {siteConfig.shortDescription}
           </p>
@@ -54,39 +45,65 @@ export default function HomePage() {
             {homeHero.title}
           </h1>
           <p className="text-sm leading-relaxed text-fawaid-muted md:text-base">{homeHero.subtitle}</p>
-          <div className="flex flex-wrap gap-2.5">
-            <ButtonLink href={siteConfig.inscriptionUrl} target="_blank" rel="noopener noreferrer">
+          <div className="flex flex-wrap gap-2.5 pt-0.5">
+            <ButtonLink
+              href={siteConfig.inscriptionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap"
+            >
               {siteConfig.cta.signup}
             </ButtonLink>
-            <ButtonLink href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" variant="secondary">
+            <ButtonLink
+              href={siteConfig.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              className="whitespace-nowrap"
+            >
               {siteConfig.cta.whatsapp}
             </ButtonLink>
           </div>
           <p className="text-sm text-fawaid-muted">{homeHero.microTrust}</p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl border border-fawaid-border bg-fawaid-surface p-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_22%,rgba(4,75,173,0.2),transparent_50%),radial-gradient(circle_at_84%_12%,rgba(47,105,196,0.22),transparent_46%)]" />
+        <div className="relative overflow-hidden rounded-2xl border border-fawaid-border bg-gradient-to-br from-fawaid-surface to-white p-5">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(4,75,173,0.22),transparent_50%),radial-gradient(circle_at_84%_12%,rgba(47,105,196,0.2),transparent_46%)]" />
           <div className="relative z-10 flex h-full flex-col justify-between gap-4">
             <div className="flex items-start justify-between gap-3">
-              <div>
+              <div className="space-y-1">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">Institut Fawaid</p>
                 <p className="mt-1 font-arabic text-3xl leading-none text-fawaid-accent">العِلْمُ نُورٌ</p>
+                <p className="text-xs text-fawaid-muted">Transmission, méthode et régularité.</p>
               </div>
               <div className="rounded-2xl border border-fawaid-border bg-white/85 p-2.5">
                 <Image src="/images/logo.png" alt="Logo Institut Fawaid" width={62} height={62} className="h-14 w-14" />
               </div>
             </div>
 
-            <div className="grid gap-2.5">
-              <div className="rounded-xl border border-fawaid-border bg-white/86 px-3 py-2 text-sm text-fawaid-muted">
-                Pédagogie structurée et progressive
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
+                <p className="text-xs text-fawaid-muted">Expérience</p>
+                <p className="text-sm font-semibold text-fawaid-text">10+ ans</p>
               </div>
-              <div className="rounded-xl border border-fawaid-border bg-white/86 px-3 py-2 text-sm text-fawaid-muted">
-                Cours en direct en visio avec professeurs qualifiés
+              <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
+                <p className="text-xs text-fawaid-muted">Étudiants</p>
+                <p className="text-sm font-semibold text-fawaid-text">500+ accompagnés</p>
               </div>
-              <div className="rounded-xl border border-fawaid-border bg-white/86 px-3 py-2 text-sm text-fawaid-muted">
-                Accompagnement sérieux, humain et accessible
+            </div>
+
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
+                Cours en direct en visio
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
+                Programmes structurés selon les niveaux
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
+                Accompagnement humain et accessible
               </div>
             </div>
           </div>
@@ -101,7 +118,7 @@ export default function HomePage() {
           {homeIntroduction.bullets.map((bullet) => (
             <li
               key={bullet}
-              className="flex items-start gap-2 rounded-xl border border-fawaid-border bg-fawaid-bg p-3.5 text-sm text-fawaid-muted"
+              className="flex items-start gap-2 rounded-xl border border-fawaid-border bg-fawaid-bg p-3 text-sm text-fawaid-muted"
             >
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-fawaid-accent" />
               <span>{bullet}</span>
@@ -145,57 +162,23 @@ export default function HomePage() {
         </ButtonLink>
       </section>
 
-      <section className="section-card space-y-5">
-        <SectionTitle title={aboutSummary.title} description={aboutSummary.text} />
-        <div className="grid gap-3.5 md:grid-cols-2">
-          <article className="rounded-2xl border border-fawaid-border bg-white p-4">
-            <h3 className="font-heading text-lg font-semibold text-fawaid-text">{teamMembers[0].name}</h3>
-            <p className="text-sm text-fawaid-accent2">{teamMembers[0].role}</p>
-            <p className="mt-2 text-sm leading-relaxed text-fawaid-muted">
-              Plus de 10 ans d’expérience en transmission de la langue arabe avec une méthode progressive et rigoureuse.
-            </p>
-          </article>
-          <article className="rounded-2xl border border-fawaid-border bg-white p-4">
-            <h3 className="font-heading text-lg font-semibold text-fawaid-text">{teamMembers[1].name}</h3>
-            <p className="text-sm text-fawaid-accent2">{teamMembers[1].role}</p>
-            <p className="mt-2 text-sm leading-relaxed text-fawaid-muted">
-              Coordination pédagogique, suivi des élèves et organisation fluide pour une expérience claire et fiable.
-            </p>
-          </article>
-        </div>
-        <ButtonLink href="/a-propos" variant="secondary">
-          Découvrir l’institut
-        </ButtonLink>
-      </section>
-
       <section className="space-y-5">
         <SectionTitle title="Comment ça marche" />
         <TimelineSteps steps={steps} />
       </section>
 
-      <section className="space-y-5" id="temoignages">
+      <section className="space-y-5">
         <SectionTitle title={testimonialsIntro.title} description={testimonialsIntro.text} />
-        <div className="grid gap-3.5 md:grid-cols-2 xl:grid-cols-4">
-          {testimonials.slice(0, 4).map((testimonial) => (
+        <div className="grid gap-3.5 md:grid-cols-3">
+          {testimonials.slice(0, 3).map((testimonial) => (
             <TestimonialCard
               key={`${testimonial.name}-${testimonial.age}-${testimonial.location}`}
               testimonial={testimonial}
             />
           ))}
         </div>
-        <ButtonLink href="/a-propos#temoignages" variant="secondary">
-          Voir tous les témoignages
-        </ButtonLink>
-      </section>
-
-      <section className="space-y-5">
-        <div className="flex items-center gap-2 text-fawaid-accent2">
-          <Quote className="h-4 w-4" />
-          <p className="text-xs font-semibold uppercase tracking-[0.18em]">FAQ courte</p>
-        </div>
-        <FaqAccordion items={shortFaq} />
-        <ButtonLink href="/faq" variant="secondary">
-          Voir la FAQ
+        <ButtonLink href="/temoignages" variant="secondary">
+          Voir les témoignages
         </ButtonLink>
       </section>
 

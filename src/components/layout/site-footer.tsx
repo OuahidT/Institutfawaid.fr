@@ -22,6 +22,11 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link className="transition hover:text-fawaid-accent" href="/temoignages">
+                  Témoignages
+                </Link>
+              </li>
             </ul>
           </div>
 

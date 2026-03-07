@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { ButtonLink } from '@/components/ui/button-link';
 import { PageHero } from '@/components/sections/page-hero';
 import { SectionTitle } from '@/components/ui/section-title';
-import { TestimonialCard } from '@/components/sections/testimonial-card';
 import { siteConfig } from '@/config/site';
 import { getPageMetadata } from '@/lib/seo';
 import {
@@ -16,7 +15,6 @@ import {
   valueDetails,
   values,
 } from '@/content/team';
-import { testimonials } from '@/content/testimonials';
 
 export const metadata: Metadata = getPageMetadata({
   title: 'À propos | Institut Fawaid',
@@ -159,17 +157,6 @@ export default function AProposPage() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft md:p-6" id="temoignages">
-        <SectionTitle title="Ils nous ont fait confiance" description="Retours d’élèves accompagnés par l’Institut Fawaid." />
-        <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard
-              key={`${testimonial.name}-${testimonial.age}-${testimonial.location}`}
-              testimonial={testimonial}
-            />
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
