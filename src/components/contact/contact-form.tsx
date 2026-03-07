@@ -256,7 +256,7 @@ export function ContactForm() {
         <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#173b35] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 sm:w-auto"
           >
             <Send className="h-4 w-4" />
             Préparer l’email

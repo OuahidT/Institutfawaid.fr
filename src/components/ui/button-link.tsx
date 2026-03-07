@@ -13,9 +13,9 @@ type ButtonLinkProps = PropsWithChildren<{
 
 const variants: Record<NonNullable<ButtonLinkProps['variant']>, string> = {
   primary:
-    'bg-fawaid-accent text-white border border-fawaid-accent hover:bg-[#173b35] hover:border-[#173b35] focus-visible:ring-fawaid-accent',
+    'bg-fawaid-accent text-white border border-fawaid-accent hover:bg-[#033E8F] hover:border-[#033E8F] focus-visible:ring-fawaid-accent',
   secondary:
-    'bg-white text-fawaid-accent border border-fawaid-border hover:border-fawaid-accent hover:text-[#173b35] focus-visible:ring-fawaid-accent',
+    'bg-white text-fawaid-accent border border-fawaid-border hover:border-fawaid-accent hover:text-[#033E8F] focus-visible:ring-fawaid-accent',
   ghost:
     'bg-transparent text-fawaid-accent border border-fawaid-border hover:bg-fawaid-surface focus-visible:ring-fawaid-accent',
 };

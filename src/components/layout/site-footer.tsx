@@ -30,13 +30,13 @@ export function SiteFooter() {
             <div className="rounded-2xl border border-fawaid-border bg-white/85 p-4 text-sm text-fawaid-muted shadow-soft">
               <p>
                 Email:{' '}
-                <a className="font-medium text-fawaid-accent transition hover:text-[#173b35]" href={`mailto:${siteConfig.email}`}>
+                <a className="font-medium text-fawaid-accent transition hover:text-[#033E8F]" href={`mailto:${siteConfig.email}`}>
                   {siteConfig.email}
                 </a>
               </p>
               <p className="mt-2">
                 WhatsApp:{' '}
-                <a className="font-medium text-fawaid-accent transition hover:text-[#173b35]" href={siteConfig.whatsappHref}>
+                <a className="font-medium text-fawaid-accent transition hover:text-[#033E8F]" href={siteConfig.whatsappHref}>
                   {siteConfig.whatsapp}
                 </a>
               </p>

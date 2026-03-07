@@ -66,7 +66,7 @@ export default function HomePage() {
         </div>
 
         <div className="relative overflow-hidden rounded-2xl border border-fawaid-border bg-fawaid-surface p-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_22%,rgba(200,169,107,0.28),transparent_50%),radial-gradient(circle_at_84%_12%,rgba(31,75,67,0.24),transparent_46%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_22%,rgba(4,75,173,0.2),transparent_50%),radial-gradient(circle_at_84%_12%,rgba(47,105,196,0.22),transparent_46%)]" />
           <div className="relative z-10 flex h-full flex-col justify-between gap-4">
             <div className="flex items-start justify-between gap-3">
               <div>

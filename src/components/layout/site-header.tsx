@@ -43,8 +43,8 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'rounded-full px-3 py-2 text-sm font-medium transition hover:bg-fawaid-surface',
-                  active ? 'text-fawaid-accent' : 'text-fawaid-muted'
+                  'rounded-full px-3 py-2 text-sm font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent',
+                  active ? 'bg-fawaid-accentSoft text-fawaid-accent' : 'text-fawaid-muted'
                 )}
               >
                 {item.label}
@@ -90,8 +90,8 @@ export function SiteHeader() {
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  'rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-fawaid-surface',
-                  active ? 'text-fawaid-accent' : 'text-fawaid-muted'
+                  'rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent',
+                  active ? 'bg-fawaid-accentSoft text-fawaid-accent' : 'text-fawaid-muted'
                 )}
               >
                 {item.label}

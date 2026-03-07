@@ -13,9 +13,10 @@ const config: Config = {
           surface: '#F5F1E8',
           text: '#171717',
           muted: '#5B5B5B',
-          accent: '#1F4B43',
-          accent2: '#C8A96B',
-          border: '#E8E1D3',
+          accent: '#044BAD',
+          accent2: '#2F69C4',
+          accentSoft: '#EAF1FF',
+          border: '#DEE6F4',
         },
       },
       fontFamily: {
@@ -25,7 +26,7 @@ const config: Config = {
       },
       boxShadow: {
         soft: '0 12px 28px rgba(23, 23, 23, 0.06)',
-        card: '0 8px 20px rgba(31, 75, 67, 0.08)',
+        card: '0 8px 20px rgba(4, 75, 173, 0.1)',
       },
       keyframes: {
         fadeUp: {
