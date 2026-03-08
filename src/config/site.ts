@@ -17,6 +17,7 @@ export const siteConfig: SiteConfig = {
     { label: 'Programmes', href: '/programmes' },
     { label: 'Formules', href: '/formules' },
     { label: 'À propos', href: '/a-propos' },
+    { label: 'Témoignages', href: '/temoignages' },
     { label: 'FAQ', href: '/faq' },
     { label: 'Contact', href: '/contact' },
   ],

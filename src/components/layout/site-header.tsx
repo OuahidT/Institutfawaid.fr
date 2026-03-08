@@ -17,7 +17,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-fawaid-border bg-[rgba(252,251,248,0.96)] backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6">
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => setIsOpen(false)}>
+        <Link href="/" scroll className="flex items-center gap-2.5" onClick={() => setIsOpen(false)}>
           <Image src="/images/logo.png" alt="Logo Institut Fawaid" width={40} height={40} className="h-9 w-9" />
           <p className="font-heading text-base font-semibold tracking-tight text-fawaid-text sm:text-lg">
             {siteConfig.name}
@@ -35,15 +35,16 @@ export function SiteHeader() {
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigation principale">
           {siteConfig.nav.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                scroll
                 className={cn(
-                  'rounded-full px-3 py-2 text-sm font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent',
+                  'rounded-full px-2.5 py-2 text-[13px] font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent xl:px-3 xl:text-sm',
                   active ? 'bg-fawaid-accentSoft text-fawaid-accent' : 'text-fawaid-muted'
                 )}
               >
@@ -88,6 +89,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                scroll
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   'rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent',

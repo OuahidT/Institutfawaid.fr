@@ -6,6 +6,7 @@ import './globals.css';
 
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
+import { RouteScrollReset } from '@/components/layout/route-scroll-reset';
 import { WhatsAppSticky } from '@/components/ui/whatsapp-sticky';
 import { siteConfig } from '@/config/site';
 
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="fr" className={`${inter.variable} ${manrope.variable} ${notoArabic.variable}`}>
       <body>
+        <RouteScrollReset />
         <Script
           id="schema-organization"
           type="application/ld+json"

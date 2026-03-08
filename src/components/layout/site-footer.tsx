@@ -17,16 +17,11 @@ export function SiteFooter() {
             <ul className="space-y-2 text-sm text-fawaid-muted">
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
-                  <Link className="transition hover:text-fawaid-accent" href={item.href}>
+                  <Link className="transition hover:text-fawaid-accent" href={item.href} scroll>
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link className="transition hover:text-fawaid-accent" href="/temoignages">
-                  Témoignages
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -52,13 +47,13 @@ export function SiteFooter() {
         <div className="mt-8 flex flex-col gap-3 border-t border-fawaid-border pt-5 text-xs text-fawaid-muted md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {siteConfig.name}. Tous droits réservés.</p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/mentions-legales" className="hover:text-fawaid-accent">
+            <Link href="/mentions-legales" className="hover:text-fawaid-accent" scroll>
               Mentions légales
             </Link>
-            <Link href="/politique-de-confidentialite" className="hover:text-fawaid-accent">
+            <Link href="/politique-de-confidentialite" className="hover:text-fawaid-accent" scroll>
               Politique de confidentialité
             </Link>
-            <Link href="/cgv" className="hover:text-fawaid-accent">
+            <Link href="/cgv" className="hover:text-fawaid-accent" scroll>
               CGV
             </Link>
           </div>

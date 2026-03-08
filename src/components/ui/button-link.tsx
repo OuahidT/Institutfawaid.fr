@@ -28,9 +28,12 @@ export function ButtonLink({
   target,
   rel,
 }: ButtonLinkProps) {
+  const isInternalRoute = href.startsWith('/');
+
   return (
     <Link
       href={href}
+      scroll={isInternalRoute}
       target={target}
       rel={rel}
       className={cn(
