@@ -39,20 +39,29 @@ Champs actuellement optionnels (non affichés tant qu’ils sont vides) :
 
 Compléter ces champs avant mise en ligne définitive si nécessaire.
 
-## Formulaire de contact (V1)
+## Formulaire de contact (Route Handler + Resend)
 
 Le formulaire est dans `src/components/contact/contact-form.tsx`.
+La route serveur est dans `app/api/contact/route.ts`.
 
-Comportement actuel :
-- validation côté front
-- génération d’un `mailto:` prérempli vers `contact@institutfawaid.fr`
-- bouton WhatsApp direct
-- message explicatif si l’application mail ne s’ouvre pas
+Variables d’environnement requises :
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL`
+- `CONTACT_FROM_EMAIL`
 
-Pour brancher un vrai envoi :
-1. Remplacer la logique `mailto` dans `onSubmit` par un appel API (`fetch` vers `/api/contact` ou service externe).
-2. Conserver la validation front existante.
-3. Ajouter un vrai état succès/erreur selon la réponse backend.
+Exemple local (`.env.local`, non versionné) :
+
+```bash
+RESEND_API_KEY=re_xxxxxxxxx
+CONTACT_TO_EMAIL=contact@institutfawaid.fr
+CONTACT_FROM_EMAIL=noreply@institutfawaid.fr
+```
+
+Comportement :
+- validation côté client
+- revalidation stricte côté serveur
+- envoi via API Resend
+- affichage d’un vrai état succès/erreur (aucune simulation)
 
 ## Notes
 

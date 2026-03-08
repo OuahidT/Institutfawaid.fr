@@ -1,23 +1,30 @@
 'use client';
 
 import { MessageCircle, Send } from 'lucide-react';
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import { siteConfig } from '@/config/site';
+import {
+  CONTACT_FORMULA_OPTIONS,
+  CONTACT_LEVEL_OPTIONS,
+  ContactFormErrors,
+  ContactFormPayload,
+  normalizeContactPayload,
+  validateContactPayload,
+} from '@/lib/contact';
 
-type FormValues = {
-  fullName: string;
-  email: string;
-  phone: string;
-  level: string;
-  objective: string;
-  formula: string;
-  message: string;
+type SubmitState = {
+  status: 'idle' | 'success' | 'error';
+  message?: string;
 };
 
-type FormErrors = Partial<Record<keyof FormValues, string>>;
+type ContactApiResponse = {
+  success: boolean;
+  message?: string;
+  errors?: ContactFormErrors;
+};
 
-const initialValues: FormValues = {
+const initialValues: ContactFormPayload = {
   fullName: '',
   email: '',
   phone: '',
@@ -27,68 +34,86 @@ const initialValues: FormValues = {
   message: '',
 };
 
-const levelOptions = ['Débutant', 'Intermédiaire', 'Avancé', 'Je ne sais pas encore'];
-const formulaOptions = ['Solo', 'Duo', 'Groupe', 'Je souhaite être orienté'];
-
-function isEmailValid(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
 export function ContactForm() {
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [attempted, setAttempted] = useState(false);
+  const [values, setValues] = useState<ContactFormPayload>(initialValues);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [submitState, setSubmitState] = useState<SubmitState>({ status: 'idle' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
+  const hasErrors = Object.keys(errors).length > 0;
 
-  const validate = (currentValues: FormValues) => {
-    const nextErrors: FormErrors = {};
+  const handleFieldChange = (field: keyof ContactFormPayload, value: string) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
 
-    if (!currentValues.fullName.trim()) nextErrors.fullName = 'Veuillez renseigner votre prénom et nom.';
-    if (!isEmailValid(currentValues.email)) nextErrors.email = 'Veuillez saisir un email valide.';
-    if (!currentValues.phone.trim()) nextErrors.phone = 'Veuillez renseigner un numéro de téléphone ou WhatsApp.';
-    if (!currentValues.level) nextErrors.level = 'Veuillez indiquer votre niveau actuel.';
-    if (!currentValues.objective.trim()) nextErrors.objective = 'Veuillez préciser votre objectif.';
-    if (!currentValues.formula) nextErrors.formula = 'Veuillez choisir une formule souhaitée.';
-    if (!currentValues.message.trim()) nextErrors.message = 'Veuillez saisir votre message.';
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
 
-    return nextErrors;
+    if (submitState.status !== 'idle') {
+      setSubmitState({ status: 'idle' });
+    }
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors = validate(values);
+    const normalizedValues = normalizeContactPayload(values);
+    const nextErrors = validateContactPayload(normalizedValues);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setAttempted(false);
+      setSubmitState({ status: 'idle' });
       return;
     }
 
-    const subject = `Demande d'orientation - ${values.fullName}`;
-    const bodyLines = [
-      `Prénom et nom : ${values.fullName}`,
-      `Email : ${values.email}`,
-      `Téléphone / WhatsApp : ${values.phone}`,
-      `Niveau actuel : ${values.level}`,
-      `Objectif : ${values.objective}`,
-      `Formule souhaitée : ${values.formula}`,
-      '',
-      'Message :',
-      values.message,
-    ];
+    setIsSubmitting(true);
+    setSubmitState({ status: 'idle' });
 
-    const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-      bodyLines.join('\n')
-    )}`;
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(normalizedValues),
+      });
 
-    setAttempted(true);
-    window.location.href = mailto;
+      const result = (await response.json().catch(() => null)) as ContactApiResponse | null;
+
+      if (!response.ok || !result?.success) {
+        if (result?.errors) {
+          setErrors(result.errors);
+        }
+
+        setSubmitState({
+          status: 'error',
+          message: result?.message ?? 'Une erreur est survenue. Veuillez réessayer dans quelques instants.',
+        });
+        return;
+      }
+
+      setValues(initialValues);
+      setErrors({});
+      setSubmitState({
+        status: 'success',
+        message: result.message ?? 'Votre message a bien été envoyé. Nous vous répondrons rapidement.',
+      });
+    } catch {
+      setSubmitState({
+        status: 'error',
+        message: 'Envoi impossible pour le moment. Veuillez réessayer ou nous contacter via WhatsApp.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass =
-    'w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-2.5 text-sm text-fawaid-text placeholder:text-fawaid-muted/60 transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent';
+    'w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-2.5 text-sm text-fawaid-text placeholder:text-fawaid-muted/60 transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent disabled:cursor-not-allowed disabled:opacity-70';
 
   return (
     <div className="rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft md:p-6">
@@ -102,10 +127,12 @@ export function ContactForm() {
               id="fullName"
               name="fullName"
               value={values.fullName}
-              onChange={(event) => setValues((prev) => ({ ...prev, fullName: event.target.value }))}
+              onChange={(event) => handleFieldChange('fullName', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.fullName)}
               aria-describedby={errors.fullName ? 'fullName-error' : undefined}
+              disabled={isSubmitting}
+              autoComplete="name"
             />
             {errors.fullName ? (
               <p id="fullName-error" className="mt-1 text-xs text-red-600">
@@ -123,10 +150,12 @@ export function ContactForm() {
               type="email"
               name="email"
               value={values.email}
-              onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+              onChange={(event) => handleFieldChange('email', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.email)}
               aria-describedby={errors.email ? 'email-error' : undefined}
+              disabled={isSubmitting}
+              autoComplete="email"
             />
             {errors.email ? (
               <p id="email-error" className="mt-1 text-xs text-red-600">
@@ -143,10 +172,12 @@ export function ContactForm() {
               id="phone"
               name="phone"
               value={values.phone}
-              onChange={(event) => setValues((prev) => ({ ...prev, phone: event.target.value }))}
+              onChange={(event) => handleFieldChange('phone', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.phone)}
               aria-describedby={errors.phone ? 'phone-error' : undefined}
+              disabled={isSubmitting}
+              autoComplete="tel"
             />
             {errors.phone ? (
               <p id="phone-error" className="mt-1 text-xs text-red-600">
@@ -163,13 +194,14 @@ export function ContactForm() {
               id="level"
               name="level"
               value={values.level}
-              onChange={(event) => setValues((prev) => ({ ...prev, level: event.target.value }))}
+              onChange={(event) => handleFieldChange('level', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.level)}
               aria-describedby={errors.level ? 'level-error' : undefined}
+              disabled={isSubmitting}
             >
               <option value="">Sélectionner</option>
-              {levelOptions.map((option) => (
+              {CONTACT_LEVEL_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -192,10 +224,11 @@ export function ContactForm() {
               id="objective"
               name="objective"
               value={values.objective}
-              onChange={(event) => setValues((prev) => ({ ...prev, objective: event.target.value }))}
+              onChange={(event) => handleFieldChange('objective', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.objective)}
               aria-describedby={errors.objective ? 'objective-error' : undefined}
+              disabled={isSubmitting}
             />
             {errors.objective ? (
               <p id="objective-error" className="mt-1 text-xs text-red-600">
@@ -212,13 +245,14 @@ export function ContactForm() {
               id="formula"
               name="formula"
               value={values.formula}
-              onChange={(event) => setValues((prev) => ({ ...prev, formula: event.target.value }))}
+              onChange={(event) => handleFieldChange('formula', event.target.value)}
               className={inputClass}
               aria-invalid={Boolean(errors.formula)}
               aria-describedby={errors.formula ? 'formula-error' : undefined}
+              disabled={isSubmitting}
             >
               <option value="">Sélectionner</option>
-              {formulaOptions.map((option) => (
+              {CONTACT_FORMULA_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -241,10 +275,11 @@ export function ContactForm() {
             name="message"
             rows={4}
             value={values.message}
-            onChange={(event) => setValues((prev) => ({ ...prev, message: event.target.value }))}
+            onChange={(event) => handleFieldChange('message', event.target.value)}
             className={inputClass}
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? 'message-error' : undefined}
+            disabled={isSubmitting}
           />
           {errors.message ? (
             <p id="message-error" className="mt-1 text-xs text-red-600">
@@ -256,10 +291,12 @@ export function ContactForm() {
         <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-80 sm:w-auto"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
           >
             <Send className="h-4 w-4" />
-            Préparer l’email
+            {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
           </button>
           <a
             href={siteConfig.whatsappHref}
@@ -273,15 +310,20 @@ export function ContactForm() {
         </div>
 
         {hasErrors ? (
-          <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             Merci de corriger les champs signalés avant de continuer.
           </p>
         ) : null}
 
-        {attempted ? (
-          <p className="rounded-xl border border-fawaid-border bg-fawaid-surface px-4 py-3 text-sm text-fawaid-muted">
-            Votre application email devrait s’ouvrir avec un message prérempli. Si rien ne s’ouvre, copiez les
-            informations et contactez-nous directement via WhatsApp.
+        {submitState.status === 'success' ? (
+          <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            {submitState.message}
+          </p>
+        ) : null}
+
+        {submitState.status === 'error' ? (
+          <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {submitState.message}
           </p>
         ) : null}
       </form>
