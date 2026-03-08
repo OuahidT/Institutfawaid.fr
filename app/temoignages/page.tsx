@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { PageHero } from '@/components/sections/page-hero';
-import { TestimonialCard } from '@/components/sections/testimonial-card';
+import { TestimonialVideoGrid } from '@/components/sections/testimonial-video-grid';
 import { ButtonLink } from '@/components/ui/button-link';
 import { SectionTitle } from '@/components/ui/section-title';
 import { siteConfig } from '@/config/site';
@@ -25,13 +25,8 @@ export default function TestimonialsPage() {
 
       <section className="rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft md:p-6">
         <SectionTitle title="Ils nous ont fait confiance" />
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard
-              key={`${testimonial.name}-${testimonial.age}-${testimonial.location}`}
-              testimonial={testimonial}
-            />
-          ))}
+        <div className="mt-5">
+          <TestimonialVideoGrid testimonials={testimonials} />
         </div>
       </section>
 
