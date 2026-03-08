@@ -17,7 +17,7 @@ import { getPageMetadata } from '@/lib/seo';
 export const metadata: Metadata = getPageMetadata({
   title: 'Nos formules | Institut Fawaid',
   description:
-    'Comparez les formules Solo, Duo et Groupe +3 de l’Institut Fawaid, avec un cadre sérieux, simple et accessible.',
+    'Comparez les formules Solo, Duo et Groupe de l’Institut Fawaid, avec un cadre sérieux, simple et accessible.',
   path: '/formules',
 });
 

@@ -27,7 +27,7 @@ export const formulaPlans: FormulaPlan[] = [
   },
   {
     id: 'groupe-prestige',
-    name: 'Groupe +3',
+    name: 'Groupe',
     label: 'PRESTIGE',
     badge: 'Recommandé',
     recommended: true,

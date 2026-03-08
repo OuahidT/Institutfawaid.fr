@@ -28,7 +28,7 @@ const initialValues: FormValues = {
 };
 
 const levelOptions = ['Débutant', 'Intermédiaire', 'Avancé', 'Je ne sais pas encore'];
-const formulaOptions = ['Solo', 'Duo', 'Groupe +3', 'Je souhaite être orienté'];
+const formulaOptions = ['Solo', 'Duo', 'Groupe', 'Je souhaite être orienté'];
 
 function isEmailValid(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
