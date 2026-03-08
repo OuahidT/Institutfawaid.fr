@@ -24,10 +24,7 @@ export default function TestimonialsPage() {
       />
 
       <section className="rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft md:p-6">
-        <SectionTitle
-          title="Ils nous ont fait confiance"
-          description="Chaque avis ci-dessous a été conservé tel qu’il a été validé."
-        />
+        <SectionTitle title="Ils nous ont fait confiance" />
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {testimonials.map((testimonial) => (
             <TestimonialCard
