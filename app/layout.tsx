@@ -18,6 +18,8 @@ const notoArabic = Noto_Naskh_Arabic({
   display: 'swap',
 });
 
+const faviconVersion = '20260308-1';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -25,6 +27,28 @@ export const metadata: Metadata = {
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,
+  icons: {
+    icon: [
+      {
+        url: `/icon.png?v=${faviconVersion}`,
+        type: 'image/png',
+        sizes: 'any',
+      },
+    ],
+    shortcut: [
+      {
+        url: `/icon.png?v=${faviconVersion}`,
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: `/apple-icon.png?v=${faviconVersion}`,
+        type: 'image/png',
+        sizes: '180x180',
+      },
+    ],
+  },
   alternates: {
     canonical: siteConfig.url,
   },
