@@ -7,6 +7,7 @@ import { FormulaCard } from '@/components/sections/formula-card';
 import { ProgramCard } from '@/components/sections/program-card';
 import { TestimonialCard } from '@/components/sections/testimonial-card';
 import { TimelineSteps } from '@/components/sections/timeline-steps';
+import { TrustpilotWidget } from '@/components/sections/trustpilot-widget';
 import { TrustBand } from '@/components/sections/trust-band';
 import { ButtonLink } from '@/components/ui/button-link';
 import { SectionTitle } from '@/components/ui/section-title';
@@ -166,6 +167,8 @@ export default function HomePage() {
         <SectionTitle title="Comment ça marche" />
         <TimelineSteps steps={steps} />
       </section>
+
+      <TrustpilotWidget />
 
       <section className="space-y-5">
         <SectionTitle title={testimonialsIntro.title} description={testimonialsIntro.text} />
