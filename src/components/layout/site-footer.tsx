@@ -11,7 +11,7 @@ export function SiteFooter() {
           <div className="space-y-2.5">
             <p className="font-heading text-xl font-semibold tracking-tight text-fawaid-text">{siteConfig.name}</p>
             <p className="max-w-sm text-sm leading-relaxed text-fawaid-muted">{siteConfig.baseline}</p>
-            <TrustpilotWidget className="pt-0.5" />
+            <TrustpilotWidget className="mx-auto pt-1 md:mx-0" />
           </div>
 
           <div>

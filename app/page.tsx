@@ -84,11 +84,11 @@ export default function HomePage() {
             <div className="grid grid-cols-2 gap-2.5">
               <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
                 <p className="text-xs text-fawaid-muted">Expérience</p>
-                <p className="text-sm font-semibold text-fawaid-text">10+ ans</p>
+                <p className="text-sm font-semibold text-fawaid-text">+10 ans</p>
               </div>
               <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
-                <p className="text-xs text-fawaid-muted">Étudiants</p>
-                <p className="text-sm font-semibold text-fawaid-text">500+ accompagnés</p>
+                <p className="text-xs text-fawaid-muted">Étudiants accompagnés</p>
+                <p className="text-sm font-semibold text-fawaid-text">+500</p>
               </div>
             </div>
 
@@ -104,6 +104,10 @@ export default function HomePage() {
               <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
                 Accompagnement humain et accessible
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
+                Cours pour les hommes, femmes et enfants
               </div>
             </div>
           </div>
