@@ -7,7 +7,6 @@ import { FormulaCard } from '@/components/sections/formula-card';
 import { ProgramCard } from '@/components/sections/program-card';
 import { TestimonialCard } from '@/components/sections/testimonial-card';
 import { TimelineSteps } from '@/components/sections/timeline-steps';
-import { TrustBand } from '@/components/sections/trust-band';
 import { ButtonLink } from '@/components/ui/button-link';
 import { SectionTitle } from '@/components/ui/section-title';
 import { siteConfig } from '@/config/site';
@@ -35,7 +34,7 @@ export const metadata: Metadata = getPageMetadata({
 
 export default function HomePage() {
   return (
-    <div className="section-shell space-y-12 py-6 md:py-9">
+    <div className="section-shell space-y-11 py-6 md:space-y-12 md:py-9">
       <section className="grid gap-5 rounded-3xl border border-fawaid-border bg-white px-5 py-7 shadow-soft md:grid-cols-[1.08fr_0.92fr] md:px-8 md:py-8">
         <div className="space-y-4">
           <p className="inline-flex rounded-full border border-fawaid-border bg-fawaid-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-fawaid-accent2">
@@ -113,8 +112,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <TrustBand />
 
       <section className="section-card space-y-5">
         <SectionTitle title={homeIntroduction.title} description={homeIntroduction.text} />
