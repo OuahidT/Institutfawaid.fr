@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { TrustpilotWidget } from '@/components/sections/trustpilot-widget';
 import { siteConfig } from '@/config/site';
 
 export function SiteFooter() {
@@ -7,9 +8,10 @@ export function SiteFooter() {
     <footer className="mt-16 border-t border-fawaid-border bg-[linear-gradient(180deg,rgba(245,241,232,0.45),rgba(252,251,248,1))]">
       <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-6 md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr_1fr] md:items-start">
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <p className="font-heading text-xl font-semibold tracking-tight text-fawaid-text">{siteConfig.name}</p>
             <p className="max-w-sm text-sm leading-relaxed text-fawaid-muted">{siteConfig.baseline}</p>
+            <TrustpilotWidget className="pt-0.5" />
           </div>
 
           <div>
