@@ -55,6 +55,13 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-2 lg:flex">
+          <Link
+            href="/admin/login"
+            scroll
+            className="rounded-full px-3 py-2 text-[13px] font-medium text-fawaid-muted transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent"
+          >
+            Connexion
+          </Link>
           <ButtonLink
             href={siteConfig.inscriptionUrl}
             target="_blank"
@@ -101,6 +108,14 @@ export function SiteHeader() {
             );
           })}
           <div className="mt-2 grid gap-2">
+            <Link
+              href="/admin/login"
+              scroll
+              onClick={() => setIsOpen(false)}
+              className="inline-flex w-full items-center justify-center rounded-xl border border-fawaid-border px-3 py-2 text-sm font-medium text-fawaid-muted transition hover:border-fawaid-accent hover:text-fawaid-accent"
+            >
+              Connexion
+            </Link>
             <ButtonLink
               href={siteConfig.inscriptionUrl}
               target="_blank"
