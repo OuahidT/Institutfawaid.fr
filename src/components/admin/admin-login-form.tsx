@@ -56,6 +56,7 @@ export function AdminLoginForm() {
     <div className="mx-auto w-full max-w-md rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft sm:p-6">
       <h1 className="font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">Connexion admin</h1>
       <p className="mt-2 text-sm text-fawaid-muted">Accès interne réservé à l’administration.</p>
+      <p className="mt-1 text-xs text-fawaid-muted">Utilisez l’email admin et votre mot de passe pour accéder au dashboard.</p>
 
       <form className="mt-5 space-y-4" onSubmit={onSubmit} noValidate>
         <div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { MessageCircle, PauseCircle, PencilLine, PlusCircle } from 'lucide-react';
 
 import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
 import {
@@ -13,6 +14,7 @@ import {
 } from '@/lib/internal/admin-actions';
 import { getStudentById, listStudentLessons, listTeachers } from '@/lib/internal/admin-data';
 import { getCoursesRemaining } from '@/lib/internal/courses';
+import { toWhatsappHref } from '@/lib/internal/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Fiche élève | Admin Fawaid',
@@ -29,6 +31,8 @@ type StudentDetailPageProps = {
   params: Promise<{ id: string }>;
 };
 
+const QUICK_DELTAS = [4, 8, 12] as const;
+
 export default async function StudentDetailPage({ params }: StudentDetailPageProps) {
   const { id } = await params;
 
@@ -39,31 +43,89 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
   }
 
   const coursesRemaining = getCoursesRemaining(student.total_courses_purchased, student.courses_completed);
+  const whatsappHref = toWhatsappHref(student.whatsapp_number);
 
   return (
     <div className="space-y-4 md:space-y-5">
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm text-fawaid-muted">
-              <Link href="/admin" className="text-fawaid-accent hover:underline">
-                Dashboard
-              </Link>{' '}
-              / Fiche élève
-            </p>
-            <h1 className="font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">{student.full_name}</h1>
-            <p className="mt-1 text-sm text-fawaid-muted">
-              Professeur : {student.teacher?.name ?? 'Non assigné'} • Restants :{' '}
-              <span className="font-semibold text-fawaid-text">{coursesRemaining}</span>
-            </p>
-          </div>
+        <p className="text-sm text-fawaid-muted">
+          <Link href="/admin" className="text-fawaid-accent hover:underline">
+            Dashboard
+          </Link>{' '}
+          / Fiche élève
+        </p>
 
-          <form action={deleteStudentAction} className="w-full sm:w-auto">
+        <div className="mt-1 flex flex-wrap items-center gap-2">
+          <h1 className="font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">{student.full_name}</h1>
+          {student.is_paused ? (
+            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-700">
+              <PauseCircle className="mr-1 h-3.5 w-3.5" />
+              En pause
+            </span>
+          ) : null}
+        </div>
+
+        <p className="mt-1 text-sm text-fawaid-muted">
+          Professeur: {student.teacher?.name ?? 'Non assigné'} • WhatsApp: {student.whatsapp_number?.trim() || 'Non renseigné'}
+        </p>
+
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+            <p className="text-xs text-fawaid-muted">Cours restants</p>
+            <p className={`mt-0.5 text-2xl font-semibold ${coursesRemaining <= 0 ? 'text-red-700' : coursesRemaining === 1 ? 'text-amber-700' : 'text-fawaid-text'}`}>
+              {coursesRemaining}
+            </p>
+          </article>
+          <article className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+            <p className="text-xs text-fawaid-muted">Cours achetés</p>
+            <p className="mt-0.5 text-2xl font-semibold text-fawaid-text">{student.total_courses_purchased}</p>
+          </article>
+          <article className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+            <p className="text-xs text-fawaid-muted">Cours effectués</p>
+            <p className="mt-0.5 text-2xl font-semibold text-fawaid-text">{student.courses_completed}</p>
+          </article>
+          <article className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+            <p className="text-xs text-fawaid-muted">Heures / semaine</p>
+            <p className="mt-0.5 text-2xl font-semibold text-fawaid-text">{student.hours_per_week ?? '—'}</p>
+          </article>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5 lg:grid-cols-6">
+          {whatsappHref ? (
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+            >
+              <MessageCircle className="mr-1 h-4 w-4" />
+              WhatsApp
+            </a>
+          ) : (
+            <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-3 text-xs font-semibold text-fawaid-muted">
+              WhatsApp indisponible
+            </span>
+          )}
+
+          {QUICK_DELTAS.map((delta) => (
+            <form key={delta} action={addPurchasedCoursesAction}>
+              <input type="hidden" name="student_id" value={student.id} />
+              <input type="hidden" name="delta" value={delta} />
+              <button
+                type="submit"
+                className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-fawaid-accent bg-fawaid-accent px-3 text-sm font-semibold text-white transition hover:bg-[#033E8F]"
+              >
+                +{delta}
+              </button>
+            </form>
+          ))}
+
+          <form action={deleteStudentAction} className="col-span-2 sm:col-span-1">
             <input type="hidden" name="student_id" value={student.id} />
             <ConfirmSubmitButton
-              label="Supprimer l’élève"
+              label="Supprimer"
               confirmMessage={`Confirmer la suppression définitive de ${student.full_name} ?`}
-              className="inline-flex h-10 w-full items-center justify-center rounded-full border border-red-200 px-4 text-sm font-semibold text-red-700 sm:w-auto"
+              className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-3 text-sm font-semibold text-red-700"
             />
           </form>
         </div>
@@ -71,7 +133,11 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
 
       <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:gap-5">
         <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-          <h2 className="font-heading text-xl font-semibold text-fawaid-text">Modifier l’élève</h2>
+          <div className="flex items-center gap-2">
+            <PencilLine className="h-4 w-4 text-fawaid-accent" />
+            <h2 className="font-heading text-xl font-semibold text-fawaid-text">Modifier l’élève</h2>
+          </div>
+
           <form action={updateStudentAction} className="mt-4 grid gap-3 md:grid-cols-2">
             <input type="hidden" name="student_id" value={student.id} />
 
@@ -201,7 +267,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-sm font-semibold text-white sm:w-auto"
+                className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-sm font-semibold text-white sm:w-auto"
               >
                 Enregistrer les modifications
               </button>
@@ -211,7 +277,12 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
 
         <aside className="space-y-4">
           <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Ajouter des cours achetés</h2>
+            <div className="flex items-center gap-2">
+              <PlusCircle className="h-4 w-4 text-fawaid-accent" />
+              <h2 className="font-heading text-lg font-semibold text-fawaid-text">Ajouter des cours achetés</h2>
+            </div>
+            <p className="mt-1 text-sm text-fawaid-muted">Ajustement libre si besoin (hors +4 / +8 / +12).</p>
+
             <form action={addPurchasedCoursesAction} className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-end">
               <input type="hidden" name="student_id" value={student.id} />
               <div className="w-full flex-1">
@@ -226,7 +297,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               </div>
               <button
                 type="submit"
-                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
+                className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
               >
                 Ajouter
               </button>
@@ -258,7 +329,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               </div>
               <button
                 type="submit"
-                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
+                className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
               >
                 Déclarer le cours
               </button>
@@ -273,7 +344,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
         <div className="mt-4 space-y-3">
           {lessons.map((lesson) => (
             <article key={lesson.id} className="rounded-xl border border-fawaid-border p-3">
-              <form action={updateLessonAction} className="grid gap-2 md:grid-cols-[170px_1fr_auto_auto] md:items-end">
+              <form action={updateLessonAction} className="grid gap-2 md:grid-cols-[170px_1fr_auto] md:items-end">
                 <input type="hidden" name="lesson_id" value={lesson.id} />
                 <input type="hidden" name="student_id" value={student.id} />
                 <div>
@@ -309,7 +380,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 <ConfirmSubmitButton
                   label="Supprimer cette entrée"
                   confirmMessage="Supprimer ce cours et corriger automatiquement le compteur ?"
-                  className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-2.5 text-sm font-semibold text-red-700 md:w-auto md:text-xs"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-2.5 text-sm font-semibold text-red-700 md:w-auto"
                 />
               </form>
             </article>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { CalendarDays, UserRound } from 'lucide-react';
 
 import { submitTeacherLessonAction } from '@/lib/internal/admin-actions';
 import { getTeacherByToken, listStudentsByTeacher } from '@/lib/internal/admin-data';
@@ -35,35 +36,50 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
     <div className="section-shell py-5 md:py-10">
       <section className="mx-auto w-full max-w-2xl rounded-3xl border border-fawaid-border bg-white p-4 shadow-soft sm:p-5 md:p-6">
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-fawaid-accent2">Formulaire professeur</p>
-        <h1 className="mt-1 font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">Déclaration de cours — {teacher.name}</h1>
-        <p className="mt-2 text-sm text-fawaid-muted">
-          Sélectionnez l’élève, la date, puis indiquez le créneau ou la mention d’absence (ABS).
-        </p>
+        <h1 className="mt-1 font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">Déclaration de cours</h1>
+        <p className="mt-1 text-sm text-fawaid-muted">{teacher.name}</p>
+
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2 text-sm text-fawaid-text">
+            <p className="text-xs text-fawaid-muted">Élèves assignés</p>
+            <p className="mt-0.5 inline-flex items-center font-semibold">
+              <UserRound className="mr-1.5 h-4 w-4 text-fawaid-accent" />
+              {students.length}
+            </p>
+          </div>
+          <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2 text-sm text-fawaid-text">
+            <p className="text-xs text-fawaid-muted">Date suggérée</p>
+            <p className="mt-0.5 inline-flex items-center font-semibold">
+              <CalendarDays className="mr-1.5 h-4 w-4 text-fawaid-accent" />
+              {new Date().toLocaleDateString('fr-FR')}
+            </p>
+          </div>
+        </div>
 
         {status === 'success' ? (
-          <p role="status" className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 sm:text-[15px]">
+          <p role="status" className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             Cours enregistré avec succès.
           </p>
         ) : null}
 
         {status === 'error' ? (
-          <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:text-[15px]">
+          <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             Erreur lors de l’enregistrement. Vérifiez les champs puis réessayez.
           </p>
         ) : null}
 
-        <form action={submitTeacherLessonAction} className="mt-5 space-y-4 sm:space-y-5">
+        <form action={submitTeacherLessonAction} className="mt-5 space-y-4">
           <input type="hidden" name="token" value={token} />
 
           <div>
-            <label htmlFor="student_id" className="mb-1 block text-sm font-medium text-fawaid-text">
+            <label htmlFor="student_id" className="mb-1.5 block text-sm font-medium text-fawaid-text">
               Élève
             </label>
             <select
               id="student_id"
               name="student_id"
               required
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="h-12 w-full rounded-xl border border-fawaid-border px-3.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             >
               <option value="">Sélectionner un élève</option>
               {students.map((student) => {
@@ -79,7 +95,7 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
           </div>
 
           <div>
-            <label htmlFor="lesson_date" className="mb-1 block text-sm font-medium text-fawaid-text">
+            <label htmlFor="lesson_date" className="mb-1.5 block text-sm font-medium text-fawaid-text">
               Date du cours
             </label>
             <input
@@ -88,12 +104,12 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
               name="lesson_date"
               required
               defaultValue={new Date().toISOString().slice(0, 10)}
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="h-12 w-full rounded-xl border border-fawaid-border px-3.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             />
           </div>
 
           <div>
-            <label htmlFor="schedule_note" className="mb-1 block text-sm font-medium text-fawaid-text">
+            <label htmlFor="schedule_note" className="mb-1.5 block text-sm font-medium text-fawaid-text">
               Horaire / note
             </label>
             <input
@@ -101,13 +117,13 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
               name="schedule_note"
               required
               placeholder="Ex: vendredi de midi à 13h (ABS)"
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="h-12 w-full rounded-xl border border-fawaid-border px-3.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             />
           </div>
 
           <button
             type="submit"
-            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-base font-semibold text-white transition hover:bg-[#033E8F]"
+            className="inline-flex h-12 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-base font-semibold text-white transition hover:bg-[#033E8F]"
           >
             Enregistrer le cours
           </button>
