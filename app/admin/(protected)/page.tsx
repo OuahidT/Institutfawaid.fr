@@ -97,15 +97,29 @@ function getRemainingStyles(remaining: number) {
   };
 }
 
+function getRhythmLabel(student: StudentDashboardItem) {
+  const hours = student.hours_per_week;
+  if (typeof hours === 'number' && Number.isFinite(hours) && hours > 0) {
+    return `${hours} cours / semaine`;
+  }
+
+  if (student.course_type?.trim()) {
+    return student.course_type.trim();
+  }
+
+  return 'Non renseigné';
+}
+
 function StudentRow({ student }: { student: StudentDashboardItem }) {
   const remainingStyles = getRemainingStyles(student.remaining);
+  const rhythmLabel = getRhythmLabel(student);
 
   return (
     <article className="rounded-xl border border-fawaid-border bg-white p-3.5 shadow-soft sm:p-4">
-      <div className="grid gap-3 lg:grid-cols-[1.4fr_auto] lg:items-center">
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <Link href={`/admin/eleves/${student.id}`} className="truncate text-base font-semibold text-fawaid-accent hover:underline">
+      <div className="grid gap-3 xl:grid-cols-[minmax(240px,0.9fr)_minmax(360px,1.1fr)_320px] xl:items-center xl:gap-4">
+        <div className="min-w-0 xl:pr-3 xl:border-r xl:border-fawaid-border">
+          <div className="flex flex-wrap items-start gap-2">
+            <Link href={`/admin/eleves/${student.id}`} className="max-w-full truncate text-base font-semibold text-fawaid-accent hover:underline">
               {student.full_name}
             </Link>
 
@@ -120,52 +134,58 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
             ) : null}
           </div>
 
-          <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:grid-cols-4">
-            <div>
-              <dt className="text-fawaid-muted">WhatsApp</dt>
-              <dd className="mt-0.5 truncate text-fawaid-text">{student.whatsapp_number?.trim() || 'Non renseigné'}</dd>
-            </div>
-
-            <div>
-              <dt className="text-fawaid-muted">Restants</dt>
-              <dd className={`mt-0.5 text-base font-semibold ${remainingStyles.value}`}>{student.remaining}</dd>
-            </div>
-
-            <div>
-              <dt className="text-fawaid-muted">Achetés</dt>
-              <dd className="mt-0.5 font-medium text-fawaid-text">{student.total_courses_purchased}</dd>
-            </div>
-
-            <div>
-              <dt className="text-fawaid-muted">Professeur</dt>
-              <dd className="mt-0.5 truncate text-fawaid-text">{student.teacher?.name ?? 'Non assigné'}</dd>
-            </div>
-          </dl>
+          <p className="mt-2 truncate text-xs text-fawaid-muted">
+            Professeur: <span className="font-medium text-fawaid-text">{student.teacher?.name ?? 'Non assigné'}</span>
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:min-w-[380px] lg:grid-cols-5">
-          {student.whatsappHref ? (
-            <a
-              href={student.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+        <dl className="grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:grid-cols-4 xl:grid-cols-2 xl:gap-x-4 xl:gap-y-3">
+          <div>
+            <dt className="text-fawaid-muted">WhatsApp</dt>
+            <dd className="mt-0.5 truncate text-fawaid-text">{student.whatsapp_number?.trim() || 'Non renseigné'}</dd>
+          </div>
+
+          <div>
+            <dt className="text-fawaid-muted">Cours restants</dt>
+            <dd className={`mt-0.5 text-base font-semibold ${remainingStyles.value}`}>{student.remaining}</dd>
+          </div>
+
+          <div>
+            <dt className="text-fawaid-muted">Formule / rythme</dt>
+            <dd className="mt-0.5 truncate font-medium text-fawaid-text">{rhythmLabel}</dd>
+          </div>
+
+          <div>
+            <dt className="text-fawaid-muted">Statut</dt>
+            <dd className="mt-0.5 font-medium text-fawaid-text">{remainingStyles.text}</dd>
+          </div>
+        </dl>
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 xl:grid-cols-3 xl:gap-2">
+          <div className="contents xl:col-span-3 xl:grid xl:grid-cols-2 xl:gap-2">
+            {student.whatsappHref ? (
+              <a
+                href={student.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+              >
+                <MessageCircle className="mr-1 h-4 w-4" />
+                WhatsApp
+              </a>
+            ) : (
+              <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
+                WhatsApp indisponible
+              </span>
+            )}
+
+            <Link
+              href={`/admin/eleves/${student.id}`}
               className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
             >
-              <MessageCircle className="mr-1 h-4 w-4" />
-              WhatsApp
-            </a>
-          ) : (
-            <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
-              WhatsApp indisponible
-            </span>
-          )}
-
-          <Link
-            href={`/admin/eleves/${student.id}`}
-            className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
-          >
-            Fiche
-          </Link>
+              Fiche
+            </Link>
+          </div>
 
           {QUICK_DELTAS.map((delta) => (
             <form key={`${student.id}-${delta}`} action={addPurchasedCoursesAction}>
