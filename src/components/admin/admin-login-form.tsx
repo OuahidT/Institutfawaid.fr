@@ -25,14 +25,28 @@ export function AdminLoginForm() {
       });
 
       if (error) {
-        setErrorMessage('Connexion impossible. Vérifiez vos identifiants.');
+        const normalized = error.message.toLowerCase();
+
+        if (normalized.includes('email not confirmed')) {
+          setErrorMessage('Compte non confirmé. Confirmez l’utilisateur dans Supabase Auth.');
+          return;
+        }
+
+        if (normalized.includes('invalid login credentials')) {
+          setErrorMessage('Connexion impossible. Vérifiez vos identifiants.');
+          return;
+        }
+
+        setErrorMessage(`Connexion impossible: ${error.message}`);
         return;
       }
 
       router.replace('/admin');
       router.refresh();
-    } catch {
-      setErrorMessage('Connexion indisponible pour le moment. Merci de réessayer.');
+    } catch (error) {
+      console.error('Admin login unexpected error:', error);
+      const detail = error instanceof Error ? error.message : 'Erreur inconnue';
+      setErrorMessage(`Connexion indisponible: ${detail}`);
     } finally {
       setIsSubmitting(false);
     }
