@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MessageCircle, PauseCircle, PencilLine, PlusCircle } from 'lucide-react';
 
+import { CommentEditAutoClose } from '@/components/admin/comment-edit-autoclose';
 import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
 import {
   addPurchasedCoursesAction,
@@ -33,12 +34,17 @@ export const dynamic = 'force-dynamic';
 
 type StudentDetailPageProps = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ comment_update?: string | string[] }>;
 };
 
 const QUICK_DELTAS = [4, 8, 12] as const;
 
-export default async function StudentDetailPage({ params }: StudentDetailPageProps) {
+export default async function StudentDetailPage({ params, searchParams }: StudentDetailPageProps) {
   const { id } = await params;
+  const resolvedSearchParams = await searchParams;
+  const commentUpdateState = Array.isArray(resolvedSearchParams.comment_update)
+    ? resolvedSearchParams.comment_update[0]
+    : resolvedSearchParams.comment_update;
 
   const [student, teachers, lessons] = await Promise.all([getStudentById(id), listTeachers(), listStudentLessons(id, 200)]);
 
@@ -58,6 +64,8 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
 
   return (
     <div className="space-y-4 md:space-y-5">
+      <CommentEditAutoClose enabled={commentUpdateState === 'ok'} />
+
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <p className="text-sm text-fawaid-muted">
           <Link href="/admin" className="text-fawaid-accent hover:underline">
@@ -354,6 +362,11 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
         <p className="mt-1 text-sm text-fawaid-muted">
           Notes partagées entre administrateurs pour suivre les échanges et les points importants.
         </p>
+        {commentUpdateState === 'error' ? (
+          <p className="mt-3 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            La modification du commentaire a échoué. Merci de réessayer.
+          </p>
+        ) : null}
 
         <form action={createStudentCommentAction} className="mt-4 space-y-2.5">
           <input type="hidden" name="student_id" value={student.id} />
@@ -400,7 +413,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                   <p className="mt-2 whitespace-pre-wrap text-sm text-fawaid-text">{comment.content}</p>
 
                   <div className="mt-3 flex flex-wrap items-start gap-2">
-                    <details className="rounded-lg border border-fawaid-border bg-fawaid-bg/60 px-3 py-2">
+                    <details data-comment-edit className="rounded-lg border border-fawaid-border bg-fawaid-bg/60 px-3 py-2">
                       <summary className="cursor-pointer select-none text-xs font-semibold text-fawaid-accent">
                         Modifier
                       </summary>

@@ -146,19 +146,38 @@ export async function updateStudentCommentAction(formData: FormData) {
   const commentId = getString(formData, 'comment_id');
   const content = getString(formData, 'content');
 
-  if (!studentId || !commentId || !content) return;
+  if (!studentId || !commentId || !content) {
+    if (studentId) {
+      redirect(`/admin/eleves/${studentId}?comment_update=error`);
+    }
+    return;
+  }
 
-  const { error } = await supabase
-    .from('student_comments')
-    .update({
-      content,
-    })
-    .eq('id', commentId)
-    .eq('student_id', studentId);
+  try {
+    const { error } = await supabase
+      .from('student_comments')
+      .update({
+        content,
+      })
+      .eq('id', commentId)
+      .eq('student_id', studentId);
 
-  if (error) throw new Error(`Modification du commentaire impossible: ${error.message}`);
+    if (error) {
+      console.error('Erreur update commentaire', {
+        studentId,
+        commentId,
+        code: error.code,
+        message: error.message,
+      });
+      redirect(`/admin/eleves/${studentId}?comment_update=error`);
+    }
+  } catch (error) {
+    console.error('Exception update commentaire', { studentId, commentId, error });
+    redirect(`/admin/eleves/${studentId}?comment_update=error`);
+  }
 
   revalidatePath(`/admin/eleves/${studentId}`);
+  redirect(`/admin/eleves/${studentId}?comment_update=ok`);
 }
 
 export async function deleteStudentCommentAction(formData: FormData) {
