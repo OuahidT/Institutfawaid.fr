@@ -114,7 +114,13 @@ export async function listStudentComments(studentId: string, limit = 200) {
     .order('created_at', { ascending: false })
     .limit(limit);
 
-  if (error) throw error;
+  // If the comments table is not yet deployed in Supabase, keep admin pages usable.
+  if (error) {
+    if (error.code === '42P01') {
+      return [] as StudentCommentRow[];
+    }
+    throw error;
+  }
   return ((data ?? []).reverse()) as StudentCommentRow[];
 }
 

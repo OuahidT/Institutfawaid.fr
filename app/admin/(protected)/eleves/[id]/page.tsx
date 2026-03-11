@@ -16,6 +16,7 @@ import {
 import { getStudentById, listStudentComments, listStudentLessons, listTeachers } from '@/lib/internal/admin-data';
 import { getCoursesRemaining } from '@/lib/internal/courses';
 import { toWhatsappHref } from '@/lib/internal/whatsapp';
+import type { StudentComment } from '@/types/internal';
 
 export const metadata: Metadata = {
   title: 'Fiche élève | Admin Fawaid',
@@ -37,12 +38,14 @@ const QUICK_DELTAS = [4, 8, 12] as const;
 export default async function StudentDetailPage({ params }: StudentDetailPageProps) {
   const { id } = await params;
 
-  const [student, teachers, lessons, comments] = await Promise.all([
-    getStudentById(id),
-    listTeachers(),
-    listStudentLessons(id, 200),
-    listStudentComments(id, 300),
-  ]);
+  const [student, teachers, lessons] = await Promise.all([getStudentById(id), listTeachers(), listStudentLessons(id, 200)]);
+
+  let comments: StudentComment[] = [];
+  try {
+    comments = await listStudentComments(id, 300);
+  } catch {
+    comments = [];
+  }
 
   if (!student) {
     notFound();
