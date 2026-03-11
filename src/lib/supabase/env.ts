@@ -1,17 +1,19 @@
-function requirePublicEnv(name: 'NEXT_PUBLIC_SUPABASE_URL' | 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY') {
-  const value = process.env[name];
+export function getSupabaseUrl() {
+  const value = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
   if (!value) {
-    throw new Error(`Variable d'environnement manquante: ${name}`);
+    throw new Error("Variable d'environnement manquante: NEXT_PUBLIC_SUPABASE_URL");
   }
 
   return value;
 }
 
-export function getSupabaseUrl() {
-  return requirePublicEnv('NEXT_PUBLIC_SUPABASE_URL');
-}
-
 export function getSupabasePublishableKey() {
-  return requirePublicEnv('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY');
+  const value = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!value) {
+    throw new Error("Variable d'environnement manquante: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
+  }
+
+  return value;
 }
