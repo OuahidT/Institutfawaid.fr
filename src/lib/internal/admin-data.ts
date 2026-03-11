@@ -1,6 +1,6 @@
 import 'server-only';
 
-import type { StudentRow, TeacherRow } from '@/lib/supabase/database.types';
+import type { StudentCommentRow, StudentRow, TeacherRow } from '@/lib/supabase/database.types';
 import { getSupabaseServiceClient } from '@/lib/supabase/service';
 import type { LessonWithRelations, StudentWithTeacher } from '@/types/internal';
 
@@ -103,6 +103,19 @@ export async function listStudentLessons(studentId: string, limit = 100) {
 
   if (error) throw error;
   return data ?? [];
+}
+
+export async function listStudentComments(studentId: string, limit = 200) {
+  const supabase = getSupabaseServiceClient();
+  const { data, error } = await supabase
+    .from('student_comments')
+    .select('*')
+    .eq('student_id', studentId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return ((data ?? []).reverse()) as StudentCommentRow[];
 }
 
 export async function getTeacherByToken(token: string) {

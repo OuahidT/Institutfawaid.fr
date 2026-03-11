@@ -6,13 +6,14 @@ import { MessageCircle, PauseCircle, PencilLine, PlusCircle } from 'lucide-react
 import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
 import {
   addPurchasedCoursesAction,
+  createStudentCommentAction,
   deleteLessonAction,
   deleteStudentAction,
   registerLessonForStudentAction,
   updateLessonAction,
   updateStudentAction,
 } from '@/lib/internal/admin-actions';
-import { getStudentById, listStudentLessons, listTeachers } from '@/lib/internal/admin-data';
+import { getStudentById, listStudentComments, listStudentLessons, listTeachers } from '@/lib/internal/admin-data';
 import { getCoursesRemaining } from '@/lib/internal/courses';
 import { toWhatsappHref } from '@/lib/internal/whatsapp';
 
@@ -36,7 +37,12 @@ const QUICK_DELTAS = [4, 8, 12] as const;
 export default async function StudentDetailPage({ params }: StudentDetailPageProps) {
   const { id } = await params;
 
-  const [student, teachers, lessons] = await Promise.all([getStudentById(id), listTeachers(), listStudentLessons(id, 200)]);
+  const [student, teachers, lessons, comments] = await Promise.all([
+    getStudentById(id),
+    listTeachers(),
+    listStudentLessons(id, 200),
+    listStudentComments(id, 300),
+  ]);
 
   if (!student) {
     notFound();
@@ -336,6 +342,62 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
             </form>
           </article>
         </aside>
+      </section>
+
+      <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+        <h2 className="font-heading text-xl font-semibold text-fawaid-text">Commentaires internes</h2>
+        <p className="mt-1 text-sm text-fawaid-muted">
+          Notes partagées entre administrateurs pour suivre les échanges et les points importants.
+        </p>
+
+        <form action={createStudentCommentAction} className="mt-4 space-y-2.5">
+          <input type="hidden" name="student_id" value={student.id} />
+          <div>
+            <label htmlFor="student-comment-content" className="mb-1 block text-sm font-medium text-fawaid-text">
+              Nouveau commentaire
+            </label>
+            <textarea
+              id="student-comment-content"
+              name="content"
+              required
+              rows={4}
+              placeholder="Écrire une note interne..."
+              className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base text-fawaid-text sm:text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            className="inline-flex h-11 items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white transition hover:bg-[#033E8F]"
+          >
+            Ajouter le commentaire
+          </button>
+        </form>
+
+        <div className="mt-5 space-y-3">
+          {comments.length === 0 ? (
+            <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
+              Aucun commentaire pour le moment.
+            </p>
+          ) : (
+            comments.map((comment) => {
+              const createdAt = new Date(comment.created_at);
+              const dateLabel = createdAt.toLocaleDateString('fr-FR');
+              const timeLabel = createdAt.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+              return (
+                <article key={comment.id} className="rounded-xl border border-fawaid-border p-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-fawaid-muted">
+                    <span>{comment.author_email ?? 'Admin'}</span>
+                    <time dateTime={comment.created_at}>
+                      {dateLabel} à {timeLabel}
+                    </time>
+                  </div>
+                  <p className="mt-2 whitespace-pre-wrap text-sm text-fawaid-text">{comment.content}</p>
+                </article>
+              );
+            })
+          )}
+        </div>
       </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">

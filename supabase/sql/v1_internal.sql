@@ -40,11 +40,22 @@ create table if not exists public.lessons (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.student_comments (
+  id uuid primary key default gen_random_uuid(),
+  student_id uuid not null references public.students(id) on delete cascade,
+  author_user_id uuid,
+  author_email text,
+  content text not null check (length(trim(content)) > 0),
+  created_at timestamptz not null default now()
+);
+
 create index if not exists idx_students_teacher_id on public.students(teacher_id);
 create index if not exists idx_students_full_name on public.students(full_name);
 create index if not exists idx_lessons_student_id on public.lessons(student_id);
 create index if not exists idx_lessons_teacher_id on public.lessons(teacher_id);
 create index if not exists idx_lessons_lesson_date on public.lessons(lesson_date desc);
+create index if not exists idx_student_comments_student_id on public.student_comments(student_id);
+create index if not exists idx_student_comments_created_at on public.student_comments(created_at);
 
 create or replace function public.set_updated_at()
 returns trigger
@@ -65,10 +76,12 @@ execute function public.set_updated_at();
 alter table public.teachers enable row level security;
 alter table public.students enable row level security;
 alter table public.lessons enable row level security;
+alter table public.student_comments enable row level security;
 
 drop policy if exists "teachers_authenticated_all" on public.teachers;
 drop policy if exists "students_authenticated_all" on public.students;
 drop policy if exists "lessons_authenticated_all" on public.lessons;
+drop policy if exists "student_comments_authenticated_all" on public.student_comments;
 
 create policy "teachers_authenticated_all"
 on public.teachers
@@ -86,6 +99,13 @@ with check (true);
 
 create policy "lessons_authenticated_all"
 on public.lessons
+for all
+to authenticated
+using (true)
+with check (true);
+
+create policy "student_comments_authenticated_all"
+on public.student_comments
 for all
 to authenticated
 using (true)

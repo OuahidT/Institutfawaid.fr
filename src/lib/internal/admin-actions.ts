@@ -104,10 +104,38 @@ export async function createStudentAction(formData: FormData) {
     is_paused: parseBooleanValue(getString(formData, 'is_paused')),
   };
 
-  const { error } = await supabase.from('students').insert(payload);
+  const { data, error } = await supabase
+    .from('students')
+    .insert(payload)
+    .select('id')
+    .single();
+
   if (error) throw new Error(`Création élève impossible: ${error.message}`);
+  if (!data?.id) throw new Error('Création élève impossible: identifiant non retourné.');
 
   revalidatePath('/admin');
+  redirect(`/admin/eleves/${data.id}`);
+}
+
+export async function createStudentCommentAction(formData: FormData) {
+  const user = await requireAdminUser();
+  const supabase = getSupabaseServiceClient();
+
+  const studentId = getString(formData, 'student_id');
+  const content = getString(formData, 'content');
+
+  if (!studentId || !content) return;
+
+  const { error } = await supabase.from('student_comments').insert({
+    student_id: studentId,
+    content,
+    author_user_id: user.id,
+    author_email: user.email ?? null,
+  });
+
+  if (error) throw new Error(`Ajout du commentaire impossible: ${error.message}`);
+
+  revalidatePath(`/admin/eleves/${studentId}`);
 }
 
 export async function updateStudentAction(formData: FormData) {

@@ -71,31 +71,54 @@ export default async function AddStudentPage() {
 
         <div>
           <label className="mb-1 block text-sm font-medium text-fawaid-text">Type de cours</label>
-          <input
+          <select
             name="course_type"
-            placeholder="Solo, duo, groupe..."
+            required
             className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Sélectionner
+            </option>
+            <option value="Solo">Solo</option>
+            <option value="Duo">Duo</option>
+            <option value="Groupe">Groupe</option>
+          </select>
         </div>
 
         <div>
           <label className="mb-1 block text-sm font-medium text-fawaid-text">Heures / semaine</label>
-          <input
+          <select
             name="hours_per_week"
-            type="number"
-            min={0}
-            placeholder="1, 2 ou 3"
+            required
             className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Sélectionner
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="autre">Autre</option>
+          </select>
         </div>
 
         <div>
           <label className="mb-1 block text-sm font-medium text-fawaid-text">Moyen de paiement</label>
-          <input
+          <select
             name="payment_method"
-            placeholder="PayPal, Wero, virement..."
+            required
             className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Sélectionner
+            </option>
+            <option value="PayPal">PayPal</option>
+            <option value="Wero">Wero</option>
+            <option value="Virement bancaire">Virement bancaire</option>
+          </select>
         </div>
 
         <div>

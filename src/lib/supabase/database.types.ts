@@ -131,6 +131,41 @@ export type Database = {
           },
         ];
       };
+      student_comments: {
+        Row: {
+          id: string;
+          student_id: string;
+          author_user_id: string | null;
+          author_email: string | null;
+          content: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          author_user_id?: string | null;
+          author_email?: string | null;
+          content: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          student_id?: string;
+          author_user_id?: string | null;
+          author_email?: string | null;
+          content?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_comments_student_id_fkey';
+            columns: ['student_id'];
+            isOneToOne: false;
+            referencedRelation: 'students';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -173,3 +208,4 @@ export type Database = {
 export type TeacherRow = Database['public']['Tables']['teachers']['Row'];
 export type StudentRow = Database['public']['Tables']['students']['Row'];
 export type LessonRow = Database['public']['Tables']['lessons']['Row'];
+export type StudentCommentRow = Database['public']['Tables']['student_comments']['Row'];

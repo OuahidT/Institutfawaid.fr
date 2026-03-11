@@ -45,6 +45,7 @@ Le projet Supabase existe déjà. Ne pas recréer de nouveau projet.
    - `teachers`
    - `students`
    - `lessons`
+   - `student_comments`
 4. Vérifier que les fonctions RPC existent :
    - `register_lesson_by_teacher_token`
    - `register_lesson_for_student`
@@ -141,9 +142,10 @@ Le lien secret suit la route :
 3. Ajouter des cours achetés (`+ cours`) depuis la ligne de l’élève.
 4. Ouvrir la fiche `/admin/eleves/[id]`, modifier les champs, vérifier le solde.
 5. Déclarer un cours depuis la fiche élève (admin).
-6. Ouvrir le lien `/formulaire-prof/[token]` correspondant et déclarer un cours.
-7. Vérifier que l’historique est alimenté et que `courses_completed` s’incrémente.
-8. Supprimer un cours déclaré par erreur et vérifier la réconciliation du compteur.
+6. Ajouter un commentaire interne dans la fiche élève et vérifier la date/heure affichée.
+7. Ouvrir le lien `/formulaire-prof/[token]` correspondant et déclarer un cours.
+8. Vérifier que l’historique est alimenté et que `courses_completed` s’incrémente.
+9. Supprimer un cours déclaré par erreur et vérifier la réconciliation du compteur.
 
 ## 9) Données éditoriales du site public
 
