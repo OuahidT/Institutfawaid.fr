@@ -161,31 +161,22 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
           </div>
         </dl>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 xl:grid-cols-3 xl:gap-2">
-          <div className="contents xl:col-span-3 xl:grid xl:grid-cols-2 xl:gap-2">
-            {student.whatsappHref ? (
-              <a
-                href={student.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
-              >
-                <MessageCircle className="mr-1 h-4 w-4" />
-                WhatsApp
-              </a>
-            ) : (
-              <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
-                WhatsApp indisponible
-              </span>
-            )}
-
-            <Link
-              href={`/admin/eleves/${student.id}`}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 xl:grid-cols-4 xl:gap-2">
+          {student.whatsappHref ? (
+            <a
+              href={student.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
             >
-              Fiche
-            </Link>
-          </div>
+              <MessageCircle className="mr-1 h-4 w-4" />
+              WhatsApp
+            </a>
+          ) : (
+            <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
+              WhatsApp indisponible
+            </span>
+          )}
 
           {QUICK_DELTAS.map((delta) => (
             <form key={`${student.id}-${delta}`} action={addPurchasedCoursesAction}>
