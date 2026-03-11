@@ -1,0 +1,706 @@
+{
+  "node": {
+    "0075bb19c2bc5de070749ab86a23c521c1d377dbb7": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "logoutAdminAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "logoutAdminAction"
+    },
+    "401039e34b355bb736e38b6b43d902c9143db868c0": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "createStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "createStudentAction"
+    },
+    "401203a2dd0e8e52ce5982bb0d84c51465c961b160": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "regenerateTeacherTokenAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "regenerateTeacherTokenAction"
+    },
+    "40150167b78148b6457245246243db7a7f07651980": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "deleteStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "deleteStudentAction"
+    },
+    "402fa777aabed0da289b13c7a39fe2f92ca0972bab": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "deleteLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "deleteLessonAction"
+    },
+    "404076e3d570fc89da563ee9f1d465053f48bd92a7": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "addPurchasedCoursesAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "addPurchasedCoursesAction"
+    },
+    "40640adc3e5825960dd0035cf1d446c1243371a3e0": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "deleteStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "deleteStudentCommentAction"
+    },
+    "40956e1bb14e919e6ee2b250870a46d03b963613c6": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "registerLessonForStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "registerLessonForStudentAction"
+    },
+    "40a05d1b7df01a13534ba2187416b37ba27373e579": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "createTeacherAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "createTeacherAction"
+    },
+    "40a6425f7c6b10dbeef74c6156c700ef3897e356b4": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "updateStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "updateStudentCommentAction"
+    },
+    "40d0a4a30920d0713367a70f648d814c4e2464b5d0": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "updateStudentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "updateStudentAction"
+    },
+    "40dba60811e8cd4e941552f9aefccdd08f2146a96f": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "updateLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "updateLessonAction"
+    },
+    "40dc6b82363b1166c2436c186ab162eb58c31f962b": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "createStudentCommentAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "createStudentCommentAction"
+    },
+    "40e9396925570024998cdf169573fee85a8d02f862": {
+      "workers": {
+        "app/admin/(protected)/ajouter-eleve/page": {
+          "moduleId": 58103,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/ajouter-professeur/page": {
+          "moduleId": 6677,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/eleves/[id]/page": {
+          "moduleId": 5055,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/liens-professeurs/page": {
+          "moduleId": 55330,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 17306,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        },
+        "app/formulaire-prof/[token]/page": {
+          "moduleId": 24081,
+          "async": false,
+          "exportedName": "submitTeacherLessonAction",
+          "filename": "src/lib/internal/admin-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/ajouter-eleve/page": "rsc",
+        "app/admin/(protected)/ajouter-professeur/page": "rsc",
+        "app/admin/(protected)/eleves/[id]/page": "rsc",
+        "app/admin/(protected)/liens-professeurs/page": "rsc",
+        "app/admin/(protected)/page": "rsc",
+        "app/formulaire-prof/[token]/page": "rsc"
+      },
+      "filename": "src/lib/internal/admin-actions.ts",
+      "exportedName": "submitTeacherLessonAction"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "HcQsMGWRjmWj98G/OWHcN5X48PshBdC4kFsQaP6ZhfM="
+}

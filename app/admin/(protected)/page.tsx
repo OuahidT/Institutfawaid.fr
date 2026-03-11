@@ -65,7 +65,16 @@ function sortByFollowUpPriority(a: StudentDashboardItem, b: StudentDashboardItem
   return a.full_name.localeCompare(b.full_name, 'fr-FR');
 }
 
-function getRemainingStyles(remaining: number) {
+function getStudentStatusStyles(student: StudentDashboardItem) {
+  if (student.is_paused) {
+    return {
+      badge: 'border-slate-200 bg-slate-50 text-slate-700',
+      value: 'text-slate-700',
+      text: 'En pause',
+    };
+  }
+
+  const remaining = student.remaining;
   if (remaining <= 0) {
     return {
       badge: 'border-red-200 bg-red-50 text-red-700',
@@ -103,7 +112,7 @@ function getRhythmLabel(student: StudentDashboardItem) {
 }
 
 function StudentRow({ student }: { student: StudentDashboardItem }) {
-  const remainingStyles = getRemainingStyles(student.remaining);
+  const statusStyles = getStudentStatusStyles(student);
   const rhythmLabel = getRhythmLabel(student);
 
   return (
@@ -118,15 +127,7 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
               {student.full_name}
             </Link>
 
-            <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${remainingStyles.badge}`}>
-              {remainingStyles.text}
-            </span>
-
-            {student.is_paused ? (
-              <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
-                En pause
-              </span>
-            ) : null}
+            <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${statusStyles.badge}`}>{statusStyles.text}</span>
           </div>
 
           <p className="mt-2 truncate text-xs text-fawaid-muted">
@@ -142,7 +143,7 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
 
           <div>
             <dt className="text-fawaid-muted">Cours restants</dt>
-            <dd className={`mt-0.5 text-base font-semibold ${remainingStyles.value}`}>{student.remaining}</dd>
+            <dd className={`mt-0.5 text-base font-semibold ${statusStyles.value}`}>{student.remaining}</dd>
           </div>
 
           <div>
@@ -152,7 +153,7 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
 
           <div>
             <dt className="text-fawaid-muted">Statut</dt>
-            <dd className="mt-0.5 font-medium text-fawaid-text">{remainingStyles.text}</dd>
+            <dd className="mt-0.5 font-medium text-fawaid-text">{statusStyles.text}</dd>
           </div>
         </dl>
 
