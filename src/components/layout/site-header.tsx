@@ -16,12 +16,9 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-fawaid-border bg-[rgba(252,251,248,0.96)] backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6">
-        <Link href="/" scroll className="flex items-center gap-2.5" onClick={() => setIsOpen(false)}>
-          <Image src="/images/logo.png" alt="Logo Institut Fawaid" width={40} height={40} className="h-9 w-9" />
-          <p className="font-heading text-base font-semibold tracking-tight text-fawaid-text sm:text-lg">
-            {siteConfig.name}
-          </p>
+      <div className="mx-auto flex w-full max-w-7xl flex-nowrap items-center justify-between gap-2 px-4 py-2 md:px-5">
+        <Link href="/" scroll className="flex shrink-0 items-center" onClick={() => setIsOpen(false)}>
+          <Image src="/images/logo.png" alt="Logo Institut Fawaid" width={48} height={48} className="h-11 w-11" />
         </Link>
 
         <button
@@ -35,7 +32,7 @@ export function SiteHeader() {
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex" aria-label="Navigation principale">
           {siteConfig.nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -44,7 +41,7 @@ export function SiteHeader() {
                 href={item.href}
                 scroll
                 className={cn(
-                  'rounded-full px-2.5 py-2 text-[13px] font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent xl:px-3 xl:text-sm',
+                  'whitespace-nowrap rounded-full px-2 py-2 text-xs font-medium transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent xl:px-2.5 xl:text-[13px]',
                   active ? 'bg-fawaid-accentSoft text-fawaid-accent' : 'text-fawaid-muted'
                 )}
               >
@@ -54,30 +51,21 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-2 lg:flex">
-          <Link
-            href="/admin/login"
-            scroll
-            className="rounded-full px-3 py-2 text-[13px] font-medium text-fawaid-muted transition hover:bg-fawaid-accentSoft hover:text-fawaid-accent"
-          >
-            Connexion
-          </Link>
+        <div className="hidden shrink-0 items-center gap-1.5 lg:flex">
           <ButtonLink
             href={siteConfig.inscriptionUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 text-[13px] leading-none"
+            className="px-3.5 py-2 text-[13px] leading-none"
           >
             {siteConfig.cta.signup}
           </ButtonLink>
           <ButtonLink
-            href={siteConfig.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/admin/login"
             variant="secondary"
-            className="px-4 py-2 text-[13px] leading-none"
+            className="px-3.5 py-2 text-[13px] leading-none"
           >
-            {siteConfig.cta.whatsapp}
+            Connexion
           </ButtonLink>
         </div>
       </div>
@@ -108,14 +96,6 @@ export function SiteHeader() {
             );
           })}
           <div className="mt-2 grid gap-2">
-            <Link
-              href="/admin/login"
-              scroll
-              onClick={() => setIsOpen(false)}
-              className="inline-flex w-full items-center justify-center rounded-xl border border-fawaid-border px-3 py-2 text-sm font-medium text-fawaid-muted transition hover:border-fawaid-accent hover:text-fawaid-accent"
-            >
-              Connexion
-            </Link>
             <ButtonLink
               href={siteConfig.inscriptionUrl}
               target="_blank"
@@ -124,15 +104,14 @@ export function SiteHeader() {
             >
               {siteConfig.cta.signup}
             </ButtonLink>
-            <ButtonLink
-              href={siteConfig.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              className="w-full"
+            <Link
+              href="/admin/login"
+              scroll
+              onClick={() => setIsOpen(false)}
+              className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full border border-fawaid-border bg-white px-5 py-2.5 text-sm font-semibold tracking-tight text-fawaid-accent transition hover:border-fawaid-accent hover:text-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2"
             >
-              {siteConfig.cta.whatsapp}
-            </ButtonLink>
+              Connexion
+            </Link>
           </div>
         </nav>
       </div>
