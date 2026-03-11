@@ -1,0 +1,97 @@
+{
+  "app": {
+    "[project]/app/_not-found/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/a-propos/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/(protected)/ajouter-eleve/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/(protected)/ajouter-professeur/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/(protected)/eleves/[id]/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/(protected)/liens-professeurs/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/(protected)/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/admin/login/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/cgv/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/contact/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/faq/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/formulaire-prof/[token]/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/formules/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/mentions-legales/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/politique-de-confidentialite/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/programmes/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ],
+    "[project]/app/temoignages/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/a343f882a40d2cc9-s.p.71e1367e.woff2",
+      "static/media/130b5bec7367fe75-s.p.8efb6a94.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

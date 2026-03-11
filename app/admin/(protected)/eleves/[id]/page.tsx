@@ -38,6 +38,9 @@ type StudentDetailPageProps = {
 };
 
 const QUICK_DELTAS = [4, 8, 12] as const;
+const COURSE_TYPE_OPTIONS = ['Solo', 'Duo', 'Groupe'] as const;
+const HOURS_PER_WEEK_OPTIONS = ['1', '2', '3', 'autre'] as const;
+const PAYMENT_METHOD_OPTIONS = ['PayPal', 'Wero', 'Virement bancaire'] as const;
 
 export default async function StudentDetailPage({ params, searchParams }: StudentDetailPageProps) {
   const { id } = await params;
@@ -61,6 +64,15 @@ export default async function StudentDetailPage({ params, searchParams }: Studen
 
   const coursesRemaining = getCoursesRemaining(student.total_courses_purchased, student.courses_completed);
   const whatsappHref = toWhatsappHref(student.whatsapp_number);
+  const courseTypeValue = student.course_type?.trim() ?? '';
+  const paymentMethodValue = student.payment_method?.trim() ?? '';
+  const hoursPerWeekValue = student.hours_per_week === null ? '' : String(student.hours_per_week);
+
+  const hasCustomCourseType = courseTypeValue.length > 0 && !COURSE_TYPE_OPTIONS.includes(courseTypeValue as (typeof COURSE_TYPE_OPTIONS)[number]);
+  const hasCustomPaymentMethod =
+    paymentMethodValue.length > 0 && !PAYMENT_METHOD_OPTIONS.includes(paymentMethodValue as (typeof PAYMENT_METHOD_OPTIONS)[number]);
+  const hasCustomHoursPerWeek =
+    hoursPerWeekValue.length > 0 && !HOURS_PER_WEEK_OPTIONS.includes(hoursPerWeekValue as (typeof HOURS_PER_WEEK_OPTIONS)[number]);
 
   return (
     <div className="space-y-4 md:space-y-5">
@@ -199,30 +211,51 @@ export default async function StudentDetailPage({ params, searchParams }: Studen
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Type de cours</label>
-              <input
+              <select
                 name="course_type"
-                defaultValue={student.course_type ?? ''}
+                defaultValue={courseTypeValue}
                 className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
+              >
+                <option value="">Non renseigné</option>
+                {hasCustomCourseType ? <option value={courseTypeValue}>Valeur actuelle: {courseTypeValue}</option> : null}
+                {COURSE_TYPE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Heures / semaine</label>
-              <input
+              <select
                 name="hours_per_week"
-                type="number"
-                min={0}
-                defaultValue={student.hours_per_week ?? ''}
+                defaultValue={hoursPerWeekValue}
                 className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
+              >
+                <option value="">Non renseigné</option>
+                {hasCustomHoursPerWeek ? <option value={hoursPerWeekValue}>Valeur actuelle: {hoursPerWeekValue}</option> : null}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="autre">Autre</option>
+              </select>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Moyen de paiement</label>
-              <input
+              <select
                 name="payment_method"
-                defaultValue={student.payment_method ?? ''}
+                defaultValue={paymentMethodValue}
                 className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
+              >
+                <option value="">Non renseigné</option>
+                {hasCustomPaymentMethod ? <option value={paymentMethodValue}>Valeur actuelle: {paymentMethodValue}</option> : null}
+                {PAYMENT_METHOD_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
