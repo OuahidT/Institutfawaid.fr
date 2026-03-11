@@ -32,7 +32,7 @@ export function SiteHeader() {
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden min-w-0 flex-1 items-center gap-0.5 pl-2 lg:flex xl:pl-3" aria-label="Navigation principale">
           {siteConfig.nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -51,7 +51,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-1.5 lg:flex">
+        <div className="hidden shrink-0 items-center gap-1.5 lg:ml-auto lg:flex">
           <ButtonLink
             href={siteConfig.inscriptionUrl}
             target="_blank"
