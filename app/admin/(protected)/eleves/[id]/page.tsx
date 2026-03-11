@@ -41,9 +41,9 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
   const coursesRemaining = getCoursesRemaining(student.total_courses_purchased, student.courses_completed);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 md:space-y-5">
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm text-fawaid-muted">
               <Link href="/admin" className="text-fawaid-accent hover:underline">
@@ -51,25 +51,25 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               </Link>{' '}
               / Fiche élève
             </p>
-            <h1 className="font-heading text-2xl font-semibold text-fawaid-text">{student.full_name}</h1>
+            <h1 className="font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">{student.full_name}</h1>
             <p className="mt-1 text-sm text-fawaid-muted">
               Professeur : {student.teacher?.name ?? 'Non assigné'} • Restants :{' '}
               <span className="font-semibold text-fawaid-text">{coursesRemaining}</span>
             </p>
           </div>
 
-          <form action={deleteStudentAction}>
+          <form action={deleteStudentAction} className="w-full sm:w-auto">
             <input type="hidden" name="student_id" value={student.id} />
             <ConfirmSubmitButton
               label="Supprimer l’élève"
               confirmMessage={`Confirmer la suppression définitive de ${student.full_name} ?`}
-              className="rounded-full border border-red-200 px-4 py-2 text-sm font-semibold text-red-700"
+              className="inline-flex h-10 w-full items-center justify-center rounded-full border border-red-200 px-4 text-sm font-semibold text-red-700 sm:w-auto"
             />
           </form>
         </div>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:gap-5">
         <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
           <h2 className="font-heading text-xl font-semibold text-fawaid-text">Modifier l’élève</h2>
           <form action={updateStudentAction} className="mt-4 grid gap-3 md:grid-cols-2">
@@ -81,13 +81,17 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 name="full_name"
                 required
                 defaultValue={student.full_name}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Genre</label>
-              <input name="gender" defaultValue={student.gender ?? ''} className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
+              <input
+                name="gender"
+                defaultValue={student.gender ?? ''}
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+              />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Âge</label>
@@ -96,7 +100,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 type="number"
                 min={0}
                 defaultValue={student.age ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
@@ -105,7 +109,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               <input
                 name="whatsapp_number"
                 defaultValue={student.whatsapp_number ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
             <div>
@@ -113,7 +117,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               <input
                 name="course_type"
                 defaultValue={student.course_type ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
@@ -124,7 +128,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 type="number"
                 min={0}
                 defaultValue={student.hours_per_week ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
             <div>
@@ -132,13 +136,17 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               <input
                 name="payment_method"
                 defaultValue={student.payment_method ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
             <div>
               <label className="mb-1 block text-sm font-medium text-fawaid-text">Professeur assigné</label>
-              <select name="teacher_id" defaultValue={student.teacher_id ?? ''} className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm">
+              <select
+                name="teacher_id"
+                defaultValue={student.teacher_id ?? ''}
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+              >
                 <option value="">Non assigné</option>
                 {teachers.map((teacher) => (
                   <option key={teacher.id} value={teacher.id}>
@@ -152,7 +160,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
               <input
                 name="validated_timeslot"
                 defaultValue={student.validated_timeslot ?? ''}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
@@ -163,7 +171,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 type="number"
                 min={0}
                 defaultValue={student.total_courses_purchased}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
             <div>
@@ -173,7 +181,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 type="number"
                 min={0}
                 defaultValue={student.courses_completed}
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
             </div>
 
@@ -191,7 +199,10 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
             </div>
 
             <div className="md:col-span-2">
-              <button type="submit" className="rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2 text-sm font-semibold text-white">
+              <button
+                type="submit"
+                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-sm font-semibold text-white sm:w-auto"
+              >
                 Enregistrer les modifications
               </button>
             </div>
@@ -201,13 +212,22 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
         <aside className="space-y-4">
           <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
             <h2 className="font-heading text-lg font-semibold text-fawaid-text">Ajouter des cours achetés</h2>
-            <form action={addPurchasedCoursesAction} className="mt-3 flex items-end gap-2">
+            <form action={addPurchasedCoursesAction} className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-end">
               <input type="hidden" name="student_id" value={student.id} />
-              <div className="flex-1">
+              <div className="w-full flex-1">
                 <label className="mb-1 block text-sm text-fawaid-muted">Nombre de cours à ajouter</label>
-                <input name="delta" type="number" min={1} defaultValue={1} className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
+                <input
+                  name="delta"
+                  type="number"
+                  min={1}
+                  defaultValue={1}
+                  className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+                />
               </div>
-              <button type="submit" className="rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2 text-sm font-semibold text-white">
+              <button
+                type="submit"
+                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
+              >
                 Ajouter
               </button>
             </form>
@@ -224,7 +244,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                   type="date"
                   required
                   defaultValue={new Date().toISOString().slice(0, 10)}
-                  className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                  className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
                 />
               </div>
               <div>
@@ -233,10 +253,13 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                   name="schedule_note"
                   required
                   placeholder="ex: vendredi de midi à 13h (ABS)"
-                  className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                  className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
                 />
               </div>
-              <button type="submit" className="rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2 text-sm font-semibold text-white">
+              <button
+                type="submit"
+                className="inline-flex h-10 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white sm:w-auto"
+              >
                 Déclarer le cours
               </button>
             </form>
@@ -260,7 +283,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                     name="lesson_date"
                     required
                     defaultValue={lesson.lesson_date}
-                    className="w-full rounded-lg border border-fawaid-border px-2.5 py-1.5 text-sm"
+                    className="w-full rounded-lg border border-fawaid-border px-2.5 py-2 text-base sm:text-sm"
                   />
                 </div>
                 <div>
@@ -269,10 +292,13 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                     name="schedule_note"
                     required
                     defaultValue={lesson.schedule_note}
-                    className="w-full rounded-lg border border-fawaid-border px-2.5 py-1.5 text-sm"
+                    className="w-full rounded-lg border border-fawaid-border px-2.5 py-2 text-base sm:text-sm"
                   />
                 </div>
-                <button type="submit" className="rounded-lg border border-fawaid-border px-3 py-1.5 text-sm font-semibold text-fawaid-accent">
+                <button
+                  type="submit"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-fawaid-border px-3 text-sm font-semibold text-fawaid-accent md:w-auto"
+                >
                   Corriger
                 </button>
               </form>
@@ -283,7 +309,7 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                 <ConfirmSubmitButton
                   label="Supprimer cette entrée"
                   confirmMessage="Supprimer ce cours et corriger automatiquement le compteur ?"
-                  className="rounded-lg border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-700"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-2.5 text-sm font-semibold text-red-700 md:w-auto md:text-xs"
                 />
               </form>
             </article>

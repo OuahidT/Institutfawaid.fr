@@ -32,27 +32,27 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
   const status = typeof query.status === 'string' ? query.status : '';
 
   return (
-    <div className="section-shell py-7 md:py-10">
-      <section className="mx-auto w-full max-w-2xl rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft md:p-6">
+    <div className="section-shell py-5 md:py-10">
+      <section className="mx-auto w-full max-w-2xl rounded-3xl border border-fawaid-border bg-white p-4 shadow-soft sm:p-5 md:p-6">
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-fawaid-accent2">Formulaire professeur</p>
-        <h1 className="mt-1 font-heading text-2xl font-semibold text-fawaid-text">Déclaration de cours — {teacher.name}</h1>
+        <h1 className="mt-1 font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">Déclaration de cours — {teacher.name}</h1>
         <p className="mt-2 text-sm text-fawaid-muted">
           Sélectionnez l’élève, la date, puis indiquez le créneau ou la mention d’absence (ABS).
         </p>
 
         {status === 'success' ? (
-          <p role="status" className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <p role="status" className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 sm:text-[15px]">
             Cours enregistré avec succès.
           </p>
         ) : null}
 
         {status === 'error' ? (
-          <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 sm:text-[15px]">
             Erreur lors de l’enregistrement. Vérifiez les champs puis réessayez.
           </p>
         ) : null}
 
-        <form action={submitTeacherLessonAction} className="mt-5 space-y-4">
+        <form action={submitTeacherLessonAction} className="mt-5 space-y-4 sm:space-y-5">
           <input type="hidden" name="token" value={token} />
 
           <div>
@@ -63,7 +63,7 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
               id="student_id"
               name="student_id"
               required
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-2.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             >
               <option value="">Sélectionner un élève</option>
               {students.map((student) => {
@@ -88,7 +88,7 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
               name="lesson_date"
               required
               defaultValue={new Date().toISOString().slice(0, 10)}
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-2.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             />
           </div>
 
@@ -101,13 +101,13 @@ export default async function TeacherFormPage({ params, searchParams }: TeacherF
               name="schedule_note"
               required
               placeholder="Ex: vendredi de midi à 13h (ABS)"
-              className="w-full rounded-xl border border-fawaid-border px-3.5 py-2.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+              className="w-full rounded-xl border border-fawaid-border px-3.5 py-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
             />
           </div>
 
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-3 text-base font-semibold text-white transition hover:bg-[#033E8F]"
+            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 text-base font-semibold text-white transition hover:bg-[#033E8F]"
           >
             Enregistrer le cours
           </button>

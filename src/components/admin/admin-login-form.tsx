@@ -53,8 +53,8 @@ export function AdminLoginForm() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-3xl border border-fawaid-border bg-white p-6 shadow-soft">
-      <h1 className="font-heading text-2xl font-semibold text-fawaid-text">Connexion admin</h1>
+    <div className="mx-auto w-full max-w-md rounded-3xl border border-fawaid-border bg-white p-5 shadow-soft sm:p-6">
+      <h1 className="font-heading text-xl font-semibold text-fawaid-text sm:text-2xl">Connexion admin</h1>
       <p className="mt-2 text-sm text-fawaid-muted">Accès interne réservé à l’administration.</p>
 
       <form className="mt-5 space-y-4" onSubmit={onSubmit} noValidate>
@@ -69,7 +69,7 @@ export function AdminLoginForm() {
             onChange={(event) => setEmail(event.target.value)}
             autoComplete="email"
             required
-            className="w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-2.5 text-sm text-fawaid-text transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+            className="w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-3 text-base text-fawaid-text transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent sm:text-sm"
           />
         </div>
 
@@ -84,7 +84,7 @@ export function AdminLoginForm() {
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="current-password"
             required
-            className="w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-2.5 text-sm text-fawaid-text transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+            className="w-full rounded-xl border border-fawaid-border bg-white px-3.5 py-3 text-base text-fawaid-text transition hover:border-fawaid-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent sm:text-sm"
           />
         </div>
 
@@ -97,7 +97,7 @@ export function AdminLoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-75"
+          className="inline-flex w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-5 py-3 text-base font-semibold text-white transition hover:bg-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-75 sm:text-sm"
         >
           {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
         </button>

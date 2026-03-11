@@ -41,8 +41,8 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
   ]);
 
   return (
-    <div className="space-y-5">
-      <section className="grid gap-3 md:grid-cols-3">
+    <div className="space-y-4 md:space-y-5">
+      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
           <p className="text-xs text-fawaid-muted">Élèves suivis</p>
           <p className="mt-1 font-heading text-2xl font-semibold text-fawaid-text">{students.length}</p>
@@ -57,24 +57,24 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
         </article>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[1.35fr_0.65fr]">
+      <section className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr] xl:gap-5">
         <article className="space-y-4 rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <h1 className="font-heading text-2xl font-semibold text-fawaid-text">Élèves</h1>
               <p className="text-sm text-fawaid-muted">Recherche, filtrage et gestion rapide.</p>
             </div>
-            <form method="get" className="grid gap-2 sm:grid-cols-[1fr_auto_auto] sm:items-center">
+            <form method="get" className="grid gap-2 sm:grid-cols-[minmax(220px,1fr)_auto_auto] sm:items-center">
               <input
                 name="q"
                 defaultValue={query}
                 placeholder="Rechercher un élève..."
-                className="w-full rounded-xl border border-fawaid-border bg-white px-3 py-2 text-sm text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+                className="w-full rounded-xl border border-fawaid-border bg-white px-3 py-2.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent sm:text-sm"
               />
               <select
                 name="teacher_id"
                 defaultValue={teacherId}
-                className="rounded-xl border border-fawaid-border bg-white px-3 py-2 text-sm text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent"
+                className="w-full rounded-xl border border-fawaid-border bg-white px-3 py-2.5 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent sm:text-sm"
               >
                 <option value="">Tous les professeurs</option>
                 {teachers.map((teacher) => (
@@ -85,14 +85,14 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
               </select>
               <button
                 type="submit"
-                className="rounded-xl border border-fawaid-accent bg-fawaid-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#033E8F]"
+                className="w-full rounded-xl border border-fawaid-accent bg-fawaid-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#033E8F] sm:w-auto"
               >
                 Filtrer
               </button>
             </form>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="hidden overflow-x-auto md:block">
             <table className="min-w-full divide-y divide-fawaid-border text-sm">
               <thead>
                 <tr className="text-left text-fawaid-muted">
@@ -170,6 +170,84 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
               </tbody>
             </table>
           </div>
+
+          <div className="space-y-3 md:hidden">
+            {students.map((student) => {
+              const remaining = getCoursesRemaining(student.total_courses_purchased, student.courses_completed);
+
+              return (
+                <article key={student.id} className="rounded-xl border border-fawaid-border p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <Link href={`/admin/eleves/${student.id}`} className="text-base font-semibold text-fawaid-accent hover:underline">
+                      {student.full_name}
+                    </Link>
+                    {student.is_paused ? (
+                      <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">
+                        Pause
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
+                    <div>
+                      <dt className="text-fawaid-muted">Professeur</dt>
+                      <dd className="mt-0.5 text-fawaid-text">{student.teacher?.name ?? 'Non assigné'}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-fawaid-muted">Type</dt>
+                      <dd className="mt-0.5 text-fawaid-text">{student.course_type ?? '—'}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-fawaid-muted">Achetés</dt>
+                      <dd className="mt-0.5 font-medium text-fawaid-text">{student.total_courses_purchased}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-fawaid-muted">Effectués</dt>
+                      <dd className="mt-0.5 font-medium text-fawaid-text">{student.courses_completed}</dd>
+                    </div>
+                    <div className="col-span-2">
+                      <dt className="text-fawaid-muted">Restants</dt>
+                      <dd className="mt-0.5 text-base font-semibold text-fawaid-text">{remaining}</dd>
+                    </div>
+                  </dl>
+
+                  <form action={addPurchasedCoursesAction} className="mt-3 flex items-center gap-2">
+                    <input type="hidden" name="student_id" value={student.id} />
+                    <input
+                      type="number"
+                      name="delta"
+                      min={1}
+                      defaultValue={1}
+                      className="h-10 w-20 rounded-lg border border-fawaid-border px-2 text-sm"
+                    />
+                    <button
+                      type="submit"
+                      className="inline-flex h-10 flex-1 items-center justify-center rounded-lg border border-fawaid-accent bg-fawaid-accent px-3 text-sm font-semibold text-white"
+                    >
+                      Ajouter des cours
+                    </button>
+                  </form>
+
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <Link
+                      href={`/admin/eleves/${student.id}`}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border px-2.5 text-sm font-semibold text-fawaid-accent"
+                    >
+                      Modifier
+                    </Link>
+                    <form action={deleteStudentAction}>
+                      <input type="hidden" name="student_id" value={student.id} />
+                      <ConfirmSubmitButton
+                        label="Supprimer"
+                        confirmMessage={`Supprimer définitivement ${student.full_name} ?`}
+                        className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-2.5 text-sm font-semibold text-red-700"
+                      />
+                    </form>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </article>
 
         <aside className="space-y-4">
@@ -180,9 +258,9 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
                 name="full_name"
                 required
                 placeholder="Prénom et nom"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
-              <select name="teacher_id" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm">
+              <select name="teacher_id" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm">
                 <option value="">Professeur assigné</option>
                 {teachers.map((teacher) => (
                   <option key={teacher.id} value={teacher.id}>
@@ -190,15 +268,15 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
                   </option>
                 ))}
               </select>
-              <input name="course_type" placeholder="Type de cours" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
-              <input name="hours_per_week" type="number" min={0} placeholder="Heures / semaine" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
+              <input name="course_type" placeholder="Type de cours" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
+              <input name="hours_per_week" type="number" min={0} placeholder="Heures / semaine" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
               <input
                 name="total_courses_purchased"
                 type="number"
                 min={0}
                 defaultValue={0}
                 placeholder="Total cours achetés"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
               <input
                 name="courses_completed"
@@ -206,12 +284,12 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
                 min={0}
                 defaultValue={0}
                 placeholder="Cours effectués"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
-              <input name="whatsapp_number" placeholder="Numéro WhatsApp" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
-              <input name="validated_timeslot" placeholder="Créneau validé" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
-              <input name="payment_method" placeholder="Moyen de paiement" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
-              <button type="submit" className="w-full rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2 text-sm font-semibold text-white">
+              <input name="whatsapp_number" placeholder="Numéro WhatsApp" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
+              <input name="validated_timeslot" placeholder="Créneau validé" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
+              <input name="payment_method" placeholder="Moyen de paiement" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
+              <button type="submit" className="w-full rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2.5 text-sm font-semibold text-white">
                 Créer l’élève
               </button>
             </form>
@@ -229,13 +307,13 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
                     <input
                       readOnly
                       value={teacherUrl}
-                      className="mt-2 w-full rounded-lg border border-fawaid-border bg-fawaid-bg px-2 py-1.5 text-xs text-fawaid-muted"
+                      className="mt-2 w-full rounded-lg border border-fawaid-border bg-fawaid-bg px-2 py-1.5 text-[11px] text-fawaid-muted"
                     />
                     <form action={regenerateTeacherTokenAction} className="mt-2">
                       <input type="hidden" name="teacher_id" value={teacher.id} />
                       <button
                         type="submit"
-                        className="rounded-lg border border-fawaid-border px-2.5 py-1 text-xs font-semibold text-fawaid-accent"
+                        className="inline-flex h-9 items-center justify-center rounded-lg border border-fawaid-border px-2.5 text-xs font-semibold text-fawaid-accent"
                       >
                         Régénérer le token
                       </button>
@@ -250,10 +328,10 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
                 name="name"
                 required
                 placeholder="Nom du professeur"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm"
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
               />
-              <input name="slug" placeholder="Slug (optionnel)" className="w-full rounded-xl border border-fawaid-border px-3 py-2 text-sm" />
-              <button type="submit" className="w-full rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2 text-sm font-semibold text-white">
+              <input name="slug" placeholder="Slug (optionnel)" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm" />
+              <button type="submit" className="w-full rounded-full border border-fawaid-accent bg-fawaid-accent px-4 py-2.5 text-sm font-semibold text-white">
                 Ajouter un professeur
               </button>
             </form>
@@ -265,7 +343,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
         <h2 className="font-heading text-xl font-semibold text-fawaid-text">Historique des cours déclarés</h2>
         <p className="mt-1 text-sm text-fawaid-muted">Dernières entrées enregistrées (cours faits ou absences décomptées).</p>
 
-        <div className="mt-4 overflow-x-auto">
+        <div className="mt-4 hidden overflow-x-auto md:block">
           <table className="min-w-full divide-y divide-fawaid-border text-sm">
             <thead>
               <tr className="text-left text-fawaid-muted">
@@ -308,6 +386,45 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="mt-4 space-y-3 md:hidden">
+          {lessons.map((lesson) => (
+            <article key={lesson.id} className="rounded-xl border border-fawaid-border p-3 text-sm">
+              <p className="text-xs text-fawaid-muted">Date du cours</p>
+              <p className="font-medium text-fawaid-text">{lesson.lesson_date}</p>
+
+              <p className="mt-2 text-xs text-fawaid-muted">Élève</p>
+              <p className="text-fawaid-text">
+                {lesson.student ? (
+                  <Link href={`/admin/eleves/${lesson.student.id}`} className="text-fawaid-accent hover:underline">
+                    {lesson.student.full_name}
+                  </Link>
+                ) : (
+                  '—'
+                )}
+              </p>
+
+              <p className="mt-2 text-xs text-fawaid-muted">Professeur</p>
+              <p className="text-fawaid-text">{lesson.teacher?.name ?? '—'}</p>
+
+              <p className="mt-2 text-xs text-fawaid-muted">Créneau / note</p>
+              <p className="break-words text-fawaid-text">{lesson.schedule_note}</p>
+
+              <p className="mt-2 text-xs text-fawaid-muted">Créé le</p>
+              <p className="text-fawaid-text">{new Date(lesson.created_at).toLocaleDateString('fr-FR')}</p>
+
+              <form action={deleteLessonAction} className="mt-3">
+                <input type="hidden" name="lesson_id" value={lesson.id} />
+                <input type="hidden" name="student_id" value={lesson.student_id} />
+                <ConfirmSubmitButton
+                  label="Supprimer"
+                  confirmMessage="Supprimer cette entrée de cours et corriger le compteur de l’élève ?"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-red-200 px-2.5 text-sm font-semibold text-red-700"
+                />
+              </form>
+            </article>
+          ))}
         </div>
       </section>
     </div>

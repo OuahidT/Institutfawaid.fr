@@ -21,7 +21,7 @@ export default async function AdminLoginPage() {
   }
 
   return (
-    <div className="section-shell py-8 md:py-12">
+    <div className="section-shell flex min-h-[calc(100svh-11rem)] items-center py-6 md:min-h-[calc(100svh-14rem)] md:py-12">
       <AdminLoginForm />
     </div>
   );
