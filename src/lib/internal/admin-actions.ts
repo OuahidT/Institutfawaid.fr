@@ -138,6 +138,45 @@ export async function createStudentCommentAction(formData: FormData) {
   revalidatePath(`/admin/eleves/${studentId}`);
 }
 
+export async function updateStudentCommentAction(formData: FormData) {
+  await requireAdminUser();
+  const supabase = getSupabaseServiceClient();
+
+  const studentId = getString(formData, 'student_id');
+  const commentId = getString(formData, 'comment_id');
+  const content = getString(formData, 'content');
+
+  if (!studentId || !commentId || !content) return;
+
+  const { error } = await supabase
+    .from('student_comments')
+    .update({
+      content,
+    })
+    .eq('id', commentId)
+    .eq('student_id', studentId);
+
+  if (error) throw new Error(`Modification du commentaire impossible: ${error.message}`);
+
+  revalidatePath(`/admin/eleves/${studentId}`);
+}
+
+export async function deleteStudentCommentAction(formData: FormData) {
+  await requireAdminUser();
+  const supabase = getSupabaseServiceClient();
+
+  const studentId = getString(formData, 'student_id');
+  const commentId = getString(formData, 'comment_id');
+
+  if (!studentId || !commentId) return;
+
+  const { error } = await supabase.from('student_comments').delete().eq('id', commentId).eq('student_id', studentId);
+
+  if (error) throw new Error(`Suppression du commentaire impossible: ${error.message}`);
+
+  revalidatePath(`/admin/eleves/${studentId}`);
+}
+
 export async function updateStudentAction(formData: FormData) {
   await requireAdminUser();
   const supabase = getSupabaseServiceClient();

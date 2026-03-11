@@ -7,9 +7,11 @@ import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
 import {
   addPurchasedCoursesAction,
   createStudentCommentAction,
+  deleteStudentCommentAction,
   deleteLessonAction,
   deleteStudentAction,
   registerLessonForStudentAction,
+  updateStudentCommentAction,
   updateLessonAction,
   updateStudentAction,
 } from '@/lib/internal/admin-actions';
@@ -396,6 +398,41 @@ export default async function StudentDetailPage({ params }: StudentDetailPagePro
                     </time>
                   </div>
                   <p className="mt-2 whitespace-pre-wrap text-sm text-fawaid-text">{comment.content}</p>
+
+                  <div className="mt-3 flex flex-wrap items-start gap-2">
+                    <details className="rounded-lg border border-fawaid-border bg-fawaid-bg/60 px-3 py-2">
+                      <summary className="cursor-pointer select-none text-xs font-semibold text-fawaid-accent">
+                        Modifier
+                      </summary>
+                      <form action={updateStudentCommentAction} className="mt-2 space-y-2">
+                        <input type="hidden" name="student_id" value={student.id} />
+                        <input type="hidden" name="comment_id" value={comment.id} />
+                        <textarea
+                          name="content"
+                          required
+                          rows={4}
+                          defaultValue={comment.content}
+                          className="w-full min-w-[220px] rounded-lg border border-fawaid-border bg-white px-2.5 py-2 text-sm text-fawaid-text sm:min-w-[340px]"
+                        />
+                        <button
+                          type="submit"
+                          className="inline-flex h-9 items-center justify-center rounded-lg border border-fawaid-accent bg-fawaid-accent px-3 text-xs font-semibold text-white transition hover:bg-[#033E8F]"
+                        >
+                          Enregistrer
+                        </button>
+                      </form>
+                    </details>
+
+                    <form action={deleteStudentCommentAction}>
+                      <input type="hidden" name="student_id" value={student.id} />
+                      <input type="hidden" name="comment_id" value={comment.id} />
+                      <ConfirmSubmitButton
+                        label="Supprimer"
+                        confirmMessage="Supprimer ce commentaire ?"
+                        className="inline-flex h-9 items-center justify-center rounded-lg border border-red-200 px-3 text-xs font-semibold text-red-700"
+                      />
+                    </form>
+                  </div>
                 </article>
               );
             })
