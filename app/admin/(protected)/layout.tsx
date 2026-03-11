@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { requireAdminUser } from '@/lib/auth/admin';
 import { logoutAdminAction } from '@/lib/internal/admin-actions';
 
@@ -17,12 +15,6 @@ export default async function AdminProtectedLayout({ children }: { children: Rea
           </div>
 
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-            <Link
-              href="/admin"
-              className="inline-flex w-full items-center justify-center rounded-full border border-fawaid-border bg-white px-4 py-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent sm:w-auto"
-            >
-              Dashboard
-            </Link>
             <form action={logoutAdminAction}>
               <button
                 type="submit"

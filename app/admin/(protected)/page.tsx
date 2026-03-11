@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import {
   AlertTriangle,
   Clock3,
-  ExternalLink,
   Link2,
   MessageCircle,
   PauseCircle,
@@ -13,14 +12,7 @@ import {
 } from 'lucide-react';
 
 import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
-import { siteConfig } from '@/config/site';
-import {
-  addPurchasedCoursesAction,
-  createStudentAction,
-  createTeacherAction,
-  deleteLessonAction,
-  regenerateTeacherTokenAction,
-} from '@/lib/internal/admin-actions';
+import { addPurchasedCoursesAction, deleteLessonAction } from '@/lib/internal/admin-actions';
 import { listLessons, listStudents, listTeachers } from '@/lib/internal/admin-data';
 import { getCoursesRemaining } from '@/lib/internal/courses';
 import { toWhatsappHref } from '@/lib/internal/whatsapp';
@@ -116,10 +108,13 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
 
   return (
     <article className="rounded-xl border border-fawaid-border bg-white p-3.5 shadow-soft sm:p-4">
-      <div className="grid gap-3 xl:grid-cols-[minmax(240px,0.9fr)_minmax(360px,1.1fr)_320px] xl:items-center xl:gap-4">
+      <div className="grid gap-3 xl:grid-cols-[minmax(240px,0.9fr)_minmax(360px,1.1fr)_360px] xl:items-center xl:gap-4">
         <div className="min-w-0 xl:pr-3 xl:border-r xl:border-fawaid-border">
           <div className="flex flex-wrap items-start gap-2">
-            <Link href={`/admin/eleves/${student.id}`} className="max-w-full truncate text-base font-semibold text-fawaid-accent hover:underline">
+            <Link
+              href={`/admin/eleves/${student.id}`}
+              className="max-w-full truncate text-base font-semibold text-fawaid-accent underline-offset-2 transition hover:text-[#033E8F] hover:underline"
+            >
               {student.full_name}
             </Link>
 
@@ -161,19 +156,19 @@ function StudentRow({ student }: { student: StudentDashboardItem }) {
           </div>
         </dl>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 xl:grid-cols-4 xl:gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 xl:grid-cols-5 xl:gap-2">
           {student.whatsappHref ? (
             <a
               href={student.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-2 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+              className="sm:col-span-2 inline-flex h-10 items-center justify-center whitespace-nowrap rounded-lg border border-fawaid-border bg-white px-3.5 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
             >
               <MessageCircle className="mr-1 h-4 w-4" />
               WhatsApp
             </a>
           ) : (
-            <span className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
+            <span className="sm:col-span-2 inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-fawaid-bg px-2 text-xs font-semibold text-fawaid-muted">
               WhatsApp indisponible
             </span>
           )}
@@ -232,65 +227,57 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
 
   return (
     <div className="space-y-4 md:space-y-5">
-      <section className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr]">
-        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">Pilotage quotidien</p>
-          <h1 className="mt-1 font-heading text-2xl font-semibold text-fawaid-text">Dashboard élèves</h1>
-          <p className="mt-1 text-sm text-fawaid-muted">
-            Les actions clés sont accessibles immédiatement pour gérer les relances et les paiements en quelques clics.
-          </p>
+      <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+        <div className="grid gap-2 sm:grid-cols-3">
+          <Link
+            href="/admin/ajouter-eleve"
+            className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+          >
+            <UserPlus className="mr-2 h-4 w-4" />
+            Ajouter un élève
+          </Link>
+          <Link
+            href="/admin/ajouter-professeur"
+            className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+          >
+            <UsersRound className="mr-2 h-4 w-4" />
+            Ajouter un professeur
+          </Link>
+          <Link
+            href="/admin/liens-professeurs"
+            className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+          >
+            <Link2 className="mr-2 h-4 w-4" />
+            Gérer les liens profs
+          </Link>
+        </div>
+      </section>
 
-          <div className="mt-4 grid gap-2 sm:grid-cols-3">
-            <a
-              href="#admin-create-student"
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
-            >
-              <UserPlus className="mr-2 h-4 w-4" />
-              Ajouter un élève
-            </a>
-            <a
-              href="#admin-create-teacher"
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
-            >
-              <UsersRound className="mr-2 h-4 w-4" />
-              Ajouter un professeur
-            </a>
-            <a
-              href="#admin-teacher-links"
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-fawaid-border bg-fawaid-bg px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
-            >
-              <Link2 className="mr-2 h-4 w-4" />
-              Gérer les liens profs
-            </a>
+      <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+        <h2 className="font-heading text-lg font-semibold text-fawaid-text">Suivi rapide</h2>
+        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-red-700">Urgent</p>
+            <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-red-700">
+              <AlertTriangle className="h-5 w-5" />
+              {urgentCount}
+            </p>
           </div>
-        </article>
-
-        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-          <h2 className="font-heading text-lg font-semibold text-fawaid-text">Suivi rapide</h2>
-          <div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-1">
-            <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-red-700">Urgent</p>
-              <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-red-700">
-                <AlertTriangle className="h-5 w-5" />
-                {urgentCount}
-              </p>
-            </div>
-            <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">A relancer</p>
-              <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-amber-700">
-                <Clock3 className="h-5 w-5" />
-                {followupCount}
-              </p>
-            </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-700">En pause</p>
-              <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-slate-700">
-                <PauseCircle className="h-5 w-5" />
-                {pausedCount}
-              </p>
-            </div>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">A relancer</p>
+            <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-amber-700">
+              <Clock3 className="h-5 w-5" />
+              {followupCount}
+            </p>
           </div>
-        </article>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-700">En pause</p>
+            <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-slate-700">
+              <PauseCircle className="h-5 w-5" />
+              {pausedCount}
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
@@ -331,181 +318,38 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
         </form>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr]">
-        <div className="space-y-4">
-          <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="font-heading text-xl font-semibold text-fawaid-text">Liste principale des élèves</h2>
-              <p className="text-xs text-fawaid-muted">Tri automatique par priorité de relance</p>
-            </div>
+      <section className="space-y-4">
+        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-heading text-xl font-semibold text-fawaid-text">Liste principale des élèves</h2>
+            <p className="text-xs text-fawaid-muted">Tri automatique par priorité de relance</p>
+          </div>
 
-            <div className="mt-3 space-y-3">
-              {activeStudents.length === 0 ? (
-                <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
-                  Aucun élève actif pour ce filtre.
-                </p>
-              ) : (
-                activeStudents.map((student) => <StudentRow key={student.id} student={student} />)
-              )}
-            </div>
-          </article>
+          <div className="mt-3 space-y-3">
+            {activeStudents.length === 0 ? (
+              <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
+                Aucun élève actif pour ce filtre.
+              </p>
+            ) : (
+              activeStudents.map((student) => <StudentRow key={student.id} student={student} />)
+            )}
+          </div>
+        </article>
 
-          <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Élèves en pause</h2>
-            <p className="mt-1 text-sm text-fawaid-muted">Distincts du suivi prioritaire, tout en restant accessibles.</p>
+        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+          <h2 className="font-heading text-lg font-semibold text-fawaid-text">Élèves en pause</h2>
+          <p className="mt-1 text-sm text-fawaid-muted">Distincts du suivi prioritaire, tout en restant accessibles.</p>
 
-            <div className="mt-3 space-y-3">
-              {pausedStudents.length === 0 ? (
-                <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
-                  Aucun élève en pause.
-                </p>
-              ) : (
-                pausedStudents.map((student) => <StudentRow key={student.id} student={student} />)
-              )}
-            </div>
-          </article>
-        </div>
-
-        <aside className="space-y-4">
-          <article id="admin-create-student" className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Ajouter un élève</h2>
-            <form action={createStudentAction} className="mt-3 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
-              <input
-                name="full_name"
-                required
-                placeholder="Prénom et nom"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-              <input
-                name="whatsapp_number"
-                placeholder="Numéro WhatsApp"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-
-              <select name="teacher_id" className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm">
-                <option value="">Professeur assigné</option>
-                {teachers.map((teacher) => (
-                  <option key={teacher.id} value={teacher.id}>
-                    {teacher.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                name="course_type"
-                placeholder="Type de cours"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-
-              <input
-                name="hours_per_week"
-                type="number"
-                min={0}
-                placeholder="Heures / semaine"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-              <input
-                name="payment_method"
-                placeholder="Moyen de paiement"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-
-              <input
-                name="total_courses_purchased"
-                type="number"
-                min={0}
-                defaultValue={0}
-                placeholder="Total cours achetés"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-              <input
-                name="courses_completed"
-                type="number"
-                min={0}
-                defaultValue={0}
-                placeholder="Cours effectués"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-
-              <input
-                name="validated_timeslot"
-                placeholder="Créneau validé"
-                className="sm:col-span-2 w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm xl:col-span-1"
-              />
-
-              <button
-                type="submit"
-                className="sm:col-span-2 inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white xl:col-span-1"
-              >
-                Créer l’élève
-              </button>
-            </form>
-          </article>
-
-          <article id="admin-create-teacher" className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Ajouter un professeur</h2>
-            <form action={createTeacherAction} className="mt-3 space-y-2.5">
-              <input
-                name="name"
-                required
-                placeholder="Nom du professeur"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-              <input
-                name="slug"
-                placeholder="Slug (optionnel)"
-                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              />
-              <button
-                type="submit"
-                className="inline-flex h-11 w-full items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white"
-              >
-                Ajouter le professeur
-              </button>
-            </form>
-          </article>
-
-          <article id="admin-teacher-links" className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Liens secrets professeurs</h2>
-            <div className="mt-3 space-y-3">
-              {teachers.map((teacher) => {
-                const teacherUrl = `${siteConfig.url}/formulaire-prof/${teacher.secret_token}`;
-                return (
-                  <div key={teacher.id} className="rounded-xl border border-fawaid-border p-3">
-                    <p className="font-medium text-fawaid-text">{teacher.name}</p>
-                    <p className="mt-1 text-xs text-fawaid-muted">{teacher.slug}</p>
-                    <input
-                      readOnly
-                      value={teacherUrl}
-                      className="mt-2 w-full rounded-lg border border-fawaid-border bg-fawaid-bg px-2 py-1.5 text-[11px] text-fawaid-muted"
-                    />
-
-                    <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                      <a
-                        href={teacherUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-9 items-center justify-center rounded-lg border border-fawaid-border px-2.5 text-xs font-semibold text-fawaid-accent"
-                      >
-                        <ExternalLink className="mr-1 h-3.5 w-3.5" />
-                        Ouvrir
-                      </a>
-
-                      <form action={regenerateTeacherTokenAction}>
-                        <input type="hidden" name="teacher_id" value={teacher.id} />
-                        <button
-                          type="submit"
-                          className="inline-flex h-9 w-full items-center justify-center rounded-lg border border-fawaid-border px-2.5 text-xs font-semibold text-fawaid-accent"
-                        >
-                          Régénérer le token
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </article>
-        </aside>
+          <div className="mt-3 space-y-3">
+            {pausedStudents.length === 0 ? (
+              <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
+                Aucun élève en pause.
+              </p>
+            ) : (
+              pausedStudents.map((student) => <StudentRow key={student.id} student={student} />)
+            )}
+          </div>
+        </article>
       </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
