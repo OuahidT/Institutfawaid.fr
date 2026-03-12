@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import {
   AlertTriangle,
   Clock3,
+  Inbox,
   Link2,
   MessageCircle,
   PauseCircle,
@@ -14,6 +15,7 @@ import {
 import { ConfirmSubmitButton } from '@/components/admin/confirm-submit-button';
 import { addPurchasedCoursesAction, deleteLessonAction } from '@/lib/internal/admin-actions';
 import { listLessons, listStudents, listTeachers } from '@/lib/internal/admin-data';
+import { countPendingRegistrationRequests } from '@/lib/internal/registration-data';
 import { getCoursesRemaining } from '@/lib/internal/courses';
 import { toWhatsappHref } from '@/lib/internal/whatsapp';
 import type { StudentWithTeacher } from '@/types/internal';
@@ -197,10 +199,11 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
   const query = typeof params.q === 'string' ? params.q.trim() : '';
   const teacherId = typeof params.teacher_id === 'string' ? params.teacher_id : '';
 
-  const [teachers, students, lessons] = await Promise.all([
+  const [teachers, students, lessons, pendingRegistrationsCount] = await Promise.all([
     listTeachers(),
     listStudents({ query, teacherId }),
     listLessons(40),
+    countPendingRegistrationRequests(),
   ]);
 
   const enrichedStudents: StudentDashboardItem[] = students.map((student) => {
@@ -250,6 +253,23 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
           >
             <Link2 className="mr-2 h-4 w-4" />
             Gérer les liens profs
+          </Link>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-fawaid-accent2">Nouveau flux</p>
+            <p className="mt-1 text-base font-semibold text-fawaid-text">Inscriptions en attente : {pendingRegistrationsCount}</p>
+            <p className="mt-1 text-sm text-fawaid-muted">Demandes reçues depuis le formulaire d’inscription natif.</p>
+          </div>
+          <Link
+            href="/admin/inscriptions"
+            className="inline-flex h-10 items-center justify-center rounded-lg border border-fawaid-border bg-white px-3 text-sm font-semibold text-fawaid-accent transition hover:border-fawaid-accent"
+          >
+            <Inbox className="mr-1.5 h-4 w-4" />
+            Ouvrir les inscriptions
           </Link>
         </div>
       </section>

@@ -41,18 +41,22 @@ Le projet Supabase existe déjà. Ne pas recréer de nouveau projet.
 Étapes :
 1. Ouvrir le SQL Editor Supabase.
 2. Exécuter le script : `supabase/sql/v1_internal.sql`.
-3. Vérifier que les tables existent :
+3. Exécuter ensuite le script : `supabase/sql/v2_registration_requests.sql`.
+4. Vérifier que les tables existent :
    - `teachers`
    - `students`
    - `lessons`
    - `student_comments`
-4. Vérifier que les fonctions RPC existent :
+   - `registration_requests`
+   - `registration_request_comments`
+5. Vérifier que les fonctions RPC existent :
    - `register_lesson_by_teacher_token`
    - `register_lesson_for_student`
    - `remove_lesson_and_reconcile`
    - `add_purchased_courses`
-5. Dans Supabase Auth > Users, créer le compte admin (email + mot de passe).
-6. Recommandé : dans Auth > Providers > Email, désactiver le signup public pour garder un seul compte admin.
+   - `validate_registration_request`
+6. Dans Supabase Auth > Users, créer le compte admin (email + mot de passe).
+7. Recommandé : dans Auth > Providers > Email, désactiver le signup public pour garder un seul compte admin.
 
 ## 4) Routes V1 interne
 
@@ -60,9 +64,16 @@ Admin :
 - `/admin/login` : connexion admin
 - `/admin` : dashboard protégé
 - `/admin/eleves/[id]` : fiche élève (édition + historique)
+- `/admin/inscriptions` : inscriptions en attente
+- `/admin/inscriptions/[id]` : fiche d’inscription (traitement + validation)
 
 Formulaire professeur (sans login) :
 - `/formulaire-prof/[token]`
+
+Nouveau flux inscription public :
+- `/inscription` : formulaire d’inscription natif (3 étapes)
+- `/inscription/confirmation` : confirmation après soumission
+- `/api/inscription` : endpoint serveur de soumission
 
 ## 5) Où se trouve la logique interne
 
@@ -77,10 +88,17 @@ Formulaire professeur (sans login) :
   - `app/admin/(protected)/layout.tsx`
 - Actions métier (CRUD, historique, tokens, formulaire prof) :
   - `src/lib/internal/admin-actions.ts`
+- Actions métier inscriptions (admin) :
+  - `src/lib/internal/registration-actions.ts`
 - Requêtes de lecture :
   - `src/lib/internal/admin-data.ts`
+  - `src/lib/internal/registration-data.ts`
+- Service de création d’inscription publique :
+  - `src/lib/internal/registration-service.ts`
 - Calcul cours restants :
   - `src/lib/internal/courses.ts`
+- Constantes du formulaire inscription :
+  - `src/lib/registration/constants.ts`
 
 ## 6) Import CSV Airtable (one-shot)
 
@@ -147,7 +165,24 @@ Le lien secret suit la route :
 8. Vérifier que l’historique est alimenté et que `courses_completed` s’incrémente.
 9. Supprimer un cours déclaré par erreur et vérifier la réconciliation du compteur.
 
-## 9) Données éditoriales du site public
+## 9) Test du nouveau flux inscription (bout-en-bout)
+
+1. Ouvrir `/inscription` et soumettre une demande.
+2. Vérifier la redirection vers `/inscription/confirmation`.
+3. Ouvrir `/admin/inscriptions` et vérifier la présence de la demande en attente.
+4. Ouvrir la fiche `/admin/inscriptions/[id]`.
+5. Ajouter un commentaire interne sur l’inscription.
+6. Compléter :
+   - professeur assigné
+   - créneau validé
+   - nombre de cours achetés
+7. Cliquer `Valider l’inscription`.
+8. Vérifier la redirection vers `/admin/eleves/[id]`.
+9. Vérifier que la fiche élève contient bien un commentaire automatique :
+   - `Élève créé depuis le formulaire d’inscription.`
+10. Revenir sur `/admin/inscriptions` et vérifier que la demande validée n’apparaît plus dans “en attente”.
+
+## 10) Données éditoriales du site public
 
 - Config globale (email, WhatsApp, liens, nav) : `src/config/site.ts`
 - Programmes : `src/content/programs.ts`
@@ -157,7 +192,7 @@ Le lien secret suit la route :
 - Témoignages : `src/content/testimonials.ts`
 - Légal : `src/config/legal.ts`
 
-## 10) Déploiement (Vercel)
+## 11) Déploiement (Vercel)
 
 Avant production, configurer dans Vercel :
 - `NEXT_PUBLIC_SUPABASE_URL`
