@@ -15,7 +15,14 @@ import {
 } from '@/lib/internal/registration-actions';
 import { getRegistrationRequestById, listRegistrationRequestComments } from '@/lib/internal/registration-data';
 import { listTeachers } from '@/lib/internal/admin-data';
-import { sanitizeAvailabilities, serializeHoursPerWeek, REGISTRATION_DAY_KEYS, REGISTRATION_DAY_LABELS, REGISTRATION_SLOT_LABELS } from '@/lib/registration/constants';
+import {
+  sanitizeAvailabilities,
+  serializeHoursPerWeek,
+  REGISTRATION_ACTIVE_AVAILABILITY_SLOTS,
+  REGISTRATION_DAY_KEYS,
+  REGISTRATION_DAY_LABELS,
+  REGISTRATION_SLOT_LABELS,
+} from '@/lib/registration/constants';
 import { toWhatsappHref } from '@/lib/internal/whatsapp';
 
 export const metadata: Metadata = {
@@ -211,12 +218,21 @@ export default async function RegistrationDetailPage({ params, searchParams }: R
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <h2 className="font-heading text-lg font-semibold text-fawaid-text">Disponibilités déclarées</h2>
         <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
-          {REGISTRATION_DAY_KEYS.map((day) => (
-            <article key={day} className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2.5">
-              <p className="text-xs text-fawaid-muted">{REGISTRATION_DAY_LABELS[day]}</p>
-              <p className="mt-1 text-sm font-medium text-fawaid-text">{REGISTRATION_SLOT_LABELS[availabilities[day]]}</p>
-            </article>
-          ))}
+          {REGISTRATION_DAY_KEYS.map((day) => {
+            const dayAvailability = availabilities[day];
+            const selectedSlots = REGISTRATION_ACTIVE_AVAILABILITY_SLOTS.filter((slot) => dayAvailability[slot]);
+            const label =
+              selectedSlots.length > 0
+                ? selectedSlots.map((slot) => REGISTRATION_SLOT_LABELS[slot]).join(' • ')
+                : REGISTRATION_SLOT_LABELS.unavailable;
+
+            return (
+              <article key={day} className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2.5">
+                <p className="text-xs text-fawaid-muted">{REGISTRATION_DAY_LABELS[day]}</p>
+                <p className="mt-1 text-sm font-medium text-fawaid-text">{label}</p>
+              </article>
+            );
+          })}
         </div>
       </section>
 

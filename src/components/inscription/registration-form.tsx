@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react';
 import {
   createDefaultAvailabilities,
   REGISTRATION_AVAILABILITY_SLOTS,
+  REGISTRATION_ACTIVE_AVAILABILITY_SLOTS,
   REGISTRATION_COURSE_TYPE_OPTIONS,
   REGISTRATION_DAY_KEYS,
   REGISTRATION_DAY_LABELS,
@@ -15,7 +16,7 @@ import {
   REGISTRATION_PAYMENT_OPTIONS,
   REGISTRATION_SLOT_LABELS,
   type RegistrationAvailabilities,
-  type RegistrationAvailabilitySlot,
+  type RegistrationDayAvailability,
   type RegistrationDayKey,
 } from '@/lib/registration/constants';
 
@@ -73,12 +74,37 @@ export function RegistrationForm() {
     }));
   }
 
-  function updateAvailability(day: RegistrationDayKey, slot: RegistrationAvailabilitySlot) {
+  function updateAvailability(day: RegistrationDayKey, slot: keyof RegistrationDayAvailability) {
     setFormState((prev) => ({
       ...prev,
       availabilities: {
         ...prev.availabilities,
-        [day]: slot,
+        [day]: (() => {
+          const current = prev.availabilities[day];
+
+          if (slot === 'unavailable') {
+            return {
+              morning: false,
+              afternoon: false,
+              evening: false,
+              unavailable: true,
+            };
+          }
+
+          const next = {
+            ...current,
+            [slot]: !current[slot],
+          };
+
+          const hasSelectedAvailability = REGISTRATION_ACTIVE_AVAILABILITY_SLOTS.some(
+            (availabilitySlot) => next[availabilitySlot]
+          );
+
+          return {
+            ...next,
+            unavailable: !hasSelectedAvailability,
+          };
+        })(),
       },
     }));
   }
@@ -337,7 +363,7 @@ export function RegistrationForm() {
                 <legend className="px-1 text-sm font-semibold text-fawaid-text">{REGISTRATION_DAY_LABELS[day]}</legend>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">
                   {REGISTRATION_AVAILABILITY_SLOTS.map((slot) => {
-                    const active = formState.availabilities[day] === slot;
+                    const active = formState.availabilities[day][slot];
                     return (
                       <label
                         key={`${day}-${slot}`}
@@ -348,11 +374,11 @@ export function RegistrationForm() {
                         }`}
                       >
                         <input
-                          type="radio"
-                          name={`availability-${day}`}
+                          type="checkbox"
+                          name={`availability-${day}-${slot}`}
                           className="sr-only"
                           checked={active}
-                          onChange={() => updateAvailability(day as RegistrationDayKey, slot as RegistrationAvailabilitySlot)}
+                          onChange={() => updateAvailability(day as RegistrationDayKey, slot as keyof RegistrationDayAvailability)}
                         />
                         {REGISTRATION_SLOT_LABELS[slot]}
                       </label>

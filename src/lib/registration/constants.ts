@@ -5,10 +5,13 @@ export const REGISTRATION_PAYMENT_OPTIONS = ['PayPal', 'Wero', 'Virement bancair
 
 export const REGISTRATION_DAY_KEYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
 export const REGISTRATION_AVAILABILITY_SLOTS = ['morning', 'afternoon', 'evening', 'unavailable'] as const;
+export const REGISTRATION_ACTIVE_AVAILABILITY_SLOTS = ['morning', 'afternoon', 'evening'] as const;
 
 export type RegistrationDayKey = (typeof REGISTRATION_DAY_KEYS)[number];
 export type RegistrationAvailabilitySlot = (typeof REGISTRATION_AVAILABILITY_SLOTS)[number];
-export type RegistrationAvailabilities = Record<RegistrationDayKey, RegistrationAvailabilitySlot>;
+export type RegistrationActiveAvailabilitySlot = (typeof REGISTRATION_ACTIVE_AVAILABILITY_SLOTS)[number];
+export type RegistrationDayAvailability = Record<RegistrationAvailabilitySlot, boolean>;
+export type RegistrationAvailabilities = Record<RegistrationDayKey, RegistrationDayAvailability>;
 
 export const REGISTRATION_DAY_LABELS: Record<RegistrationDayKey, string> = {
   monday: 'Lundi',
@@ -27,16 +30,74 @@ export const REGISTRATION_SLOT_LABELS: Record<RegistrationAvailabilitySlot, stri
   unavailable: 'Non disponible',
 };
 
+function createDefaultDayAvailability(): RegistrationDayAvailability {
+  return {
+    morning: false,
+    afternoon: false,
+    evening: false,
+    unavailable: true,
+  };
+}
+
 export function createDefaultAvailabilities(): RegistrationAvailabilities {
   return {
-    monday: 'unavailable',
-    tuesday: 'unavailable',
-    wednesday: 'unavailable',
-    thursday: 'unavailable',
-    friday: 'unavailable',
-    saturday: 'unavailable',
-    sunday: 'unavailable',
+    monday: createDefaultDayAvailability(),
+    tuesday: createDefaultDayAvailability(),
+    wednesday: createDefaultDayAvailability(),
+    thursday: createDefaultDayAvailability(),
+    friday: createDefaultDayAvailability(),
+    saturday: createDefaultDayAvailability(),
+    sunday: createDefaultDayAvailability(),
   };
+}
+
+function normalizeDayAvailability(value: unknown): RegistrationDayAvailability {
+  const base = createDefaultDayAvailability();
+
+  // Backward compatibility: previous payload stored a single string slot.
+  if (typeof value === 'string' && REGISTRATION_AVAILABILITY_SLOTS.includes(value as RegistrationAvailabilitySlot)) {
+    if (value === 'unavailable') {
+      return base;
+    }
+    base.unavailable = false;
+    base[value as RegistrationActiveAvailabilitySlot] = true;
+    return base;
+  }
+
+  if (Array.isArray(value)) {
+    let hasActiveSelection = false;
+    for (const entry of value) {
+      if (typeof entry !== 'string') continue;
+      if (!REGISTRATION_AVAILABILITY_SLOTS.includes(entry as RegistrationAvailabilitySlot)) continue;
+      if (entry === 'unavailable') continue;
+      base[entry as RegistrationActiveAvailabilitySlot] = true;
+      hasActiveSelection = true;
+    }
+    base.unavailable = !hasActiveSelection;
+    return base;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return base;
+  }
+
+  const input = value as Partial<Record<RegistrationAvailabilitySlot, unknown>>;
+  let hasActiveSelection = false;
+
+  for (const slot of REGISTRATION_ACTIVE_AVAILABILITY_SLOTS) {
+    if (input[slot] === true) {
+      base[slot] = true;
+      hasActiveSelection = true;
+    }
+  }
+
+  if (!hasActiveSelection && input.unavailable === true) {
+    base.unavailable = true;
+    return base;
+  }
+
+  base.unavailable = !hasActiveSelection;
+  return base;
 }
 
 export function sanitizeAvailabilities(value: unknown): RegistrationAvailabilities {
@@ -45,10 +106,7 @@ export function sanitizeAvailabilities(value: unknown): RegistrationAvailabiliti
 
   const input = value as Partial<Record<RegistrationDayKey, unknown>>;
   for (const day of REGISTRATION_DAY_KEYS) {
-    const candidate = input[day];
-    if (typeof candidate === 'string' && REGISTRATION_AVAILABILITY_SLOTS.includes(candidate as RegistrationAvailabilitySlot)) {
-      fallback[day] = candidate as RegistrationAvailabilitySlot;
-    }
+    fallback[day] = normalizeDayAvailability(input[day]);
   }
 
   return fallback;
