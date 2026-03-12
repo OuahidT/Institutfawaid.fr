@@ -9,11 +9,11 @@ type ConfirmSubmitButtonProps = {
 export function ConfirmSubmitButton({ label, confirmMessage, className }: ConfirmSubmitButtonProps) {
   return (
     <button
-      type="button"
+      type="submit"
       className={className}
       onClick={(event) => {
-        if (!window.confirm(confirmMessage)) return;
-        event.currentTarget.form?.requestSubmit();
+        if (window.confirm(confirmMessage)) return;
+        event.preventDefault();
       }}
     >
       {label}

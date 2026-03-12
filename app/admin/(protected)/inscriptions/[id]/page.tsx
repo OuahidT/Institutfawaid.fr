@@ -217,19 +217,30 @@ export default async function RegistrationDetailPage({ params, searchParams }: R
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <h2 className="font-heading text-lg font-semibold text-fawaid-text">Disponibilités déclarées</h2>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {REGISTRATION_DAY_KEYS.map((day) => {
             const dayAvailability = availabilities[day];
             const selectedSlots = REGISTRATION_ACTIVE_AVAILABILITY_SLOTS.filter((slot) => dayAvailability[slot]);
-            const label =
-              selectedSlots.length > 0
-                ? selectedSlots.map((slot) => REGISTRATION_SLOT_LABELS[slot]).join(' • ')
-                : REGISTRATION_SLOT_LABELS.unavailable;
+            const slotsToDisplay = selectedSlots.length > 0 ? selectedSlots : (['unavailable'] as const);
 
             return (
-              <article key={day} className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2.5">
-                <p className="text-xs text-fawaid-muted">{REGISTRATION_DAY_LABELS[day]}</p>
-                <p className="mt-1 text-sm font-medium text-fawaid-text">{label}</p>
+              <article key={day} className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-fawaid-muted">{REGISTRATION_DAY_LABELS[day]}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {slotsToDisplay.map((slot) => (
+                    <li key={`${day}-${slot}`}>
+                      <span
+                        className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
+                          slot === 'unavailable'
+                            ? 'border-slate-200 bg-slate-100 text-slate-700'
+                            : 'border-fawaid-accent/20 bg-fawaid-accentSoft text-fawaid-accent'
+                        }`}
+                      >
+                        {REGISTRATION_SLOT_LABELS[slot]}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             );
           })}
