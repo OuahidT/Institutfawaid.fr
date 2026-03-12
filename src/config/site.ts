@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
   email: 'contact@institutfawaid.fr',
   whatsapp: '+20 122 614 0786',
   whatsappHref: 'https://wa.me/201226140786',
-  inscriptionUrl: 'https://forms.gle/phCUaPi2eheNL7ny7',
+  inscriptionUrl: '/inscription',
   nav: [
     { label: 'Accueil', href: '/' },
     { label: 'Programmes', href: '/programmes' },
