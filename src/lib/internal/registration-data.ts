@@ -38,7 +38,7 @@ export async function listPendingRegistrationRequests() {
     `
     )
     .eq('status', 'pending')
-    .order('submitted_at', { ascending: true });
+    .order('submitted_at', { ascending: false });
 
   if (error) {
     if (error.code === '42P01') return [] as RegistrationRequestWithRelations[];

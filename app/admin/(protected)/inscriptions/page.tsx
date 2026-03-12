@@ -23,7 +23,6 @@ type RegistrationListPageProps = {
 };
 
 function getStatusMessage(status: string | undefined) {
-  if (status === 'deleted') return 'Inscription supprimée de la file active.';
   if (status === 'delete-error') return "Impossible de supprimer l’inscription. Merci de réessayer.";
   return null;
 }
@@ -40,7 +39,7 @@ export default async function RegistrationListPage({ searchParams }: Registratio
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">Nouveau flux</p>
           <h1 className="mt-1 font-heading text-2xl font-semibold text-fawaid-text">Inscriptions en attente</h1>
           <p className="mt-1 text-sm text-fawaid-muted">
-            Demandes triées de la plus ancienne à la plus récente, pour traitement humain.
+            Demandes triées de la plus récente à la plus ancienne.
           </p>
         </div>
 

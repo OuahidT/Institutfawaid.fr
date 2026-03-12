@@ -84,7 +84,7 @@ export async function deleteRegistrationRequestAction(formData: FormData) {
   revalidatePath('/admin');
   revalidatePath('/admin/inscriptions');
   revalidatePath(`/admin/inscriptions/${registrationRequestId}`);
-  redirect(`${redirectTo}?status=deleted`);
+  redirect(redirectTo);
 }
 
 export async function validateRegistrationRequestAction(formData: FormData) {
