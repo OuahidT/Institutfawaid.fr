@@ -112,8 +112,7 @@ export function RegistrationForm() {
     setStep((prev) => Math.max(prev - 1, 1));
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function submitRegistration() {
     if (!validateCurrentStep()) return;
 
     setSubmitting(true);
@@ -155,7 +154,12 @@ export function RegistrationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+      className="space-y-6"
+    >
       <div className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">{stepProgressLabel}</p>
         <div className="grid grid-cols-3 gap-2">
@@ -410,7 +414,10 @@ export function RegistrationForm() {
           </button>
         ) : (
           <button
-            type="submit"
+            type="button"
+            onClick={() => {
+              void submitRegistration();
+            }}
             disabled={submitting}
             className="inline-flex h-11 items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white transition hover:bg-[#033E8F] disabled:cursor-not-allowed disabled:opacity-70"
           >
