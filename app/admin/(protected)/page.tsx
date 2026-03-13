@@ -228,6 +228,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
   const urgentCount = activeStudents.filter((student) => student.remaining <= 0).length;
   const followupCount = activeStudents.filter((student) => student.remaining === 1).length;
   const pausedCount = pausedStudents.length;
+  const totalStudentsCount = enrichedStudents.length;
 
   return (
     <div className="space-y-4 md:space-y-5">
@@ -276,7 +277,14 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <h2 className="font-heading text-lg font-semibold text-fawaid-text">Suivi rapide</h2>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-fawaid-muted">Total d’étudiants</p>
+            <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-fawaid-text">
+              <UsersRound className="h-5 w-5 text-fawaid-accent" />
+              {totalStudentsCount}
+            </p>
+          </div>
           <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-red-700">Urgent</p>
             <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-red-700">
@@ -312,7 +320,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
               id="admin-student-search"
               name="q"
               defaultValue={query}
-              placeholder="Rechercher un élève..."
+              placeholder="Rechercher un élève ou un WhatsApp..."
               className="w-full rounded-xl border border-fawaid-border bg-white py-2.5 pl-9 pr-3 text-base text-fawaid-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent sm:text-sm"
             />
           </div>

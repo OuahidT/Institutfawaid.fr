@@ -36,7 +36,7 @@ function toNullableInteger(value) {
 
 function toBoolean(value) {
   const normalized = normalizeText(value);
-  return ['1', 'true', 'yes', 'oui', 'on', 'pause', 'arrêt', 'arret'].includes(normalized);
+  return ['1', 'true', 'yes', 'oui', 'on', 'pause', 'arrêt', 'arret', 'checked'].includes(normalized);
 }
 
 function digitsOnly(value) {
@@ -171,7 +171,7 @@ async function main() {
       validated_timeslot: String(pickColumn(row, ['Créneau validé', 'Creneau valide']) ?? '').trim() || null,
       total_courses_purchased: Math.max(0, toInteger(pickColumn(row, ['Total de cours achetés', 'Total de cours achetes']), 0)),
       courses_completed: Math.max(0, toInteger(pickColumn(row, ['Cours effectués', 'Cours effectues']), 0)),
-      is_paused: toBoolean(pickColumn(row, ['Arrêt / pause', 'Arret / pause', 'Pause'])),
+      is_paused: toBoolean(pickColumn(row, ['Arrêt / pause', 'Arret / pause', 'Pause', 'Arrêt', 'Arret'])),
     };
 
     const key = buildStudentKey(fullName, normalizedWhatsappNumber || whatsappNumber);

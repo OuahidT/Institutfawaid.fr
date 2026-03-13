@@ -34,7 +34,18 @@ export async function listStudents(filters: StudentFilters = {}) {
     .order('created_at', { ascending: false });
 
   if (filters.query) {
-    query = query.ilike('full_name', `%${filters.query}%`);
+    const trimmedQuery = filters.query.trim();
+    if (trimmedQuery) {
+      const compactDigits = trimmedQuery.replace(/\D/g, '');
+      const escapedQuery = trimmedQuery.replace(/[,%_]/g, '');
+      const orParts = [`full_name.ilike.%${escapedQuery}%`, `whatsapp_number.ilike.%${escapedQuery}%`];
+
+      if (compactDigits) {
+        orParts.push(`whatsapp_number.ilike.%${compactDigits}%`);
+      }
+
+      query = query.or(orParts.join(','));
+    }
   }
 
   if (filters.teacherId) {
