@@ -276,11 +276,11 @@ export function RegistrationForm() {
 
           <div className="sm:col-span-2">
             <label className="mb-1 block text-sm font-medium text-fawaid-text">Numéro WhatsApp</label>
-            <div className="grid grid-cols-[minmax(124px,38%)_1fr] gap-2">
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-[minmax(248px,46%)_minmax(0,1fr)]">
               <select
                 value={formState.whatsappCountryCode}
                 onChange={(event) => updateField('whatsappCountryCode', event.target.value)}
-                className="rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+                className="w-full rounded-xl border border-fawaid-border py-2.5 pl-3 pr-8 text-[16px] leading-tight sm:text-sm"
               >
                 {REGISTRATION_WHATSAPP_COUNTRY_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>

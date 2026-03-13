@@ -1,0 +1,248 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ],
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    }
+  ],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/eleves/[id]",
+      "regex": "^/admin/eleves/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/eleves/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/inscriptions/[id]",
+      "regex": "^/admin/inscriptions/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/inscriptions/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/formulaire-prof/[token]",
+      "regex": "^/formulaire\\-prof/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPtoken": "nxtPtoken"
+      },
+      "namedRegex": "^/formulaire\\-prof/(?<nxtPtoken>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/a-propos",
+      "regex": "^/a\\-propos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/a\\-propos(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/ajouter-eleve",
+      "regex": "^/admin/ajouter\\-eleve(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/ajouter\\-eleve(?:/)?$"
+    },
+    {
+      "page": "/admin/ajouter-professeur",
+      "regex": "^/admin/ajouter\\-professeur(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/ajouter\\-professeur(?:/)?$"
+    },
+    {
+      "page": "/admin/inscriptions",
+      "regex": "^/admin/inscriptions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/inscriptions(?:/)?$"
+    },
+    {
+      "page": "/admin/liens-professeurs",
+      "regex": "^/admin/liens\\-professeurs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/liens\\-professeurs(?:/)?$"
+    },
+    {
+      "page": "/admin/login",
+      "regex": "^/admin/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/login(?:/)?$"
+    },
+    {
+      "page": "/api/contact",
+      "regex": "^/api/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/contact(?:/)?$"
+    },
+    {
+      "page": "/api/inscription",
+      "regex": "^/api/inscription(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/inscription(?:/)?$"
+    },
+    {
+      "page": "/apple-icon.png",
+      "regex": "^/apple\\-icon\\.png(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/apple\\-icon\\.png(?:/)?$"
+    },
+    {
+      "page": "/cgv",
+      "regex": "^/cgv(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cgv(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/faq",
+      "regex": "^/faq(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/faq(?:/)?$"
+    },
+    {
+      "page": "/formules",
+      "regex": "^/formules(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/formules(?:/)?$"
+    },
+    {
+      "page": "/icon.png",
+      "regex": "^/icon\\.png(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/icon\\.png(?:/)?$"
+    },
+    {
+      "page": "/inscription",
+      "regex": "^/inscription(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/inscription(?:/)?$"
+    },
+    {
+      "page": "/inscription/confirmation",
+      "regex": "^/inscription/confirmation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/inscription/confirmation(?:/)?$"
+    },
+    {
+      "page": "/mentions-legales",
+      "regex": "^/mentions\\-legales(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/mentions\\-legales(?:/)?$"
+    },
+    {
+      "page": "/politique-de-confidentialite",
+      "regex": "^/politique\\-de\\-confidentialite(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/politique\\-de\\-confidentialite(?:/)?$"
+    },
+    {
+      "page": "/programmes",
+      "regex": "^/programmes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/programmes(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/temoignages",
+      "regex": "^/temoignages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/temoignages(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
