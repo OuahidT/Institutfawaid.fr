@@ -39,6 +39,48 @@ function toBoolean(value) {
   return ['1', 'true', 'yes', 'oui', 'on', 'pause', 'arrêt', 'arret'].includes(normalized);
 }
 
+function digitsOnly(value) {
+  return String(value ?? '').replace(/\D/g, '');
+}
+
+function normalizeCountryDialCode(value) {
+  const digits = digitsOnly(value);
+  if (!digits) return '+33';
+  return `+${digits}`;
+}
+
+function normalizeWhatsappNumber(value, options = {}) {
+  if (!value) return null;
+
+  const trimmed = String(value).trim();
+  if (!trimmed) return null;
+
+  let normalized = trimmed.replace(/[\s().-]/g, '');
+  if (!normalized) return null;
+
+  if (normalized.startsWith('00')) {
+    normalized = `+${normalized.slice(2)}`;
+  }
+
+  const selectedDialCode = normalizeCountryDialCode(options.countryDialCode ?? '+33');
+  const selectedDialDigits = selectedDialCode.slice(1);
+  const startsWithPlus = normalized.startsWith('+');
+  let digits = digitsOnly(normalized);
+
+  if (!digits) return null;
+
+  if (startsWithPlus) return `+${digits}`;
+  if (digits.startsWith(selectedDialDigits)) return `+${digits}`;
+
+  if (digits.startsWith('0')) {
+    digits = digits.replace(/^0+/, '');
+    if (!digits) return null;
+    return `+${selectedDialDigits}${digits}`;
+  }
+
+  return `+${selectedDialDigits}${digits}`;
+}
+
 function buildStudentKey(fullName, whatsappNumber) {
   return `${normalizeText(fullName)}|${normalizeText(whatsappNumber)}`;
 }
@@ -87,7 +129,10 @@ async function main() {
 
   const existingStudentMap = new Map();
   for (const student of existingStudents ?? []) {
-    existingStudentMap.set(buildStudentKey(student.full_name, student.whatsapp_number ?? ''), student.id);
+    const normalizedWhatsapp =
+      normalizeWhatsappNumber(student.whatsapp_number ?? '', { countryDialCode: '+33' }) ??
+      (student.whatsapp_number ?? '');
+    existingStudentMap.set(buildStudentKey(student.full_name, normalizedWhatsapp), student.id);
   }
 
   let inserted = 0;
@@ -104,6 +149,7 @@ async function main() {
     }
 
     const whatsappNumber = String(pickColumn(row, ['Numéro WhatsApp', 'Numero WhatsApp']) ?? '').trim();
+    const normalizedWhatsappNumber = normalizeWhatsappNumber(whatsappNumber, { countryDialCode: '+33' });
     const teacherRaw = String(pickColumn(row, ['Professeur assigné', 'Professeur assigne']) ?? '').trim();
     const teacherId = teacherRaw ? teacherMap.get(normalizeText(teacherRaw)) ?? null : null;
 
@@ -115,7 +161,7 @@ async function main() {
       full_name: fullName,
       gender: String(pickColumn(row, ['Genre']) ?? '').trim() || null,
       age: toNullableInteger(pickColumn(row, ['Âge', 'Age'])),
-      whatsapp_number: whatsappNumber || null,
+      whatsapp_number: normalizedWhatsappNumber || whatsappNumber || null,
       course_type: String(pickColumn(row, ['Type de cours']) ?? '').trim() || null,
       hours_per_week: toNullableInteger(
         pickColumn(row, ["Nombre d'heures par semaine", 'Nombre d’heures par semaine', 'Nombre heures par semaine'])
@@ -128,7 +174,7 @@ async function main() {
       is_paused: toBoolean(pickColumn(row, ['Arrêt / pause', 'Arret / pause', 'Pause'])),
     };
 
-    const key = buildStudentKey(fullName, whatsappNumber);
+    const key = buildStudentKey(fullName, normalizedWhatsappNumber || whatsappNumber);
     const existingId = existingStudentMap.get(key);
 
     if (existingId) {

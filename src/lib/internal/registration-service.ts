@@ -15,6 +15,7 @@ export type PublicRegistrationInput = {
   fullName: string;
   gender?: string | null;
   age?: string | number | null;
+  whatsappCountryCode?: string | null;
   whatsappNumber: string;
   arabicLevel: string;
   courseType: string;
@@ -59,6 +60,7 @@ function assertRequired(value: string, message: string) {
 function normalizeRegistrationInput(input: PublicRegistrationInput): NormalizedRegistrationInput {
   const email = asTrimmedString(input.email).toLowerCase();
   const fullName = asTrimmedString(input.fullName);
+  const whatsappCountryCode = asTrimmedString(input.whatsappCountryCode) || '+33';
   const whatsappNumber = asTrimmedString(input.whatsappNumber);
   const arabicLevel = asTrimmedString(input.arabicLevel);
   const courseType = asTrimmedString(input.courseType);
@@ -90,7 +92,12 @@ function normalizeRegistrationInput(input: PublicRegistrationInput): NormalizedR
     throw new Error('Moyen de paiement invalide.');
   }
 
-  const normalizedWhatsapp = normalizeWhatsappNumber(whatsappNumber);
+  const normalizedWhatsapp = normalizeWhatsappNumber(whatsappNumber, {
+    countryDialCode: whatsappCountryCode,
+  });
+  if (!normalizedWhatsapp) {
+    throw new Error('Le numéro WhatsApp semble invalide.');
+  }
   const hoursPerWeek = parseHoursPerWeekInput(asTrimmedString(input.hoursPerWeek));
 
   return {
@@ -98,7 +105,7 @@ function normalizeRegistrationInput(input: PublicRegistrationInput): NormalizedR
     full_name: fullName,
     gender: gender || null,
     age: normalizeAge(input.age),
-    whatsapp_number: whatsappNumber,
+    whatsapp_number: normalizedWhatsapp,
     normalized_whatsapp_number: normalizedWhatsapp,
     arabic_level: arabicLevel,
     course_type: courseType,

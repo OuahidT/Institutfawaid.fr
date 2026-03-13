@@ -26,8 +26,8 @@ export default function RegistrationPage() {
             Rejoindre l’Institut Fawaid
           </h1>
           <p className="text-sm text-fawaid-muted md:text-base">
-            Complétez ce formulaire en 3 étapes. Votre demande sera étudiée par l’équipe avant validation finale du
-            créneau et du paiement.
+            Complétez ce formulaire en 3 étapes. Ensuite, notre équipe vous recontactera directement sur WhatsApp pour
+            vous proposer un créneau, puis finaliser le paiement afin de valider votre inscription.
           </p>
         </div>
 

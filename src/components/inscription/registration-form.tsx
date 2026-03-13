@@ -15,6 +15,7 @@ import {
   REGISTRATION_LEVEL_OPTIONS,
   REGISTRATION_PAYMENT_OPTIONS,
   REGISTRATION_SLOT_LABELS,
+  REGISTRATION_WHATSAPP_COUNTRY_OPTIONS,
   type RegistrationAvailabilities,
   type RegistrationDayAvailability,
   type RegistrationDayKey,
@@ -25,6 +26,7 @@ type RegistrationFormState = {
   fullName: string;
   gender: string;
   age: string;
+  whatsappCountryCode: string;
   whatsappNumber: string;
   arabicLevel: string;
   courseType: string;
@@ -41,12 +43,15 @@ const STEP_TITLES = [
   'Disponibilités et remarques',
 ] as const;
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function createInitialFormState(): RegistrationFormState {
   return {
     email: '',
     fullName: '',
     gender: '',
     age: '',
+    whatsappCountryCode: '+33',
     whatsappNumber: '',
     arabicLevel: '',
     courseType: '',
@@ -115,6 +120,11 @@ export function RegistrationForm() {
         setErrorMessage('Merci de compléter email, nom et WhatsApp avant de continuer.');
         return false;
       }
+
+      if (!EMAIL_REGEX.test(formState.email.trim())) {
+        setErrorMessage("Le format de l'email est invalide.");
+        return false;
+      }
     }
 
     if (step === 2) {
@@ -155,6 +165,7 @@ export function RegistrationForm() {
           fullName: formState.fullName,
           gender: formState.gender,
           age: formState.age,
+          whatsappCountryCode: formState.whatsappCountryCode,
           whatsappNumber: formState.whatsappNumber,
           arabicLevel: formState.arabicLevel,
           courseType: formState.courseType,
@@ -188,7 +199,7 @@ export function RegistrationForm() {
     >
       <div className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">{stepProgressLabel}</p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
           {STEP_TITLES.map((title, index) => {
             const stepNumber = index + 1;
             const active = stepNumber === step;
@@ -203,10 +214,10 @@ export function RegistrationForm() {
                     : done
                       ? 'border-green-200 bg-green-50 text-green-700'
                       : 'border-fawaid-border bg-fawaid-bg text-fawaid-muted'
-                }`}
+                } min-w-0`}
               >
-                <p className="font-semibold">Étape {stepNumber}</p>
-                <p className="mt-0.5 line-clamp-2">{title}</p>
+                <p className="font-semibold leading-tight">Étape {stepNumber}</p>
+                <p className="mt-0.5 break-words leading-snug">{title}</p>
               </div>
             );
           })}
@@ -265,13 +276,29 @@ export function RegistrationForm() {
 
           <div className="sm:col-span-2">
             <label className="mb-1 block text-sm font-medium text-fawaid-text">Numéro WhatsApp</label>
-            <input
-              required
-              value={formState.whatsappNumber}
-              onChange={(event) => updateField('whatsappNumber', event.target.value)}
-              className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
-              placeholder="Ex: +33 6 12 34 56 78"
-            />
+            <div className="grid grid-cols-[minmax(124px,38%)_1fr] gap-2">
+              <select
+                value={formState.whatsappCountryCode}
+                onChange={(event) => updateField('whatsappCountryCode', event.target.value)}
+                className="rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+              >
+                {REGISTRATION_WHATSAPP_COUNTRY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                required
+                value={formState.whatsappNumber}
+                onChange={(event) => updateField('whatsappNumber', event.target.value)}
+                className="w-full rounded-xl border border-fawaid-border px-3 py-2.5 text-base sm:text-sm"
+                placeholder="Ex: 6 12 34 56 78"
+              />
+            </div>
+            <p className="mt-1 text-xs text-fawaid-muted">
+              Choisissez votre indicatif pays, puis saisissez votre numéro WhatsApp.
+            </p>
           </div>
         </div>
       ) : null}
@@ -353,7 +380,8 @@ export function RegistrationForm() {
           <div>
             <p className="text-sm font-medium text-fawaid-text">Disponibilités hebdomadaires</p>
             <p className="mt-1 text-sm text-fawaid-muted">
-              Choisissez le créneau principal pour chaque jour. Vous pourrez ensuite préciser avec l’équipe.
+              Vous pouvez sélectionner plusieurs disponibilités pour chaque jour. L’équipe vous recontactera ensuite
+              sur WhatsApp pour vous proposer un créneau adapté.
             </p>
           </div>
 

@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 
 import { requireAdminUser } from '@/lib/auth/admin';
 import { toNullableInteger, toSafeInteger } from '@/lib/internal/courses';
+import { normalizeWhatsappNumber } from '@/lib/internal/whatsapp';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 import { getSupabaseServiceClient } from '@/lib/supabase/service';
 
@@ -88,12 +89,16 @@ export async function createStudentAction(formData: FormData) {
 
   const totalCoursesPurchased = Math.max(0, toSafeInteger(getString(formData, 'total_courses_purchased'), 0));
   const coursesCompleted = Math.max(0, toSafeInteger(getString(formData, 'courses_completed'), 0));
+  const whatsappInput = getNullableString(formData, 'whatsapp_number');
+  const normalizedWhatsapp = normalizeWhatsappNumber(whatsappInput, {
+    countryDialCode: '+33',
+  });
 
   const payload = {
     full_name: fullName,
     gender: getNullableString(formData, 'gender'),
     age: toNullableInteger(getString(formData, 'age')),
-    whatsapp_number: getNullableString(formData, 'whatsapp_number'),
+    whatsapp_number: normalizedWhatsapp ?? whatsappInput,
     course_type: getNullableString(formData, 'course_type'),
     hours_per_week: toNullableInteger(getString(formData, 'hours_per_week')),
     payment_method: getNullableString(formData, 'payment_method'),
@@ -205,12 +210,16 @@ export async function updateStudentAction(formData: FormData) {
 
   const fullName = getString(formData, 'full_name');
   if (!fullName) return;
+  const whatsappInput = getNullableString(formData, 'whatsapp_number');
+  const normalizedWhatsapp = normalizeWhatsappNumber(whatsappInput, {
+    countryDialCode: '+33',
+  });
 
   const payload = {
     full_name: fullName,
     gender: getNullableString(formData, 'gender'),
     age: toNullableInteger(getString(formData, 'age')),
-    whatsapp_number: getNullableString(formData, 'whatsapp_number'),
+    whatsapp_number: normalizedWhatsapp ?? whatsappInput,
     course_type: getNullableString(formData, 'course_type'),
     hours_per_week: toNullableInteger(getString(formData, 'hours_per_week')),
     payment_method: getNullableString(formData, 'payment_method'),
