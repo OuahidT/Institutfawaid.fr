@@ -261,7 +261,6 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-fawaid-accent2">Nouveau flux</p>
             <p className="mt-1 text-base font-semibold text-fawaid-text">Inscriptions en attente : {pendingRegistrationsCount}</p>
             <p className="mt-1 text-sm text-fawaid-muted">Demandes reçues depuis le formulaire d’inscription natif.</p>
           </div>
