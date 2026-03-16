@@ -10,7 +10,6 @@ import {
   deleteRegistrationCommentAction,
   deleteRegistrationRequestAction,
   updateRegistrationCommentAction,
-  updateRegistrationRequestAction,
   validateRegistrationRequestAction,
 } from '@/lib/internal/registration-actions';
 import { getRegistrationRequestById, listRegistrationRequestComments } from '@/lib/internal/registration-data';
@@ -259,7 +258,7 @@ export default async function RegistrationDetailPage({ params, searchParams }: R
               Complétez ces champs après confirmation du créneau et réception du paiement.
             </p>
 
-            <form action={updateRegistrationRequestAction} className="mt-4 grid gap-3 md:grid-cols-3">
+            <form action={validateRegistrationRequestAction} className="mt-4 grid gap-3 md:grid-cols-3">
               <input type="hidden" name="registration_request_id" value={registration.id} />
 
               <div>
@@ -299,27 +298,17 @@ export default async function RegistrationDetailPage({ params, searchParams }: R
                 />
               </div>
 
-              <div className="md:col-span-3 flex flex-wrap gap-2">
-                <button
-                  type="submit"
-                  className="inline-flex h-11 items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white transition hover:bg-[#033E8F]"
-                >
-                  Enregistrer les informations
-                </button>
-              </div>
-            </form>
-
-            <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-3">
-              <form action={validateRegistrationRequestAction}>
-                <input type="hidden" name="registration_request_id" value={registration.id} />
+              <div className="md:col-span-3 flex flex-wrap items-center gap-2 rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-3">
                 <button
                   type="submit"
                   className="inline-flex h-11 items-center justify-center rounded-full border border-fawaid-accent bg-fawaid-accent px-4 text-sm font-semibold text-white transition hover:bg-[#033E8F]"
                 >
                   Valider l’inscription
                 </button>
-              </form>
+              </div>
+            </form>
 
+            <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-3">
               <form action={deleteRegistrationRequestAction}>
                 <input type="hidden" name="registration_request_id" value={registration.id} />
                 <input type="hidden" name="redirect_to" value="/admin/inscriptions" />

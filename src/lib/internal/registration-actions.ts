@@ -94,6 +94,28 @@ export async function validateRegistrationRequestAction(formData: FormData) {
   const registrationRequestId = getString(formData, 'registration_request_id');
   if (!registrationRequestId) return;
 
+  const assignedTeacherId = getNullableString(formData, 'assigned_teacher_id');
+  const validatedTimeslot = getNullableString(formData, 'validated_timeslot');
+  const purchasedCoursesRaw = getString(formData, 'purchased_courses');
+  const purchasedCourses =
+    purchasedCoursesRaw.length > 0 ? Math.max(0, toSafeInteger(purchasedCoursesRaw, 0)) : null;
+
+  const { error: updateError } = await supabase
+    .from('registration_requests')
+    .update({
+      assigned_teacher_id: assignedTeacherId,
+      validated_timeslot: validatedTimeslot,
+      purchased_courses: purchasedCourses,
+      processed_by_user_id: user.id,
+      processed_by_email: user.email ?? null,
+    })
+    .eq('id', registrationRequestId)
+    .eq('status', 'pending');
+
+  if (updateError) {
+    redirect(`/admin/inscriptions/${registrationRequestId}?status=validation-error`);
+  }
+
   const { data: studentId, error } = await supabase.rpc('validate_registration_request', {
     p_registration_request_id: registrationRequestId,
     p_processed_by_user_id: user.id,
