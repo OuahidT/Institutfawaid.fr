@@ -71,6 +71,7 @@ export function RegistrationForm() {
   const [formState, setFormState] = useState<RegistrationFormState>(createInitialFormState);
 
   const stepProgressLabel = useMemo(() => `Étape ${step} sur ${STEP_TITLES.length}`, [step]);
+  const stepProgressPercent = useMemo(() => Math.round((step / STEP_TITLES.length) * 100), [step]);
 
   function updateField<K extends keyof RegistrationFormState>(key: K, value: RegistrationFormState[K]) {
     setFormState((prev) => ({
@@ -198,30 +199,17 @@ export function RegistrationForm() {
       className="space-y-6"
     >
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">{stepProgressLabel}</p>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-          {STEP_TITLES.map((title, index) => {
-            const stepNumber = index + 1;
-            const active = stepNumber === step;
-            const done = stepNumber < step;
-
-            return (
-              <div
-                key={title}
-                className={`rounded-xl border px-3 py-2 text-xs ${
-                  active
-                    ? 'border-fawaid-accent bg-fawaid-accentSoft text-fawaid-accent'
-                    : done
-                      ? 'border-green-200 bg-green-50 text-green-700'
-                      : 'border-fawaid-border bg-fawaid-bg text-fawaid-muted'
-                } min-w-0`}
-              >
-                <p className="font-semibold leading-tight">Étape {stepNumber}</p>
-                <p className="mt-0.5 break-words leading-snug">{title}</p>
-              </div>
-            );
-          })}
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-fawaid-accent2">{stepProgressLabel}</p>
+          <p className="text-xs text-fawaid-muted">{stepProgressPercent}%</p>
         </div>
+        <div className="h-1.5 overflow-hidden rounded-full bg-fawaid-border/90">
+          <div
+            className="h-full rounded-full bg-fawaid-accent transition-all duration-300"
+            style={{ width: `${stepProgressPercent}%` }}
+          />
+        </div>
+        <p className="text-xs text-fawaid-muted">{STEP_TITLES[step - 1]}</p>
       </div>
 
       {step === 1 ? (

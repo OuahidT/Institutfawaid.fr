@@ -36,6 +36,7 @@ type AdminDashboardPageProps = {
 };
 
 type StudentPriority = 'urgent' | 'followup' | 'normal';
+type QuickFilter = 'all' | 'urgent' | 'followup' | 'paused';
 
 type StudentDashboardItem = StudentWithTeacher & {
   remaining: number;
@@ -65,6 +66,28 @@ function sortByFollowUpPriority(a: StudentDashboardItem, b: StudentDashboardItem
   if (remainingDelta !== 0) return remainingDelta;
 
   return a.full_name.localeCompare(b.full_name, 'fr-FR');
+}
+
+function parseQuickFilter(rawValue: string): QuickFilter {
+  if (rawValue === 'urgent' || rawValue === 'followup' || rawValue === 'paused') return rawValue;
+  return 'all';
+}
+
+function buildDashboardHref({
+  query,
+  teacherId,
+  quickFilter,
+}: {
+  query: string;
+  teacherId: string;
+  quickFilter: QuickFilter;
+}) {
+  const params = new URLSearchParams();
+  if (query) params.set('q', query);
+  if (teacherId) params.set('teacher_id', teacherId);
+  if (quickFilter !== 'all') params.set('quick_filter', quickFilter);
+  const queryString = params.toString();
+  return queryString ? `/admin?${queryString}` : '/admin';
 }
 
 function getStudentStatusStyles(student: StudentDashboardItem) {
@@ -198,6 +221,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
   const params = await searchParams;
   const query = typeof params.q === 'string' ? params.q.trim() : '';
   const teacherId = typeof params.teacher_id === 'string' ? params.teacher_id : '';
+  const quickFilter = parseQuickFilter(typeof params.quick_filter === 'string' ? params.quick_filter : '');
 
   const [teachers, students, lessons, pendingRegistrationsCount] = await Promise.all([
     listTeachers(),
@@ -229,6 +253,19 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
   const followupCount = activeStudents.filter((student) => student.remaining === 1).length;
   const pausedCount = pausedStudents.length;
   const totalStudentsCount = enrichedStudents.length;
+
+  const visibleActiveStudents =
+    quickFilter === 'urgent'
+      ? activeStudents.filter((student) => student.remaining <= 0)
+      : quickFilter === 'followup'
+        ? activeStudents.filter((student) => student.remaining === 1)
+        : quickFilter === 'paused'
+          ? []
+          : activeStudents;
+
+  const visiblePausedStudents = quickFilter === 'paused' || quickFilter === 'all' ? pausedStudents : [];
+  const showActiveSection = quickFilter !== 'paused';
+  const showPausedSection = quickFilter === 'all' || quickFilter === 'paused';
 
   return (
     <div className="space-y-4 md:space-y-5">
@@ -277,39 +314,68 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <h2 className="font-heading text-lg font-semibold text-fawaid-text">Suivi rapide</h2>
         <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
+          <Link
+            href={buildDashboardHref({ query, teacherId, quickFilter: 'all' })}
+            className={`rounded-xl border px-3 py-2 transition ${
+              quickFilter === 'all'
+                ? 'border-fawaid-accent bg-fawaid-accentSoft'
+                : 'border-fawaid-border bg-fawaid-bg hover:border-fawaid-accent'
+            }`}
+          >
             <p className="text-xs font-semibold uppercase tracking-wide text-fawaid-muted">Total d’étudiants</p>
             <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-fawaid-text">
               <UsersRound className="h-5 w-5 text-fawaid-accent" />
               {totalStudentsCount}
             </p>
-          </div>
-          <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2">
+          </Link>
+          <Link
+            href={buildDashboardHref({ query, teacherId, quickFilter: 'urgent' })}
+            className={`rounded-xl border px-3 py-2 transition ${
+              quickFilter === 'urgent'
+                ? 'border-red-300 bg-red-100 ring-1 ring-red-200'
+                : 'border-red-200 bg-red-50 hover:border-red-300'
+            }`}
+          >
             <p className="text-xs font-semibold uppercase tracking-wide text-red-700">Urgent</p>
             <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-red-700">
               <AlertTriangle className="h-5 w-5" />
               {urgentCount}
             </p>
-          </div>
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">A relancer</p>
+          </Link>
+          <Link
+            href={buildDashboardHref({ query, teacherId, quickFilter: 'followup' })}
+            className={`rounded-xl border px-3 py-2 transition ${
+              quickFilter === 'followup'
+                ? 'border-amber-300 bg-amber-100 ring-1 ring-amber-200'
+                : 'border-amber-200 bg-amber-50 hover:border-amber-300'
+            }`}
+          >
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">À relancer</p>
             <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-amber-700">
               <Clock3 className="h-5 w-5" />
               {followupCount}
             </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+          </Link>
+          <Link
+            href={buildDashboardHref({ query, teacherId, quickFilter: 'paused' })}
+            className={`rounded-xl border px-3 py-2 transition ${
+              quickFilter === 'paused'
+                ? 'border-slate-300 bg-slate-100 ring-1 ring-slate-200'
+                : 'border-slate-200 bg-slate-50 hover:border-slate-300'
+            }`}
+          >
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-700">En pause</p>
             <p className="mt-1 flex items-center gap-1 text-2xl font-semibold text-slate-700">
               <PauseCircle className="h-5 w-5" />
               {pausedCount}
             </p>
-          </div>
+          </Link>
         </div>
       </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
         <form method="get" className="grid gap-2 lg:grid-cols-[1fr_260px_auto] lg:items-center">
+          <input type="hidden" name="quick_filter" value={quickFilter === 'all' ? '' : quickFilter} />
           <label className="sr-only" htmlFor="admin-student-search">
             Rechercher un élève
           </label>
@@ -347,37 +413,41 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
       </section>
 
       <section className="space-y-4">
-        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="font-heading text-xl font-semibold text-fawaid-text">Liste principale des élèves</h2>
-            <p className="text-xs text-fawaid-muted">Tri automatique par priorité de relance</p>
-          </div>
+        {showActiveSection ? (
+          <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="font-heading text-xl font-semibold text-fawaid-text">Liste principale des élèves</h2>
+              <p className="text-xs text-fawaid-muted">Tri automatique par priorité de relance</p>
+            </div>
 
-          <div className="mt-3 space-y-3">
-            {activeStudents.length === 0 ? (
-              <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
-                Aucun élève actif pour ce filtre.
-              </p>
-            ) : (
-              activeStudents.map((student) => <StudentRow key={student.id} student={student} />)
-            )}
-          </div>
-        </article>
+            <div className="mt-3 space-y-3">
+              {visibleActiveStudents.length === 0 ? (
+                <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
+                  Aucun élève actif pour ce filtre.
+                </p>
+              ) : (
+                visibleActiveStudents.map((student) => <StudentRow key={student.id} student={student} />)
+              )}
+            </div>
+          </article>
+        ) : null}
 
-        <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
-          <h2 className="font-heading text-lg font-semibold text-fawaid-text">Élèves en pause</h2>
-          <p className="mt-1 text-sm text-fawaid-muted">Distincts du suivi prioritaire, tout en restant accessibles.</p>
+        {showPausedSection ? (
+          <article className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
+            <h2 className="font-heading text-lg font-semibold text-fawaid-text">Élèves en pause</h2>
+            <p className="mt-1 text-sm text-fawaid-muted">Distincts du suivi prioritaire, tout en restant accessibles.</p>
 
-          <div className="mt-3 space-y-3">
-            {pausedStudents.length === 0 ? (
-              <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
-                Aucun élève en pause.
-              </p>
-            ) : (
-              pausedStudents.map((student) => <StudentRow key={student.id} student={student} />)
-            )}
-          </div>
-        </article>
+            <div className="mt-3 space-y-3">
+              {visiblePausedStudents.length === 0 ? (
+                <p className="rounded-xl border border-fawaid-border bg-fawaid-bg px-4 py-3 text-sm text-fawaid-muted">
+                  Aucun élève en pause.
+                </p>
+              ) : (
+                visiblePausedStudents.map((student) => <StudentRow key={student.id} student={student} />)
+              )}
+            </div>
+          </article>
+        ) : null}
       </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-white p-4 shadow-soft">
