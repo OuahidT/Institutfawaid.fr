@@ -81,6 +81,7 @@ export type Testimonial = {
   age: number;
   location: string;
   quote: string;
+  posterUrl?: string;
   videoUrl?: string;
 };
 

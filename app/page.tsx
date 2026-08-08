@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { FeatureCard } from '@/components/sections/feature-card';
 import { FormulaCard } from '@/components/sections/formula-card';
 import { ProgramCard } from '@/components/sections/program-card';
-import { TestimonialCard } from '@/components/sections/testimonial-card';
+import { TestimonialVideoGrid } from '@/components/sections/testimonial-video-grid';
 import { TimelineSteps } from '@/components/sections/timeline-steps';
 import { ButtonLink } from '@/components/ui/button-link';
 import { SectionTitle } from '@/components/ui/section-title';
@@ -173,14 +173,7 @@ export default function HomePage() {
 
       <section className="space-y-5">
         <SectionTitle title={testimonialsIntro.title} description={testimonialsIntro.text} />
-        <div className="grid gap-3.5 md:grid-cols-3">
-          {testimonials.slice(0, 3).map((testimonial) => (
-            <TestimonialCard
-              key={`${testimonial.name}-${testimonial.age}-${testimonial.location}`}
-              testimonial={testimonial}
-            />
-          ))}
-        </div>
+        <TestimonialVideoGrid testimonials={testimonials.slice(0, 3)} layout="preview" />
         <ButtonLink href="/temoignages" variant="secondary">
           Voir les témoignages
         </ButtonLink>
