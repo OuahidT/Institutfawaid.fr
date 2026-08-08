@@ -4,22 +4,26 @@
     {
       "src": "/tarifs/",
       "headers": { "Location": "https://www.institutfawaid.fr/formules" },
-      "status": 301
+      "status": 301,
+      "important": true
     },
     {
       "src": "/tarifs",
       "headers": { "Location": "https://www.institutfawaid.fr/formules" },
-      "status": 301
+      "status": 301,
+      "important": true
     },
     {
       "src": "/nos-programmes/",
       "headers": { "Location": "https://www.institutfawaid.fr/programmes" },
-      "status": 301
+      "status": 301,
+      "important": true
     },
     {
       "src": "/nos-programmes",
       "headers": { "Location": "https://www.institutfawaid.fr/programmes" },
-      "status": 301
+      "status": 301,
+      "important": true
     }
   ]
 }
