@@ -66,48 +66,51 @@ export default function HomePage() {
           <p className="text-sm text-fawaid-muted">{homeHero.microTrust}</p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl border border-fawaid-border bg-gradient-to-br from-fawaid-surface to-white p-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(4,75,173,0.22),transparent_50%),radial-gradient(circle_at_84%_12%,rgba(47,105,196,0.2),transparent_46%)]" />
-          <div className="relative z-10 flex h-full flex-col justify-between gap-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-fawaid-accent2">Institut Fawaid</p>
-                <p className="mt-1 font-arabic text-3xl leading-none text-fawaid-accent">العِلْمُ نُورٌ</p>
-                <p className="text-xs text-fawaid-muted">Transmission, méthode et régularité.</p>
-              </div>
-              <div className="rounded-2xl border border-fawaid-border bg-white/85 p-2.5">
-                <Image src="/images/logo.png" alt="Logo Institut Fawaid" width={62} height={62} className="h-14 w-14" />
-              </div>
+        <div className="overflow-hidden rounded-2xl border border-fawaid-border bg-white shadow-card">
+          <div className="relative min-h-[220px] overflow-hidden md:min-h-[230px]">
+            <Image
+              src="/images/home/hero-online-arabic-learning.jpg"
+              alt="Élève suivant un cours d’arabe en direct sur son ordinateur"
+              fill
+              priority
+              sizes="(min-width: 768px) 42vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+            <div className="absolute inset-x-4 bottom-4">
+              <p className="inline-flex rounded-full border border-white/40 bg-white/90 px-3 py-1.5 text-xs font-semibold text-fawaid-accent shadow-card backdrop-blur-sm">
+                Cours d’arabe en direct, où que vous soyez
+              </p>
             </div>
+          </div>
 
+          <div className="space-y-3 p-4">
             <div className="grid grid-cols-2 gap-2.5">
-              <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
+              <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
                 <p className="text-xs text-fawaid-muted">Expérience</p>
                 <p className="text-sm font-semibold text-fawaid-text">+10 ans</p>
               </div>
-              <div className="rounded-xl border border-fawaid-border bg-white/90 px-3 py-2">
+              <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
                 <p className="text-xs text-fawaid-muted">Étudiants accompagnés</p>
                 <p className="text-sm font-semibold text-fawaid-text">+500</p>
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
-                Cours en direct en visio
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
-                Programmes structurés selon les niveaux
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
-                Accompagnement humain et accessible
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-fawaid-border bg-white/90 px-3 py-2 text-sm text-fawaid-muted">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-fawaid-accent" />
-                Cours pour les hommes, femmes et enfants
-              </div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                'Cours en direct en visio',
+                'Programmes structurés',
+                'Accompagnement humain',
+                'Adultes et enfants',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-start gap-1.5 rounded-xl border border-fawaid-border bg-fawaid-surface/60 px-2.5 py-2 text-xs leading-snug text-fawaid-muted"
+                >
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-fawaid-accent" />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
