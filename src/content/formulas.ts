@@ -7,6 +7,8 @@ export const formulaPlans: FormulaPlan[] = [
     label: 'PREMIUM',
     description:
       'Idéal pour un suivi personnalisé et une progression accélérée. Pour celles et ceux qui recherchent un accompagnement individualisé.',
+    imageUrl: '/images/formulas/solo.jpg',
+    imageAlt: 'Élève suivant une formule individuelle devant son ordinateur',
     tiers: [
       { hoursPerWeek: '1h / semaine', hoursPerMonth: '4h / mois', price: '50€' },
       { hoursPerWeek: '2h / semaine', hoursPerMonth: '8h / mois', price: '90€' },
@@ -19,6 +21,8 @@ export const formulaPlans: FormulaPlan[] = [
     label: 'EXCELLENCE',
     description:
       'Parfait pour apprendre à deux dans un cadre motivant et équilibré, avec un bon équilibre entre interaction et budget.',
+    imageUrl: '/images/formulas/duo.jpg',
+    imageAlt: 'Deux élèves suivant ensemble une formule en duo',
     tiers: [
       { hoursPerWeek: '1h / semaine', hoursPerMonth: '4h / mois', price: '35€' },
       { hoursPerWeek: '2h / semaine', hoursPerMonth: '8h / mois', price: '65€' },
@@ -33,6 +37,8 @@ export const formulaPlans: FormulaPlan[] = [
     recommended: true,
     description:
       'Le meilleur compromis pour apprendre sérieusement dans une dynamique de groupe, tout en gardant un cadre structuré.',
+    imageUrl: '/images/formulas/groupe.jpg',
+    imageAlt: 'Quatre élèves participant ensemble à une formule en groupe',
     tiers: [
       { hoursPerWeek: '1h / semaine', hoursPerMonth: '4h / mois', price: '25€' },
       { hoursPerWeek: '2h / semaine', hoursPerMonth: '8h / mois', price: '50€' },

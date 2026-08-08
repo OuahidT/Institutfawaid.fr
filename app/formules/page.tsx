@@ -35,7 +35,7 @@ export default function FormulesPage() {
         </div>
         <div className="grid gap-3.5 lg:grid-cols-3">
           {formulaPlans.map((formula) => (
-            <FormulaCard key={formula.id} formula={formula} />
+            <FormulaCard key={formula.id} formula={formula} showImage />
           ))}
         </div>
       </section>

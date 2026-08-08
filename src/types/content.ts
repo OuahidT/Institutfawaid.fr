@@ -60,6 +60,8 @@ export type FormulaPlan = {
   name: string;
   label: string;
   description: string;
+  imageUrl: string;
+  imageAlt: string;
   badge?: string;
   tiers: FormulaTier[];
   recommended?: boolean;
