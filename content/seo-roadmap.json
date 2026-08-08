@@ -1,0 +1,255 @@
+{
+  "version": 1,
+  "purpose": "Plan éditorial SEO interne de l’Institut Fawaid. Ce fichier ne génère aucune page publique.",
+  "entries": [
+    {
+      "priority": 1,
+      "type": "resource_article",
+      "slug": "apprendre-arabe",
+      "workingTitle": "Comment apprendre l’arabe quand on part de zéro ?",
+      "primaryKeyword": "apprendre l'arabe",
+      "secondaryKeywords": [
+        "comment apprendre l'arabe",
+        "apprendre l'arabe débutant",
+        "apprendre l'arabe en partant de zéro",
+        "apprendre l'arabe en ligne",
+        "apprendre l'arabe littéraire"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Débuter en arabe",
+      "conversionTarget": "/programmes",
+      "status": "published",
+      "targetUrl": "/ressources/apprendre-arabe",
+      "relatedTo": [],
+      "notes": "Premier guide général publié. Il sert de contenu pilier pour les futurs articles spécialisés."
+    },
+    {
+      "priority": 2,
+      "type": "resource_article",
+      "slug": "apprendre-lire-arabe",
+      "workingTitle": "Apprendre à lire l’arabe : par où commencer ?",
+      "primaryKeyword": "apprendre à lire l'arabe",
+      "secondaryKeywords": [
+        "apprendre à lire arabe",
+        "lire arabe débutant",
+        "apprendre alphabet arabe",
+        "apprendre à lire l'alphabet arabe"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Lecture & alphabet",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/apprendre-lire-arabe",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Article consacré spécifiquement à l’apprentissage de la lecture. Ne pas refaire le guide général « apprendre l’arabe ». Développer lettres, sons, formes, voyelles, assemblage et progression de lecture."
+    },
+    {
+      "priority": 3,
+      "type": "resource_article",
+      "slug": "arabe-litteraire",
+      "workingTitle": "Arabe littéraire : comprendre ses bases et progresser",
+      "primaryKeyword": "arabe littéraire",
+      "secondaryKeywords": [
+        "apprendre l'arabe littéraire",
+        "langue arabe littéraire",
+        "apprendre arabe littéraire"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Arabe littéraire",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/arabe-litteraire",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Article centré uniquement sur l’arabe littéraire. Ne pas créer de comparaison avec les dialectes. Ne pas parler de darija ou de variantes dialectales. Expliquer ce que l’on apprend concrètement : lecture, vocabulaire, compréhension, expression, grammaire."
+    },
+    {
+      "priority": 4,
+      "type": "resource_article",
+      "slug": "apprendre-arabe-seul",
+      "workingTitle": "Peut-on apprendre l’arabe seul ?",
+      "primaryKeyword": "apprendre l'arabe seul",
+      "secondaryKeywords": [
+        "apprendre arabe seul",
+        "apprendre l'arabe tout seul",
+        "comment apprendre l'arabe seul"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Méthode & progression",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/apprendre-arabe-seul",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Réponse équilibrée. Présenter ce qui peut réellement être travaillé en autonomie et ce qui devient plus difficile sans corrections ou progression structurée. Ne pas faire un faux comparatif destiné uniquement à vendre les cours."
+    },
+    {
+      "priority": 5,
+      "type": "resource_article",
+      "slug": "choisir-cours-arabe-en-ligne",
+      "workingTitle": "Comment choisir un bon cours d’arabe en ligne ?",
+      "primaryKeyword": "cours d'arabe en ligne avis",
+      "secondaryKeywords": [
+        "choisir cours arabe en ligne",
+        "meilleur cours arabe en ligne",
+        "institut arabe en ligne",
+        "cours arabe en ligne"
+      ],
+      "searchIntent": "Commerciale",
+      "category": "Choisir ses cours",
+      "conversionTarget": "/formules",
+      "status": "planned",
+      "targetUrl": "/ressources/choisir-cours-arabe-en-ligne",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Intention de comparaison avant achat. Ne pas cibler frontalement « cours d’arabe en ligne » comme mot-clé principal, car cette requête doit rester destinée à la homepage et aux pages commerciales. Présenter des critères objectifs : direct, professeur, progression, suivi, taille du groupe, adaptation au niveau."
+    },
+    {
+      "priority": 6,
+      "type": "resource_article",
+      "slug": "combien-temps-apprendre-arabe",
+      "workingTitle": "Combien de temps faut-il pour apprendre l’arabe ?",
+      "primaryKeyword": "combien de temps pour apprendre l'arabe",
+      "secondaryKeywords": [
+        "temps pour apprendre arabe",
+        "durée apprentissage arabe",
+        "combien de temps apprendre arabe"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Méthode & progression",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/combien-temps-apprendre-arabe",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Ne jamais promettre un délai universel. Expliquer les facteurs qui influencent la progression : niveau initial, régularité, fréquence, objectifs, travail personnel, accompagnement."
+    },
+    {
+      "priority": 7,
+      "type": "resource_article",
+      "slug": "alphabet-arabe-debutant",
+      "workingTitle": "Alphabet arabe pour débutant : comment bien commencer ?",
+      "primaryKeyword": "alphabet arabe débutant",
+      "secondaryKeywords": [
+        "apprendre alphabet arabe",
+        "alphabet arabe pour débutant",
+        "lettres arabes débutant"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Lecture & alphabet",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/alphabet-arabe-debutant",
+      "relatedTo": [
+        "apprendre-lire-arabe",
+        "apprendre-arabe"
+      ],
+      "notes": "Article plus précis que « apprendre à lire l’arabe ». Se concentrer sur les lettres, formes, sons et premiers repères. Éviter de dupliquer intégralement le futur article apprendre-lire-arabe."
+    },
+    {
+      "priority": 8,
+      "type": "resource_article",
+      "slug": "apprendre-parler-arabe",
+      "workingTitle": "Comment commencer à parler arabe quand on débute ?",
+      "primaryKeyword": "apprendre à parler l'arabe",
+      "secondaryKeywords": [
+        "parler arabe débutant",
+        "apprendre parler arabe",
+        "comment parler arabe"
+      ],
+      "searchIntent": "Informationnelle",
+      "category": "Méthode & progression",
+      "conversionTarget": "/programmes",
+      "status": "planned",
+      "targetUrl": "/ressources/apprendre-parler-arabe",
+      "relatedTo": [
+        "apprendre-arabe"
+      ],
+      "notes": "Traiter expression, réutilisation du vocabulaire, écoute et interaction. Rester centré sur l’arabe littéraire. Aucun contenu dialectal."
+    },
+    {
+      "priority": 20,
+      "type": "landing_page",
+      "slug": "cours-arabe-litteraire-en-ligne",
+      "workingTitle": "Cours d’arabe littéraire en ligne",
+      "primaryKeyword": "cours arabe littéraire en ligne",
+      "secondaryKeywords": [],
+      "searchIntent": "Commerciale",
+      "category": null,
+      "conversionTarget": null,
+      "status": "planned",
+      "targetUrl": "/cours-arabe-litteraire-en-ligne",
+      "relatedTo": [],
+      "notes": "Future landing page commerciale. Ne jamais la générer avec le template Conseils & Ressources."
+    },
+    {
+      "priority": 21,
+      "type": "landing_page",
+      "slug": "cours-arabe-debutant",
+      "workingTitle": "Cours d’arabe pour débutant",
+      "primaryKeyword": "cours arabe débutant",
+      "secondaryKeywords": [],
+      "searchIntent": "Commerciale",
+      "category": null,
+      "conversionTarget": null,
+      "status": "planned",
+      "targetUrl": "/cours-arabe-debutant",
+      "relatedTo": [],
+      "notes": "Future landing page commerciale destinée aux grands débutants."
+    },
+    {
+      "priority": 22,
+      "type": "landing_page",
+      "slug": "cours-particulier-arabe",
+      "workingTitle": "Cours particulier d’arabe en ligne",
+      "primaryKeyword": "cours particulier arabe",
+      "secondaryKeywords": [
+        "prof arabe en ligne",
+        "professeur arabe en ligne"
+      ],
+      "searchIntent": "Commerciale",
+      "category": null,
+      "conversionTarget": null,
+      "status": "planned",
+      "targetUrl": "/cours-particulier-arabe",
+      "relatedTo": [],
+      "notes": "Future landing page commerciale. Forte intention de prise de contact."
+    },
+    {
+      "priority": 23,
+      "type": "landing_page",
+      "slug": "cours-arabe-femme",
+      "workingTitle": "Cours d’arabe pour femmes",
+      "primaryKeyword": "cours d'arabe femme",
+      "secondaryKeywords": [],
+      "searchIntent": "Commerciale",
+      "category": null,
+      "conversionTarget": null,
+      "status": "planned",
+      "targetUrl": "/cours-arabe-femme",
+      "relatedTo": [],
+      "notes": "Future landing page commerciale. Ne créer que lorsque nous traiterons spécifiquement les pages d’offre."
+    },
+    {
+      "priority": 24,
+      "type": "landing_page",
+      "slug": "cours-arabe-enfant",
+      "workingTitle": "Cours d’arabe pour enfants",
+      "primaryKeyword": "cours arabe enfant",
+      "secondaryKeywords": [],
+      "searchIntent": "Commerciale",
+      "category": null,
+      "conversionTarget": null,
+      "status": "planned",
+      "targetUrl": "/cours-arabe-enfant",
+      "relatedTo": [],
+      "notes": "Future landing page commerciale destinée aux parents. Ne pas créer automatiquement comme article."
+    }
+  ]
+}

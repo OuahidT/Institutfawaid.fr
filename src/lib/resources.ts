@@ -9,11 +9,13 @@ import remarkHtml from 'remark-html';
 import {
   RESOURCE_CATEGORIES,
   RESOURCE_CONVERSION_TARGETS,
+  RESOURCE_SEARCH_INTENTS,
   RESOURCE_STATUSES,
   type ResourceArticle,
   type ResourceArticleMetadata,
   type ResourceCategory,
   type ResourceConversionTarget,
+  type ResourceSearchIntent,
   type ResourceStatus,
 } from '@/types/resources';
 
@@ -173,7 +175,12 @@ function validateArticle(fileName: string): ResourceArticle {
     issues,
     false
   );
-  const searchIntent = requiredString(normalizedData, 'searchIntent', issues);
+  const searchIntent = enumValue(
+    normalizedData,
+    'searchIntent',
+    RESOURCE_SEARCH_INTENTS,
+    issues
+  ) as ResourceSearchIntent;
   const featuredImage = optionalString(normalizedData, 'featuredImage', issues);
   const featuredImageAlt = optionalString(normalizedData, 'featuredImageAlt', issues);
   const status = enumValue(

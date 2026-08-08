@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint app src --max-warnings=0",
+    "validate:seo-roadmap": "node --experimental-strip-types scripts/validate-seo-roadmap.ts",
     "import:airtable": "node scripts/import-airtable-csv.mjs"
   },
   "dependencies": {

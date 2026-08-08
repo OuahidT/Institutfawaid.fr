@@ -8,6 +8,12 @@ export const RESOURCE_CATEGORIES = [
 
 export const RESOURCE_STATUSES = ['draft', 'published'] as const;
 
+export const RESOURCE_SEARCH_INTENTS = [
+  'Informationnelle',
+  'Commerciale',
+  'Navigationnelle',
+] as const;
+
 export const RESOURCE_CONVERSION_TARGETS = [
   '/programmes',
   '/formules',
@@ -18,7 +24,36 @@ export const RESOURCE_CONVERSION_TARGETS = [
 
 export type ResourceCategory = (typeof RESOURCE_CATEGORIES)[number];
 export type ResourceStatus = (typeof RESOURCE_STATUSES)[number];
+export type ResourceSearchIntent = (typeof RESOURCE_SEARCH_INTENTS)[number];
 export type ResourceConversionTarget = (typeof RESOURCE_CONVERSION_TARGETS)[number];
+
+export const SEO_ROADMAP_TYPES = ['resource_article', 'landing_page'] as const;
+export const SEO_ROADMAP_STATUSES = ['published', 'planned', 'draft', 'paused'] as const;
+
+export type SeoRoadmapType = (typeof SEO_ROADMAP_TYPES)[number];
+export type SeoRoadmapStatus = (typeof SEO_ROADMAP_STATUSES)[number];
+
+export type SeoRoadmapEntry = {
+  priority: number;
+  type: SeoRoadmapType;
+  slug: string;
+  workingTitle: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
+  searchIntent: ResourceSearchIntent;
+  category: ResourceCategory | null;
+  conversionTarget: ResourceConversionTarget | null;
+  status: SeoRoadmapStatus;
+  targetUrl: string;
+  relatedTo: string[];
+  notes: string;
+};
+
+export type SeoRoadmap = {
+  version: number;
+  purpose: string;
+  entries: SeoRoadmapEntry[];
+};
 
 export type ResourceArticleMetadata = {
   slug: string;
@@ -32,7 +67,7 @@ export type ResourceArticleMetadata = {
   category: ResourceCategory;
   primaryKeyword: string;
   secondaryKeywords: string[];
-  searchIntent: string;
+  searchIntent: ResourceSearchIntent;
   featuredImage?: string;
   featuredImageAlt?: string;
   status: ResourceStatus;
