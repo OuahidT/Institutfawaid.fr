@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
-import { PageHero } from '@/components/sections/page-hero';
 import { ButtonLink } from '@/components/ui/button-link';
 import { siteConfig } from '@/config/site';
 import { programs } from '@/content/programs';
@@ -16,10 +16,25 @@ export const metadata: Metadata = getPageMetadata({
 export default function ProgrammesPage() {
   return (
     <div className="section-shell space-y-9 py-7 md:py-10">
-      <PageHero
-        title="Nos programmes"
-        text="Nos programmes sont issus de plusieurs années d’enseignement et d’accompagnement, en présentiel comme en ligne. Ils sont construits pour s’adapter aux niveaux et aux rythmes de progression de chaque élève."
-      />
+      <section className="grid overflow-hidden rounded-3xl border border-fawaid-border bg-white shadow-soft md:grid-cols-[0.82fr_1.18fr]">
+        <div className="flex flex-col justify-center space-y-3 px-5 py-7 md:px-8 md:py-8">
+          <h1 className="font-heading text-2xl font-semibold leading-tight md:text-4xl">Nos programmes</h1>
+          <p className="text-sm leading-relaxed text-fawaid-muted md:text-base">
+            Nos programmes sont issus de plusieurs années d’enseignement et d’accompagnement, en présentiel comme en ligne. Ils sont construits pour s’adapter aux niveaux et aux rythmes de progression de chaque élève.
+          </p>
+        </div>
+
+        <div className="relative aspect-[16/9] min-h-[230px] overflow-hidden md:aspect-auto md:min-h-[320px]">
+          <Image
+            src="/images/programs/programs-learning-desk.jpg"
+            alt="Supports d’apprentissage de l’Institut Fawaid disposés sur un bureau"
+            fill
+            priority
+            sizes="(min-width: 768px) 55vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </section>
 
       <section className="rounded-2xl border border-fawaid-border bg-fawaid-surface/65 p-3.5 md:p-4">
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-fawaid-accent2">Navigation rapide</p>
