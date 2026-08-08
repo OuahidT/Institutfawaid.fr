@@ -33,6 +33,78 @@ main {
   .soft-divider {
     @apply border-t border-fawaid-border;
   }
+
+  .resource-content {
+    @apply text-[1.02rem] leading-8 text-fawaid-text;
+  }
+
+  .resource-content > * + * {
+    @apply mt-5;
+  }
+
+  .resource-content h2 {
+    @apply mt-10 scroll-mt-24 font-heading text-2xl font-semibold leading-tight text-fawaid-text md:text-3xl;
+  }
+
+  .resource-content h3 {
+    @apply mt-8 scroll-mt-24 font-heading text-xl font-semibold leading-snug text-fawaid-text md:text-2xl;
+  }
+
+  .resource-content p,
+  .resource-content li {
+    @apply text-fawaid-muted;
+  }
+
+  .resource-content ul {
+    @apply list-disc space-y-2 pl-6;
+  }
+
+  .resource-content ol {
+    @apply list-decimal space-y-2 pl-6;
+  }
+
+  .resource-content a {
+    @apply rounded-sm font-medium text-fawaid-accent underline decoration-fawaid-accent/35 underline-offset-4 transition hover:text-[#033E8F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent focus-visible:ring-offset-2;
+  }
+
+  .resource-content blockquote {
+    @apply rounded-r-2xl border-l-4 border-fawaid-accent bg-fawaid-accentSoft px-5 py-4 italic text-fawaid-muted;
+  }
+
+  .resource-content strong {
+    @apply font-semibold text-fawaid-text;
+  }
+
+  .resource-content table {
+    @apply block w-full overflow-x-auto rounded-2xl border border-fawaid-border bg-white text-left text-sm shadow-soft;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .resource-content thead {
+    @apply bg-fawaid-surface;
+  }
+
+  .resource-content th,
+  .resource-content td {
+    @apply min-w-36 border-b border-fawaid-border px-4 py-3 align-top;
+  }
+
+  .resource-content th {
+    @apply font-semibold text-fawaid-text;
+  }
+
+  .resource-content tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .resource-content hr {
+    @apply my-9 border-fawaid-border;
+  }
+
+  .resource-content code {
+    @apply rounded bg-fawaid-surface px-1.5 py-0.5 text-[0.92em] text-fawaid-text;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

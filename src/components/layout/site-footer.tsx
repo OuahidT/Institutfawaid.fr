@@ -2,8 +2,11 @@ import Link from 'next/link';
 
 import { TrustpilotWidget } from '@/components/sections/trustpilot-widget';
 import { siteConfig } from '@/config/site';
+import { getPublicNavigationItems } from '@/lib/navigation';
 
 export function SiteFooter() {
+  const navigationItems = getPublicNavigationItems();
+
   return (
     <footer className="mt-16 border-t border-fawaid-border bg-[linear-gradient(180deg,rgba(245,241,232,0.45),rgba(252,251,248,1))]">
       <div className="mx-auto w-full max-w-6xl px-4 py-10 md:px-6 md:py-12">
@@ -17,7 +20,7 @@ export function SiteFooter() {
           <div>
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-fawaid-accent2">Navigation</p>
             <ul className="space-y-2 text-sm text-fawaid-muted">
-              {siteConfig.nav.map((item) => (
+              {navigationItems.map((item) => (
                 <li key={item.href}>
                   <Link className="transition hover:text-fawaid-accent" href={item.href} scroll>
                     {item.label}

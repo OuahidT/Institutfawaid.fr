@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
   },
   trustItems: [
     'Plus de 10 ans d’expérience',
-    'Plus de 500 étudiants accompagnés',
+    'Plus de 700 étudiants accompagnés',
     'Cours en direct en visio',
     'Programmes structurés pour chaque niveau',
   ],

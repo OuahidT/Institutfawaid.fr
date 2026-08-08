@@ -97,7 +97,7 @@ export default function HomePage() {
               </div>
               <div className="rounded-xl border border-fawaid-border bg-fawaid-bg px-3 py-2">
                 <p className="text-xs text-fawaid-muted">Étudiants accompagnés</p>
-                <p className="text-sm font-semibold text-fawaid-text">+500</p>
+                <p className="text-sm font-semibold text-fawaid-text">+700</p>
               </div>
             </div>
 
