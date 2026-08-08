@@ -1,5 +1,7 @@
 import type { SiteConfig } from '@/types/content';
 
+const canonicalSiteUrl = 'https://www.institutfawaid.fr';
+
 export const siteConfig: SiteConfig = {
   name: 'Institut Fawaid',
   baseline: 'Apprendre l\'arabe avec méthode, clarté et régularité.',
@@ -7,7 +9,7 @@ export const siteConfig: SiteConfig = {
   promise: 'Apprenez l’arabe avec méthode, clarté et régularité.',
   positionning:
     'L’Institut Fawaid accompagne ses élèves dans l’apprentissage de la langue arabe à travers des cours en direct, des programmes structurés, des professeurs qualifiés et un accompagnement humain adapté au rythme de chacun.',
-  url: 'https://institutfawaid.fr',
+  url: canonicalSiteUrl,
   email: 'contact@institutfawaid.fr',
   whatsapp: '+20 122 614 0786',
   whatsappHref: 'https://wa.me/201226140786',
@@ -38,7 +40,7 @@ export const siteConfig: SiteConfig = {
     defaultTitle: 'Institut Fawaid | Cours d’arabe en ligne',
     defaultDescription:
       'Institut en ligne d’apprentissage de la langue arabe. Cours en direct, programmes structurés et accompagnement humain.',
-    siteUrl: 'https://institutfawaid.fr',
+    siteUrl: canonicalSiteUrl,
     ogImage: '/images/logo.png',
   },
 };

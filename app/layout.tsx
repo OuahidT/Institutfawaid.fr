@@ -19,6 +19,7 @@ const notoArabic = Noto_Naskh_Arabic({
 });
 
 const faviconVersion = '20260308-1';
+const canonicalHomeUrl = `${siteConfig.url}/`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -49,13 +50,10 @@ export const metadata: Metadata = {
       },
     ],
   },
-  alternates: {
-    canonical: siteConfig.url,
-  },
   openGraph: {
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
-    url: siteConfig.url,
+    url: canonicalHomeUrl,
     siteName: siteConfig.name,
     locale: 'fr_FR',
     type: 'website',
@@ -81,7 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteConfig.name,
-    url: siteConfig.url,
+    url: canonicalHomeUrl,
     email: siteConfig.email,
     contactPoint: {
       '@type': 'ContactPoint',
@@ -94,7 +92,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteConfig.name,
-    url: siteConfig.url,
+    url: canonicalHomeUrl,
     inLanguage: 'fr',
   };
 

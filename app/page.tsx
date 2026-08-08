@@ -25,16 +25,21 @@ import { programs } from '@/content/programs';
 import { testimonials } from '@/content/testimonials';
 import { getPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = getPageMetadata({
-  title: 'Institut Fawaid | Cours d’arabe en ligne',
-  description:
-    'Apprenez l’arabe avec méthode, clarté et régularité. Cours en direct, programmes structurés, formules flexibles et accompagnement humain.',
-  path: '/',
-});
+export const metadata: Metadata = {
+  ...getPageMetadata({
+    title: 'Institut Fawaid | Cours d’arabe en ligne',
+    description:
+      'Apprenez l’arabe avec méthode, clarté et régularité. Cours en direct, programmes structurés, formules flexibles et accompagnement humain.',
+    path: '/',
+  }),
+  alternates: null,
+};
 
 export default function HomePage() {
   return (
-    <div className="section-shell space-y-11 py-6 md:space-y-12 md:py-9">
+    <>
+      <link rel="canonical" href={`${siteConfig.url}/`} />
+      <div className="section-shell space-y-11 py-6 md:space-y-12 md:py-9">
       <section className="grid gap-5 rounded-3xl border border-fawaid-border bg-white px-5 py-7 shadow-soft md:grid-cols-[1.08fr_0.92fr] md:px-8 md:py-8">
         <div className="space-y-4">
           <p className="inline-flex rounded-full border border-fawaid-border bg-fawaid-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-fawaid-accent2">
@@ -190,6 +195,7 @@ export default function HomePage() {
           </ButtonLink>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
