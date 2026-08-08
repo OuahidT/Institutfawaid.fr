@@ -1,29 +1,25 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "routes": [
+  "redirects": [
     {
-      "src": "/tarifs/",
-      "headers": { "Location": "https://www.institutfawaid.fr/formules" },
-      "status": 301,
-      "important": true
+      "source": "https://institutfawaid.fr/tarifs/",
+      "destination": "https://www.institutfawaid.fr/formules",
+      "statusCode": 301
     },
     {
-      "src": "/tarifs",
-      "headers": { "Location": "https://www.institutfawaid.fr/formules" },
-      "status": 301,
-      "important": true
+      "source": "https://www.institutfawaid.fr/tarifs/",
+      "destination": "https://www.institutfawaid.fr/formules",
+      "statusCode": 301
     },
     {
-      "src": "/nos-programmes/",
-      "headers": { "Location": "https://www.institutfawaid.fr/programmes" },
-      "status": 301,
-      "important": true
+      "source": "https://institutfawaid.fr/nos-programmes/",
+      "destination": "https://www.institutfawaid.fr/programmes",
+      "statusCode": 301
     },
     {
-      "src": "/nos-programmes",
-      "headers": { "Location": "https://www.institutfawaid.fr/programmes" },
-      "status": 301,
-      "important": true
+      "source": "https://www.institutfawaid.fr/nos-programmes/",
+      "destination": "https://www.institutfawaid.fr/programmes",
+      "statusCode": 301
     }
   ]
 }
