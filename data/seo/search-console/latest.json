@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-09T16:55:49.990Z",
+  "siteUrl": "sc-domain:institutfawaid.fr",
+  "searchType": "web",
+  "dimensions": [
+    "query",
+    "page"
+  ],
+  "metrics": [
+    "clicks",
+    "impressions",
+    "ctr",
+    "position"
+  ],
+  "datePolicy": {
+    "timeZone": "America/Los_Angeles",
+    "dataState": "final",
+    "excludedRecentDays": 3,
+    "note": "Les trois jours les plus récents sont exclus en plus de dataState=final afin d’éviter les données potentiellement incomplètes."
+  },
+  "limitations": [
+    "Search Console peut limiter la réponse aux principales lignes disponibles.",
+    "Les agrégats rowTotals portent uniquement sur les lignes query/page renvoyées par l’API."
+  ],
+  "periods": {
+    "last28Days": {
+      "startDate": "2026-07-10",
+      "endDate": "2026-08-06",
+      "days": 28,
+      "rowCount": 10,
+      "responseAggregationType": "byPage",
+      "rowTotals": {
+        "clicks": 0,
+        "impressions": 70,
+        "ctr": 0,
+        "position": 13.1
+      },
+      "rows": [
+        {
+          "query": "fawaid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 52,
+          "ctr": 0,
+          "position": 6.423076923076923
+        },
+        {
+          "query": "fawaid arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 6,
+          "ctr": 0,
+          "position": 7.166666666666667
+        },
+        {
+          "query": "institut arabe en ligne",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 46
+        },
+        {
+          "query": "institut hafidhat",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 63
+        },
+        {
+          "query": "institut tajwid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 37.5
+        },
+        {
+          "query": "institut thebaide",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 27
+        },
+        {
+          "query": "maqsoud",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 30
+        },
+        {
+          "query": "saoudi institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 53
+        },
+        {
+          "query": "saudi institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 62
+        },
+        {
+          "query": "tajwid institut",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 38
+        }
+      ]
+    },
+    "previous28Days": {
+      "startDate": "2026-06-12",
+      "endDate": "2026-07-09",
+      "days": 28,
+      "rowCount": 10,
+      "responseAggregationType": "byPage",
+      "rowTotals": {
+        "clicks": 0,
+        "impressions": 96,
+        "ctr": 0,
+        "position": 9.145833
+      },
+      "rows": [
+        {
+          "query": "donner moi",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 10
+        },
+        {
+          "query": "fawaid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 79,
+          "ctr": 0,
+          "position": 6.708860759493671
+        },
+        {
+          "query": "fawaid",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 10
+        },
+        {
+          "query": "fawaid arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 9.5
+        },
+        {
+          "query": "institut arabe en ligne",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 37
+        },
+        {
+          "query": "institut at tawhid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 49
+        },
+        {
+          "query": "institut en arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 25
+        },
+        {
+          "query": "institut langue arabe en ligne",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 27
+        },
+        {
+          "query": "saoudi institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 4,
+          "ctr": 0,
+          "position": 16
+        },
+        {
+          "query": "saoudite institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 14
+        }
+      ]
+    },
+    "context90Days": {
+      "startDate": "2026-05-09",
+      "endDate": "2026-08-06",
+      "days": 90,
+      "rowCount": 22,
+      "responseAggregationType": "byPage",
+      "rowTotals": {
+        "clicks": 69,
+        "impressions": 389,
+        "ctr": 0.177378,
+        "position": 7.236504
+      },
+      "rows": [
+        {
+          "query": "institut fawaid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 69,
+          "impressions": 73,
+          "ctr": 0.9452054794520548,
+          "position": 1
+        },
+        {
+          "query": "donner moi",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 10
+        },
+        {
+          "query": "fawaid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 195,
+          "ctr": 0,
+          "position": 6.2153846153846155
+        },
+        {
+          "query": "fawaid",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 10
+        },
+        {
+          "query": "fawaid arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 9,
+          "ctr": 0,
+          "position": 8
+        },
+        {
+          "query": "fawaid tout",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 3
+        },
+        {
+          "query": "institut anwar",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 59
+        },
+        {
+          "query": "institut arabe en ligne",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 43
+        },
+        {
+          "query": "institut at tawhid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 49
+        },
+        {
+          "query": "institut en arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 35.4
+        },
+        {
+          "query": "institut fawaid",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 73,
+          "ctr": 0,
+          "position": 1.1369863013698631
+        },
+        {
+          "query": "institut hafidhat",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 63
+        },
+        {
+          "query": "institut langue arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 50
+        },
+        {
+          "query": "institut langue arabe en ligne",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 36.125
+        },
+        {
+          "query": "institut tajwid",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 37.5
+        },
+        {
+          "query": "institut thebaide",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 27
+        },
+        {
+          "query": "l'institut en arabe",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 59
+        },
+        {
+          "query": "maqsoud",
+          "page": "https://www.institutfawaid.fr/a-propos",
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 30
+        },
+        {
+          "query": "saoudi institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 23.4
+        },
+        {
+          "query": "saoudite institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 14
+        },
+        {
+          "query": "saudi institute",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 62
+        },
+        {
+          "query": "tajwid institut",
+          "page": "https://institutfawaid.fr/",
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 38
+        }
+      ]
+    }
+  },
+  "comparison28Days": {
+    "clicks": {
+      "absoluteChange": 0,
+      "percentChange": null
+    },
+    "impressions": {
+      "absoluteChange": -26,
+      "percentChange": -27.083333
+    },
+    "ctr": {
+      "absoluteChange": 0,
+      "percentagePointChange": 0
+    },
+    "position": {
+      "absoluteChange": 3.954167,
+      "note": "Une valeur négative correspond à une amélioration de la position moyenne."
+    }
+  }
+}
