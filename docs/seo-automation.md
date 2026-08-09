@@ -2,6 +2,16 @@
 
 Ce document est la procédure technique de référence du workflow éditorial SEO. L’automatisation prépare et vérifie les brouillons, mais ne publie jamais sans le message explicite `Publie` de Ouahid.
 
+## Données Google Search Console
+
+Le workflow `.github/workflows/search-console-data.yml` joue uniquement le rôle de collecteur. Il s’authentifie auprès de Google avec Workload Identity Federation et `google-github-actions/auth`, sans clé JSON, puis appelle Search Analytics en lecture seule.
+
+Il récupère les dimensions `query` et `page` ainsi que `clicks`, `impressions`, `ctr` et `position` pour les 28 derniers jours complets, les 28 jours précédents et 90 jours de contexte. Les dates suivent le fuseau officiel de Search Console (`America/Los_Angeles`), demandent uniquement les données finalisées et excluent en plus les trois jours les plus récents.
+
+Le résultat remplace toujours `data/seo/search-console/latest.json`. Il n’est jamais écrit dans `public/` et aucun historique de snapshots n’est accumulé dans l’arborescence. Le workflow s’exécute le dimanche avant 09:15 à Paris et peut aussi être lancé manuellement.
+
+Cette collecte n’analyse pas la roadmap et ne crée pas la tâche planifiée « Stratège SEO ». Cette étape reste séparée jusqu’à la validation d’un premier test réel.
+
 ## Principes non négociables
 
 - `main` représente uniquement la production réelle.

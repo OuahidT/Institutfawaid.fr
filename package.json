@@ -11,6 +11,7 @@
     "validate:seo-draft": "node --experimental-strip-types scripts/validate-seo-draft.ts",
     "seo:check-draft": "node --experimental-strip-types scripts/check-seo-draft-state.ts",
     "seo:next": "node --experimental-strip-types scripts/get-next-seo-article.ts",
+    "seo:fetch-search-console": "node --experimental-strip-types scripts/fetch-search-console.ts",
     "import:airtable": "node scripts/import-airtable-csv.mjs"
   },
   "dependencies": {
