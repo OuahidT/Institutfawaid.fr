@@ -67,10 +67,12 @@ Le corps Markdown ne doit pas contenir de H1 (`#`). La page génère déjà le H
 
 Avec `status: "draft"`, l’article :
 
-- n’apparaît pas dans `/ressources` ;
+- n’apparaît pas dans `/ressources` en production ;
 - n’est pas ajouté au sitemap ;
 - n’est pas proposé dans « À lire également » ;
 - n’a pas de page publique indexable.
+
+Sur une branche `seo/<slug>` déployée dans l’environnement Vercel Preview, le draft devient temporairement visible pour validation. Il affiche un badge et un bandeau de brouillon, reste absent du sitemap, ne possède pas de canonical et reçoit `noindex`, `nofollow` et `noarchive`. Si `VERCEL_ENV` ne vaut pas exactement `preview`, le draft reste inaccessible.
 
 Pour publier, relire et valider le contenu, puis remplacer le statut par `published`. Au déploiement suivant, la page, les métadonnées, les données structurées, le sitemap et les liens de navigation sont générés automatiquement.
 
@@ -165,6 +167,7 @@ Avant de pousser sur GitHub :
 
 ```bash
 npm run validate:seo-roadmap
+npm run validate:seo-draft
 npx tsc --noEmit
 npm run lint
 npm run build

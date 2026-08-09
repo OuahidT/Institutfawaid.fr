@@ -6,6 +6,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkHtml from 'remark-html';
 
+import { isSeoDraftPreview } from '@/lib/seo-preview';
 import {
   RESOURCE_CATEGORIES,
   RESOURCE_CONVERSION_TARGETS,
@@ -306,12 +307,26 @@ export function getPublishedResourceArticles() {
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
+export function getVisibleResourceArticles() {
+  if (!isSeoDraftPreview()) {
+    return getPublishedResourceArticles();
+  }
+
+  return getAllResourceArticles()
+    .filter((article) => article.status === 'published' || article.status === 'draft')
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
 export function hasPublishedResources() {
   return getPublishedResourceArticles().length > 0;
 }
 
 export function getPublishedResourceArticle(slug: string) {
   return getPublishedResourceArticles().find((article) => article.slug === slug);
+}
+
+export function getVisibleResourceArticle(slug: string) {
+  return getVisibleResourceArticles().find((article) => article.slug === slug);
 }
 
 export function getRelatedPublishedArticles(article: ResourceArticle) {

@@ -8,11 +8,12 @@ import { ArticleCta } from '@/components/resources/article-cta';
 import { ResourceCard } from '@/components/resources/resource-card';
 import { siteConfig } from '@/config/site';
 import {
-  getPublishedResourceArticle,
-  getPublishedResourceArticles,
   getRelatedPublishedArticles,
+  getVisibleResourceArticle,
+  getVisibleResourceArticles,
   renderResourceArticle,
 } from '@/lib/resources';
+import { seoPreviewRobots } from '@/lib/seo-preview';
 
 type ResourceArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -28,7 +29,7 @@ const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getPublishedResourceArticles().map((article) => ({ slug: article.slug }));
+  return getVisibleResourceArticles().map((article) => ({ slug: article.slug }));
 }
 
 function formatDate(date: string) {
@@ -41,13 +42,12 @@ function serializeJsonLd(value: object) {
 
 export async function generateMetadata({ params }: ResourceArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getPublishedResourceArticle(slug);
+  const article = getVisibleResourceArticle(slug);
 
   if (!article) {
     notFound();
   }
 
-  const canonical = `${siteConfig.url}/ressources/${article.slug}`;
   const image = article.featuredImage
     ? {
         url: article.featuredImage,
@@ -57,25 +57,22 @@ export async function generateMetadata({ params }: ResourceArticlePageProps): Pr
         url: siteConfig.seo.ogImage,
         alt: siteConfig.name,
       };
+  const sharedOpenGraph = {
+    type: 'article' as const,
+    title: article.seoTitle,
+    description: article.description,
+    siteName: siteConfig.name,
+    locale: 'fr_FR',
+    authors: [article.author],
+    images: [image],
+  };
 
-  return {
+  const sharedMetadata: Metadata = {
     title: { absolute: article.seoTitle },
     description: article.description,
     keywords: [article.primaryKeyword, ...article.secondaryKeywords],
     authors: [{ name: article.author }],
-    alternates: { canonical },
-    openGraph: {
-      type: 'article',
-      title: article.seoTitle,
-      description: article.description,
-      url: canonical,
-      siteName: siteConfig.name,
-      locale: 'fr_FR',
-      publishedTime: `${article.publishedAt}T00:00:00.000Z`,
-      modifiedTime: `${article.updatedAt ?? article.publishedAt}T00:00:00.000Z`,
-      authors: [article.author],
-      images: [image],
-    },
+    openGraph: sharedOpenGraph,
     twitter: {
       card: 'summary_large_image',
       title: article.seoTitle,
@@ -83,11 +80,31 @@ export async function generateMetadata({ params }: ResourceArticlePageProps): Pr
       images: [image],
     },
   };
+
+  if (article.status === 'draft') {
+    return {
+      ...sharedMetadata,
+      robots: seoPreviewRobots,
+    };
+  }
+
+  const canonical = `${siteConfig.url}/ressources/${article.slug}`;
+
+  return {
+    ...sharedMetadata,
+    alternates: { canonical },
+    openGraph: {
+      ...sharedOpenGraph,
+      url: canonical,
+      publishedTime: `${article.publishedAt}T00:00:00.000Z`,
+      modifiedTime: `${article.updatedAt ?? article.publishedAt}T00:00:00.000Z`,
+    },
+  };
 }
 
 export default async function ResourceArticlePage({ params }: ResourceArticlePageProps) {
   const { slug } = await params;
-  const article = getPublishedResourceArticle(slug);
+  const article = getVisibleResourceArticle(slug);
 
   if (!article) {
     notFound();
@@ -95,6 +112,7 @@ export default async function ResourceArticlePage({ params }: ResourceArticlePag
 
   const renderedContent = await renderResourceArticle(article.content);
   const relatedArticles = getRelatedPublishedArticles(article);
+  const isDraft = article.status === 'draft';
   const canonical = `${siteConfig.url}/ressources/${article.slug}`;
   const authorType = article.author === siteConfig.name ? 'Organization' : 'Person';
   const articleSchema = {
@@ -148,16 +166,25 @@ export default async function ResourceArticlePage({ params }: ResourceArticlePag
 
   return (
     <div className="section-shell py-7 md:py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
-      />
+      {isDraft ? null : (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
+          />
+        </>
+      )}
 
       <article>
+        {isDraft ? (
+          <div className="mb-5 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-amber-900 shadow-sm" role="status">
+            Aperçu brouillon — non publié
+          </div>
+        ) : null}
         <nav aria-label="Fil d’Ariane" className="mb-5 overflow-x-auto text-sm text-fawaid-muted">
           <ol className="flex min-w-max items-center gap-2">
             <li><Link href="/" className="rounded-sm hover:text-fawaid-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fawaid-accent">Accueil</Link></li>
@@ -184,8 +211,8 @@ export default async function ResourceArticlePage({ params }: ResourceArticlePag
               </div>
               <div className="inline-flex items-center gap-1.5">
                 <CalendarDays className="h-4 w-4 text-fawaid-accent" aria-hidden="true" />
-                <dt className="sr-only">Date de publication</dt>
-                <dd>Publié le {formatDate(article.publishedAt)}</dd>
+                <dt className="sr-only">{isDraft ? 'Date de préparation du brouillon' : 'Date de publication'}</dt>
+                <dd>{isDraft ? 'Brouillon préparé le' : 'Publié le'} {formatDate(article.publishedAt)}</dd>
               </div>
               {article.updatedAt && article.updatedAt !== article.publishedAt ? (
                 <div className="inline-flex items-center gap-1.5">

@@ -31,6 +31,11 @@ export function ResourceCard({ article }: ResourceCardProps) {
       ) : null}
 
       <div className="flex flex-1 flex-col p-5">
+        {article.status === 'draft' ? (
+          <span className="mb-3 w-fit rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-amber-800">
+            Brouillon
+          </span>
+        ) : null}
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-fawaid-accent2">
           {article.category}
         </p>
@@ -47,6 +52,7 @@ export function ResourceCard({ article }: ResourceCardProps) {
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-fawaid-border pt-4 text-xs text-fawaid-muted">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
+            {article.status === 'draft' ? 'Préparé le ' : ''}
             {dateFormatter.format(new Date(`${article.publishedAt}T00:00:00.000Z`))}
           </span>
           <span className="inline-flex items-center gap-1.5">

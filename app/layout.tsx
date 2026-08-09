@@ -9,6 +9,7 @@ import { SiteHeader } from '@/components/layout/site-header';
 import { RouteScrollReset } from '@/components/layout/route-scroll-reset';
 import { WhatsAppSticky } from '@/components/ui/whatsapp-sticky';
 import { siteConfig } from '@/config/site';
+import { isSeoDraftPreview, seoPreviewRobots } from '@/lib/seo-preview';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' });
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,
+  robots: isSeoDraftPreview() ? seoPreviewRobots : undefined,
   icons: {
     icon: [
       {

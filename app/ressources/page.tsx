@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation';
 
 import { ResourceCard } from '@/components/resources/resource-card';
 import { PageHero } from '@/components/sections/page-hero';
-import { getPublishedResourceArticles } from '@/lib/resources';
+import { getVisibleResourceArticles } from '@/lib/resources';
 import { getPageMetadata } from '@/lib/seo';
+import { isSeoDraftPreview, seoPreviewRobots } from '@/lib/seo-preview';
 import { RESOURCE_CATEGORIES } from '@/types/resources';
 
 export function generateMetadata(): Metadata {
-  const hasPublishedArticles = getPublishedResourceArticles().length > 0;
+  const hasVisibleArticles = getVisibleResourceArticles().length > 0;
 
   return {
     ...getPageMetadata({
@@ -17,18 +18,12 @@ export function generateMetadata(): Metadata {
         'Conseils, méthodes et ressources pour apprendre la langue arabe, progresser avec régularité et choisir un parcours adapté.',
       path: '/ressources',
     }),
-    robots: hasPublishedArticles
-      ? undefined
-      : {
-          index: false,
-          follow: false,
-          noarchive: true,
-        },
+    robots: isSeoDraftPreview() || !hasVisibleArticles ? seoPreviewRobots : undefined,
   };
 }
 
 export default function ResourcesPage() {
-  const articles = getPublishedResourceArticles();
+  const articles = getVisibleResourceArticles();
 
   if (articles.length === 0) {
     notFound();

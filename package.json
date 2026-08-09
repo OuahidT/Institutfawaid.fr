@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "eslint app src --max-warnings=0",
     "validate:seo-roadmap": "node --experimental-strip-types scripts/validate-seo-roadmap.ts",
+    "validate:seo-draft": "node --experimental-strip-types scripts/validate-seo-draft.ts",
+    "seo:check-draft": "node --experimental-strip-types scripts/check-seo-draft-state.ts",
+    "seo:next": "node --experimental-strip-types scripts/get-next-seo-article.ts",
     "import:airtable": "node scripts/import-airtable-csv.mjs"
   },
   "dependencies": {
