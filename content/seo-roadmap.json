@@ -38,7 +38,7 @@
       "searchIntent": "Informationnelle",
       "category": "Lecture & alphabet",
       "conversionTarget": "/programmes",
-      "status": "draft",
+      "status": "published",
       "targetUrl": "/ressources/apprendre-lire-arabe",
       "relatedTo": [
         "apprendre-arabe"
